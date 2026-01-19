@@ -888,7 +888,7 @@ export default function Portfolio() {
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
               >
-                {['Adobe Lightroom', 'CAPCUT', 'Da Vinci Resolve', 'Canva', 'Adobe Illustrator', 'UI/UX Design', 'Responsive Web Design', 'Animation Design', 'Interaction Design', 'Micro-interactions', 'User Experience Optimization'].map((skill, index) => (
+                {['Adobe Lightroom', 'CAPCUT', 'Da Vinci Resolve', 'Canva', 'Adobe Illustrator', 'UI/UX Design', 'Responsive Web Design', 'Animation Design', 'Interaction Design', 'User Experience Optimization'].map((skill, index) => (
                   <motion.span
                     key={skill}
                     className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-slate-200 rounded-lg text-xs sm:text-sm font-medium text-slate-700 hover:border-[#6B4BDD] hover:text-[#6B4BDD] transition-all duration-300 shadow-sm hover:shadow-md"

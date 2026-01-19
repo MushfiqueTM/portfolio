@@ -86,7 +86,6 @@ export default function Portfolio() {
 
   // Scroll position management
   const scrollPositionRef = useRef<number>(0);
-  const [isUpdatingImages, setIsUpdatingImages] = useState(false);
 
   const openLightbox = (imagePath: string, allImages: string[], index: number) => {
     setLightboxImages(allImages);
@@ -124,7 +123,6 @@ export default function Portfolio() {
   // Toggle image visibility functions
   const toggleWorkImages = (company: string) => {
     scrollPositionRef.current = window.scrollY;
-    setIsUpdatingImages(true);
     setShowWorkImages(prev => ({
       ...prev,
       [company]: !prev[company]
@@ -133,7 +131,6 @@ export default function Portfolio() {
 
   const toggleWorkTeamImages = (teamName: string) => {
     scrollPositionRef.current = window.scrollY;
-    setIsUpdatingImages(true);
     setShowWorkTeamImages(prev => ({
       ...prev,
       [teamName]: !prev[teamName]
@@ -142,7 +139,6 @@ export default function Portfolio() {
 
   const toggleProjectImages = (title: string) => {
     scrollPositionRef.current = window.scrollY;
-    setIsUpdatingImages(true);
     setShowProjectImages(prev => ({
       ...prev,
       [title]: !prev[title]
@@ -151,7 +147,6 @@ export default function Portfolio() {
 
   const toggleLeadershipImages = (organization: string) => {
     scrollPositionRef.current = window.scrollY;
-    setIsUpdatingImages(true);
     setShowLeadershipImages(prev => ({
       ...prev,
       [organization]: !prev[organization]
@@ -159,11 +154,15 @@ export default function Portfolio() {
   };
 
   useLayoutEffect(() => {
-    if (isUpdatingImages) {
-      window.scrollTo(0, scrollPositionRef.current);
-      setIsUpdatingImages(false);
+    // Restore scroll position after DOM updates without causing additional renders
+    const scrollY = scrollPositionRef.current;
+    if (scrollY > 0) {
+      // Use requestAnimationFrame to ensure DOM has updated
+      requestAnimationFrame(() => {
+        window.scrollTo(0, scrollY);
+      });
     }
-  }, [showWorkImages, showWorkTeamImages, showProjectImages, showLeadershipImages, isUpdatingImages]);
+  }, [showWorkImages, showWorkTeamImages, showProjectImages, showLeadershipImages]);
 
   // Preload images for lightbox
   useEffect(() => {
@@ -703,7 +702,7 @@ export default function Portfolio() {
                     <Download className="w-4 h-4" /> Download CV
                   </motion.a>
                   <motion.a
-                    href="https://www.linkedin.com/in/mushfique-tanzim-muztaba/"
+                    href="https://www.linkedin.com/in/mushfique-tanzim-muztaba-331228242/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-[var(--color-heading)] bg-white border border-[var(--color-border)] shadow-sm hover:shadow-md transition-all duration-300 min-h-[44px]"
@@ -1549,7 +1548,7 @@ export default function Portfolio() {
                       {lead.reels && lead.reels.length > 0 && (
                         <div className="mt-6">
                           <h4 className="text-sm font-medium text-[var(--color-body)] mb-3">Instagram Reels</h4>
-                          <div className="grid gap-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                          <div className="grid grid-cols-1 gap-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                             {lead.reels.map((reel, index) => (
                               <motion.a
                                 key={index}
@@ -1718,7 +1717,7 @@ export default function Portfolio() {
                       {lead.reels && lead.reels.length > 0 && (
                         <div className="mt-6">
                           <h4 className="text-sm font-medium text-[var(--color-body)] mb-3">Instagram Reels</h4>
-                          <div className="grid gap-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                          <div className="grid grid-cols-1 gap-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                             {lead.reels.map((reel, index) => (
                               <motion.a
                                 key={index}

@@ -86,6 +86,7 @@ export default function Portfolio() {
 
   // Scroll position management
   const scrollPositionRef = useRef<number>(0);
+  const [isUpdatingImages, setIsUpdatingImages] = useState(false);
 
   const openLightbox = (imagePath: string, allImages: string[], index: number) => {
     setLightboxImages(allImages);
@@ -123,6 +124,7 @@ export default function Portfolio() {
   // Toggle image visibility functions
   const toggleWorkImages = (company: string) => {
     scrollPositionRef.current = window.scrollY;
+    setIsUpdatingImages(true);
     setShowWorkImages(prev => ({
       ...prev,
       [company]: !prev[company]
@@ -131,6 +133,7 @@ export default function Portfolio() {
 
   const toggleWorkTeamImages = (teamName: string) => {
     scrollPositionRef.current = window.scrollY;
+    setIsUpdatingImages(true);
     setShowWorkTeamImages(prev => ({
       ...prev,
       [teamName]: !prev[teamName]
@@ -139,6 +142,7 @@ export default function Portfolio() {
 
   const toggleProjectImages = (title: string) => {
     scrollPositionRef.current = window.scrollY;
+    setIsUpdatingImages(true);
     setShowProjectImages(prev => ({
       ...prev,
       [title]: !prev[title]
@@ -147,6 +151,7 @@ export default function Portfolio() {
 
   const toggleLeadershipImages = (organization: string) => {
     scrollPositionRef.current = window.scrollY;
+    setIsUpdatingImages(true);
     setShowLeadershipImages(prev => ({
       ...prev,
       [organization]: !prev[organization]
@@ -154,15 +159,11 @@ export default function Portfolio() {
   };
 
   useLayoutEffect(() => {
-    // Restore scroll position after DOM updates without causing additional renders
-    const scrollY = scrollPositionRef.current;
-    if (scrollY > 0) {
-      // Use requestAnimationFrame to ensure DOM has updated
-      requestAnimationFrame(() => {
-        window.scrollTo(0, scrollY);
-      });
+    if (isUpdatingImages) {
+      window.scrollTo(0, scrollPositionRef.current);
+      setIsUpdatingImages(false);
     }
-  }, [showWorkImages, showWorkTeamImages, showProjectImages, showLeadershipImages]);
+  }, [showWorkImages, showWorkTeamImages, showProjectImages, showLeadershipImages, isUpdatingImages]);
 
   // Preload images for lightbox
   useEffect(() => {

@@ -156,6 +156,7 @@ export default function Portfolio() {
   const [lightboxImages, setLightboxImages] = useState<string[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
   const [isLightboxTransitioning, setIsLightboxTransitioning] = useState(false);
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
 
   // Image visibility states for All Experiences view
   const [showWorkImages, setShowWorkImages] = useState<{[key: string]: boolean}>({});
@@ -243,6 +244,28 @@ export default function Portfolio() {
       setIsUpdatingImages(false);
     }
   }, [showWorkImages, showWorkTeamImages, showProjectImages, showLeadershipImages, isUpdatingImages]);
+
+  // Scroll to navigation buttons
+  const scrollToNav = () => {
+    // Scroll to where the navigation buttons are located (after the intro section)
+    const navPosition = 700; // Position of navigation buttons section
+    window.scrollTo({
+      top: navPosition,
+      behavior: 'smooth'
+    });
+  };
+
+  // Show/hide scroll to nav button
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPos = window.scrollY;
+      // Show button when scrolling past the navigation buttons (around 700px)
+      setShowScrollToTop(scrollPos > 750); // Show after scrolling past navigation section
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Preload images for lightbox
   useEffect(() => {
@@ -1023,7 +1046,7 @@ export default function Portfolio() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            3D CAD
+            Computer Aided Designs
           </motion.button>
           <motion.button
             onClick={() => setActiveView('design')}
@@ -1034,7 +1057,7 @@ export default function Portfolio() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            Graphic Design
+            Graphic Designs
           </motion.button>
         </div>
       </motion.div>
@@ -1042,8 +1065,9 @@ export default function Portfolio() {
       {activeView === '3d' && (
         <>
           <div className="max-w-5xl mx-auto px-6 py-12 pb-20">
-          <motion.div 
-            className="bg-white rounded-2xl shadow-sm p-8 md:p-12 border border-[var(--color-border)]"
+          <motion.div
+            className="rounded-2xl shadow-sm p-8 md:p-12 border"
+            style={{ backgroundColor: 'var(--color-surface)', borderColor: 'var(--color-border)' }}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -1063,7 +1087,7 @@ export default function Portfolio() {
                 >
                   <Briefcase className="w-6 h-6 text-[var(--color-body)]" />
                 </motion.div>
-                <h2 className="text-2xl sm:text-3xl font-bold text-[var(--color-heading)]">3D CAD</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold text-[var(--color-heading)]">SOLIDWORKS</h2>
               </motion.div>
             <div className="space-y-10">
               {projects3D.map((project, index) => (
@@ -1141,6 +1165,70 @@ export default function Portfolio() {
                   </ProjectItem>
                 ))}
               </div>
+            </motion.div>
+          </div>
+
+          {/* AutoCAD Section */}
+          <div className="max-w-5xl mx-auto px-6 py-12">
+            <motion.div
+              className="rounded-2xl shadow-sm p-8 md:p-12 border"
+              style={{ backgroundColor: 'var(--color-surface)', borderColor: 'var(--color-border)' }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              whileHover={{ boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
+            >
+              <motion.div
+                className="flex items-center gap-3 mb-8"
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <motion.div
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <Code className="w-6 h-6 text-[var(--color-body)]" />
+                </motion.div>
+                <h2 className="text-2xl sm:text-3xl font-bold text-[var(--color-heading)]">AutoCAD</h2>
+              </motion.div>
+              <ProjectItem key="autocad" index={0}>
+                <div className="border-l-2 border-[var(--color-border)] pl-3 sm:pl-4 md:pl-6 pb-4 sm:pb-6 last:pb-0">
+                  <div className="mb-3">
+                    <h3 className="text-lg sm:text-xl font-semibold text-[var(--color-heading)] mb-1">Technical Drawings & 2D Design</h3>
+                    <p className="text-sm text-[var(--color-muted)]">2023</p>
+                  </div>
+                  <p className="text-[var(--color-body)] mb-4">Professional technical drawings and 2D design work created using AutoCAD software.</p>
+                  <div className="mb-6">
+                    <div className="space-y-4">
+                      <div className="flex flex-col gap-4">
+                        {["/projects/AutoCAD_1.jpg", "/projects/AutoCAD_2.jpg"].map((imagePath, imgIndex) => (
+                          <div key={imgIndex} onClick={() => openLightbox(imagePath, ["/projects/AutoCAD_1.jpg", "/projects/AutoCAD_2.jpg"], imgIndex)} className="relative min-h-[300px] sm:min-h-[400px] rounded-lg overflow-hidden bg-[var(--color-surface)] shadow-lg hover:shadow-xl transition-shadow duration-300 group cursor-pointer flex items-center justify-center">
+                            <OptimizedImage
+                              src={imagePath}
+                              alt={`AutoCAD - Image ${imgIndex + 1}`}
+                              className="w-full h-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <ul className="space-y-2">
+                    <li className="text-sm text-[var(--color-body)] flex gap-2">
+                      <span className="text-[var(--color-muted)] mt-1">•</span><span>Created detailed technical drawings with precise dimensions and annotations</span>
+                    </li>
+                    <li className="text-sm text-[var(--color-body)] flex gap-2">
+                      <span className="text-[var(--color-muted)] mt-1">•</span><span>Developed comprehensive 2D design layouts for various engineering applications</span>
+                    </li>
+                    <li className="text-sm text-[var(--color-body)] flex gap-2">
+                      <span className="text-[var(--color-muted)] mt-1">•</span><span>Utilized AutoCAD's advanced drafting tools for professional documentation</span>
+                    </li>
+                  </ul>
+                </div>
+              </ProjectItem>
             </motion.div>
           </div>
         </>
@@ -1735,7 +1823,7 @@ export default function Portfolio() {
                 >
                   <BookOpen className="w-6 h-6 text-[var(--color-body)]" />
                 </motion.div>
-                <h2 className="text-2xl sm:text-3xl font-bold text-[var(--color-heading)]">Graphic Design</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold text-[var(--color-heading)]">Graphic Designs</h2>
               </motion.div>
               <p className="text-[var(--color-body)] mb-6">Click on the Instagram icon beside each club name to explore more content.</p>
               <div className="space-y-8">
@@ -1984,6 +2072,37 @@ export default function Portfolio() {
               </motion.div>
             )}
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Scroll to Top Button */}
+      <AnimatePresence>
+        {showScrollToTop && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.3 }}
+            onClick={scrollToNav}
+            className="fixed bottom-6 right-6 z-40 w-12 h-12 bg-gradient-to-r from-[#6B4BDD] to-[#7C5DD8] hover:from-[#5A3BC7] hover:to-[#6B4BDD] rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-white"
+            aria-label="Scroll to navigation"
+          >
+            <motion.svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              initial={{ y: 0 }}
+              animate={{ y: [0, -2, 0] }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+            </motion.svg>
+          </motion.button>
         )}
       </AnimatePresence>
     </motion.div>

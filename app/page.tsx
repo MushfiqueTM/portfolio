@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { Mail, Phone, Globe, BookOpen, Briefcase, ExternalLink, X, Code, Palette, Monitor, Award, Linkedin, Download } from 'lucide-react';
-import { motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform, useInView, useMotionValue, useSpring } from 'framer-motion';
 
 // Image component with loading states and error handling
 const OptimizedImage = ({
@@ -67,6 +67,85 @@ const OptimizedImage = ({
         />
       )}
     </motion.div>
+  );
+};
+
+// Interactive Background Component
+const InteractiveBackground = () => {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Smooth out the movement so it feels fluid, not jittery
+  const springConfig = { damping: 25, stiffness: 150, mass: 0.5 };
+  const springX = useSpring(mouseX, springConfig);
+  const springY = useSpring(mouseY, springConfig);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      // Update motion values directly to avoid re-renders
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  return (
+    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+      {/* 1. Engineering Grid Pattern (Static) */}
+      <div
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, #6B4BDD 1px, transparent 1px),
+            linear-gradient(to bottom, #6B4BDD 1px, transparent 1px)
+          `,
+          backgroundSize: '40px 40px'
+        }}
+      />
+
+      {/* 2. Interactive Glowing Orb (Follows Mouse) */}
+      <motion.div
+        className="absolute w-[600px] h-[600px] rounded-full opacity-15"
+        style={{
+          background: 'radial-gradient(circle, #6B4BDD 0%, rgba(107, 75, 221, 0) 70%)',
+          x: springX,
+          y: springY,
+          translateX: "-50%",
+          translateY: "-50%",
+          filter: "blur(60px)",
+        }}
+      />
+
+      {/* 3. Ambient Floating Orbs (Auto-animate for when mouse isn't moving) */}
+      <motion.div
+        className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#7C5DD8] opacity-10 blur-[80px]"
+        animate={{
+          x: [0, 100, 0],
+          y: [0, 50, 0],
+          scale: [1, 1.2, 1],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+      />
+      <motion.div
+        className="absolute bottom-[-10%] right-[-10%] w-[400px] h-[400px] rounded-full bg-[#5A3BC7] opacity-10 blur-[80px]"
+        animate={{
+          x: [0, -70, 0],
+          y: [0, -100, 0],
+          scale: [1, 1.1, 1],
+        }}
+        transition={{
+          duration: 25,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+      />
+    </div>
   );
 };
 
@@ -619,12 +698,15 @@ export default function Portfolio() {
 
   return (
     <motion.div
-      className="min-h-screen"
+      className="min-h-screen relative selection:bg-[#6B4BDD] selection:text-white"
       style={{ backgroundColor: 'var(--color-background)' }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
     >
+      <InteractiveBackground />
+
+      <div className="relative z-10">
       <motion.div
         className="max-w-5xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-8 sm:pb-12"
         initial={{ opacity: 0, y: 30 }}
@@ -922,26 +1004,26 @@ export default function Portfolio() {
       >
         <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-4">
           <motion.button
-            onClick={() => setActiveView('3d')}
-            className={`px-4 sm:px-8 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-medium transition-all duration-300 min-h-[44px] flex items-center justify-center ${activeView === '3d' ? 'text-white shadow-md hover:shadow-lg bg-gradient-to-r from-[#6B4BDD] to-[#7C5DD8] hover:from-[#5A3BC7] hover:to-[#6B4BDD]' : 'bg-white text-slate-700 border border-slate-200 hover:border-slate-300 shadow-sm hover:shadow-md'}`}
+            onClick={() => setActiveView('all')}
+            className={`px-4 sm:px-8 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-medium transition-all duration-300 min-h-[44px] flex items-center justify-center ${activeView === 'all' ? 'text-white shadow-md hover:shadow-lg bg-gradient-to-r from-[#6B4BDD] to-[#7C5DD8] hover:from-[#5A3BC7] hover:to-[#6B4BDD]' : 'bg-white text-slate-700 border border-slate-200 hover:border-slate-300 shadow-sm hover:shadow-md'}`}
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            3D Portfolio
+            All Experiences
           </motion.button>
           <motion.button
-            onClick={() => setActiveView('all')}
-            className={`px-4 sm:px-8 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-medium transition-all duration-300 min-h-[44px] flex items-center justify-center ${activeView === 'all' ? 'text-white shadow-md hover:shadow-lg bg-gradient-to-r from-[#6B4BDD] to-[#7C5DD8] hover:from-[#5A3BC7] hover:to-[#6B4BDD]' : 'bg-white text-slate-700 border border-slate-200 hover:border-slate-300 shadow-sm hover:shadow-md'}`}
+            onClick={() => setActiveView('3d')}
+            className={`px-4 sm:px-8 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-medium transition-all duration-300 min-h-[44px] flex items-center justify-center ${activeView === '3d' ? 'text-white shadow-md hover:shadow-lg bg-gradient-to-r from-[#6B4BDD] to-[#7C5DD8] hover:from-[#5A3BC7] hover:to-[#6B4BDD]' : 'bg-white text-slate-700 border border-slate-200 hover:border-slate-300 shadow-sm hover:shadow-md'}`}
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
             initial={{ opacity: 0, x: 0 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            All Experiences
+            3D CAD
           </motion.button>
           <motion.button
             onClick={() => setActiveView('design')}
@@ -952,7 +1034,7 @@ export default function Portfolio() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            Design Portfolio
+            Graphic Design
           </motion.button>
         </div>
       </motion.div>
@@ -981,7 +1063,7 @@ export default function Portfolio() {
                 >
                   <Briefcase className="w-6 h-6 text-[var(--color-body)]" />
                 </motion.div>
-                <h2 className="text-2xl sm:text-3xl font-bold text-[var(--color-heading)]">3D Portfolio</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold text-[var(--color-heading)]">3D CAD</h2>
               </motion.div>
             <div className="space-y-10">
               {projects3D.map((project, index) => (
@@ -1653,7 +1735,7 @@ export default function Portfolio() {
                 >
                   <BookOpen className="w-6 h-6 text-[var(--color-body)]" />
                 </motion.div>
-                <h2 className="text-2xl sm:text-3xl font-bold text-[var(--color-heading)]">Design Portfolio</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold text-[var(--color-heading)]">Graphic Design</h2>
               </motion.div>
               <p className="text-[var(--color-body)] mb-6">Click on the Instagram icon beside each club name to explore more content.</p>
               <div className="space-y-8">
@@ -1805,6 +1887,9 @@ export default function Portfolio() {
             LinkedIn <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
           </a>
         </div>
+      </div>
+
+      {/* Closing the wrapper content div */}
       </div>
 
       <AnimatePresence>

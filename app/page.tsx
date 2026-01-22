@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
-import { Mail, Phone, Globe, BookOpen, Briefcase, ExternalLink, X, Code, Palette, Monitor, Award, Linkedin, Download } from 'lucide-react';
+import { Mail, Phone, Globe, BookOpen, Briefcase, ExternalLink, X, Code, Palette, Monitor, Award, Linkedin, Download, Wrench } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useTransform, useInView, useMotionValue, useSpring } from 'framer-motion';
 
 // Image component with loading states and error handling
@@ -521,9 +521,21 @@ export default function Portfolio() {
 
   const allExperiencesProjects = [
     {
+      title: "Autonomous Mobile Robot with Semantic Mapping",
+      date: "Current - May 2026",
+      highlights: [
+        "Designed and developed an autonomous differential-drive mobile robot powered by Raspberry Pi for real-time navigation and environmental perception.",
+        "Implemented SLAM (Simultaneous Localization and Mapping) using LiDAR and IMU sensor fusion within the ROS framework to generate 2D occupancy grid maps in unknown environments.",
+        "Developed autonomous navigation pipeline including localization (AMCL), path planning (A*), and obstacle avoidance using the ROS navigation stack.",
+        "Integrated multi-sensor architecture (LiDAR, camera module, IMU, temperature and gas sensors) via GPIO, I2C, and USB interfaces for synchronized data acquisition.",
+        "Optimized computational load for Raspberry Pi by deploying lightweight deep learning models for real-time object detection and semantic labeling.",
+        "Enabled semantic mapping by projecting detected object coordinates onto occupancy maps for enhanced environmental understanding.",
+      ],
+      
+    },
+    {
       title: "Autonomous Shooting System",
       date: "November 2025",
-      description: "Developed autonomous target shooting system using Python and OpenCV on Raspberry Pi for real-time green LED detection.",
       highlights: [
         "Developed autonomous target shooting system using Python and OpenCV on Raspberry Pi for real-time green LED detection and engagement with 90% accuracy under variable lighting.",
         "Implemented PID control algorithm with position smoothing and dead zone compensation for 2-axis servo gimbal, achieving stable tracking with minimal oscillation.",
@@ -536,9 +548,22 @@ export default function Portfolio() {
       ]
     },
     {
+      title: "AI Multi-Model Object Detection System",
+      date: "October 2025",
+      highlights: [
+        "Developed and trained a YOLOv11n object detection model to identify beverage bottles with 90-94% confidence using a custom dataset of 100+ labeled images.",
+        "Engineered a multi-model AI system integrating YOLO with an HSV-based color classification algorithm to detect and categorize bottles by cap color (yellow vs. white/clear) with 82-99% accuracy.",
+        "Implemented end-to-end machine learning pipeline including data collection, annotation using Roboflow, model training with PyTorch, and real-time inference deployment.",
+        "Optimized color detection algorithm to analyze specific object regions (cap area) for enhanced classification performance while maintaining minimal processing overhead.",
+      ],
+      images: [
+        "/projects/object_detection_1.webp",
+        "/projects/object_detection_2.webp",
+      ]
+    },
+    {
       title: "Designed and Manufactured an Automated Trolley",
       date: "September 2023",
-      description: "Collaborated with a multidisciplinary team to develop automated trolley for industrial applications.",
       highlights: [
         "Collaborated with a multidisciplinary team to develop automated trolley for industrial applications using SOLIDWORKS for precise design, ensuring efficiency.",
         "Solved loading/unloading, straight-line motion, and 90° turn challenges, demonstrating expertise."
@@ -551,7 +576,6 @@ export default function Portfolio() {
     {
       title: "Designed a Cleaning Device for the elderly people of Hong Kong",
       date: "November 2022",
-      description: "Designed an accessible cleaning device specifically for the elderly population of Hong Kong.",
       highlights: [
         "Led 7-member team in researching and developing cleaning device for elderly users, applying functional decomposition, mind mapping, and concept sketches for ideation.",
         "Built SOLIDWORKS prototype with optimized architecture, components, and materials."
@@ -564,19 +588,28 @@ export default function Portfolio() {
       ]
     },
     {
+      title: "Designed an Innovative Rehabilitation Glove for Tremor Patients",
+      date: "April 2023",
+      highlights: [
+        "Led a team in designing a rehab glove with slider tendon actuators and a magnetic vibration absorber for physical therapy. ",
+        "The design incorporated haptic sensors for enhanced grip strength, allowing patients to lift heavy objects based on muscle movements.",
+        "Implemented a vibration absorber with magnetic field generation for stabilizing limbs affected by tremors.",
+      ],
+      images: []
+    },
+    {
       title: "Designed 3D Vector Calculation Program in Python",
       date: "November 2022",
-      description: "Developed a comprehensive Python application for 3D vector calculations with secure authentication.",
       highlights: [
-        "Developed object-oriented Python app for 3D vector calculations, implementing secure login with username-password authentication and 3-attempt limit.",
-        "Created text menu for easy vector input, supporting dot product, arctan, and exit functions."
+        "Created a Python app for 3D vector calculations with object-oriented design. ",
+        "Implemented secure login requiring username-password authentication, allowing three attempts before shutdown.",
+        "Designed a text menu interface for easy input of 3D vectors, enabling calculations like dot products and arctan, with a convenient application termination option.",
       ],
       images: []
     },
     {
       title: "Redesigned a Table Fan",
       date: "November 2022",
-      description: "Comprehensive redesign and optimization of a table fan with focus on performance and manufacturability.",
       highlights: [
         "Collaborated with a team of seven people to analyse and redesign table fan components for improved performance and manufacturability, based on analysis and market research.",
         "Employed hand-drawn sketches and CAD models in SOLIDWORKS for detailed prototyping.",
@@ -592,17 +625,28 @@ export default function Portfolio() {
     {
       title: "Instructed Children in Machine Learning and Programming with Emphasis on AI Recognition",
       date: "July 2022",
-      description: "Taught South African high school students machine learning and programming via Zoom.",
       highlights: [
-        "Taught South African high school students machine learning and programming via Zoom.",
-        "Guided projects using Scratch and Google's Teachable Machine to build AI object recognition for support."
+        " Educated high school students in South Africa on Machine Learning and Computer Programming through Zoom.",
+        " Guided students in applying AI recognition to aid the visually impaired, utilizing Scratch and Google's Teachable Machine to build an Object Recognition System."
       ],
       images: []
     },
     {
+      title: "Designed a Gripper with a Water Bottle",
+      date: "April 2022",
+      highlights: [
+        "Designed a bottle with predefined volume using SOLIDWORKS.",
+        "Modified the gripper to effectively grip the bottle, utilizing mechanical design principles.",
+        "Performed renderings in different appearances and utilized image mapping and animation video",
+        "Produced detailed 2D drawings of parts with title blocks and annotations",
+      ],
+      images: [
+        "/projects/gripper-design-1.jpg",
+      ]
+    },
+    {
       title: "Assembled a Robot Arm",
       date: "March 2022",
-      description: "Designed and developed a six degrees of freedom robot arm using SOLIDWORKS.",
       highlights: [
         "Designed 6-DOF robot arm in SOLIDWORKS, engineering key components: cover, base, shoulder support, upper arm, power cable, and servo motor subassembly.",
         "Assembled custom and pre-designed parts to complete functional robot arm."
@@ -932,7 +976,7 @@ export default function Portfolio() {
             transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
           >
             {/* Technical Skills */}
-            <div>
+            <div className="space-y-6">
               <motion.div
                 className="flex items-center gap-2 mb-4"
                 initial={{ opacity: 0, x: -20 }}
@@ -940,43 +984,229 @@ export default function Portfolio() {
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
               >
-                <Code className="w-5 h-5 text-[#6B4BDD]" />
+                <Monitor className="w-5 h-5 text-[#6B4BDD]" />
                 <h3 className="text-lg sm:text-xl font-semibold text-[var(--color-heading)]">Technical Skills</h3>
               </motion.div>
+
+              {/* CAD & Design */}
               <motion.div
-                className="flex flex-wrap gap-2"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
               >
-                {['SOLIDWORKS', 'AutoCAD', 'MATLAB', 'Python', 'SQL', 'OpenCV', 'React', 'Next.js', 'TypeScript', 'JavaScript', 'HTML', 'CSS', 'Tailwind CSS', 'Framer Motion (Animation Library)', 'CSS Variables', 'Raspberry Pi', 'GPIO', 'I2C', 'PID Control', 'Computer Vision', 'Microsoft Power Platform', 'Power Apps', 'Power Automate', 'Power BI', 'Microsoft Office', 'Excel', 'PowerPoint', 'Word'].map((skill, index) => (
-                  <motion.span
-                    key={skill}
-                    className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-slate-200 rounded-lg text-xs sm:text-sm font-medium text-slate-700 hover:border-[#6B4BDD] hover:text-[#6B4BDD] transition-all duration-300 shadow-sm hover:shadow-md"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{
-                      duration: 0.4,
-                      delay: 0.4 + Math.floor(index / 6) * 0.1, // Group in batches of 6
-                      ease: [0.25, 0.1, 0.25, 1]
-                    }}
-                    whileHover={{ scale: 1.05, y: -2 }}
-                  >
-                    {skill}
-                  </motion.span>
-                ))}
+                <h4 className="text-sm font-medium text-[var(--color-body)] mb-3">CAD & Design</h4>
+                <div className="flex flex-wrap gap-2">
+                  {['SOLIDWORKS', 'AutoCAD'].map((skill, index) => (
+                    <motion.span
+                      key={skill}
+                      className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-slate-200 rounded-lg text-xs sm:text-sm font-medium text-slate-700 hover:border-[#6B4BDD] hover:text-[#6B4BDD] transition-all duration-300 shadow-sm hover:shadow-md"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{
+                        duration: 0.4,
+                        delay: 0.4 + index * 0.05,
+                        ease: [0.25, 0.1, 0.25, 1]
+                      }}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Programming */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+              >
+                <h4 className="text-sm font-medium text-[var(--color-body)] mb-3">Programming</h4>
+                <div className="flex flex-wrap gap-2">
+                  {['Python', 'MATLAB', 'SQL', 'JavaScript', 'TypeScript', 'HTML', 'CSS'].map((skill, index) => (
+                    <motion.span
+                      key={skill}
+                      className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-slate-200 rounded-lg text-xs sm:text-sm font-medium text-slate-700 hover:border-[#6B4BDD] hover:text-[#6B4BDD] transition-all duration-300 shadow-sm hover:shadow-md"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{
+                        duration: 0.4,
+                        delay: 0.5 + index * 0.05,
+                        ease: [0.25, 0.1, 0.25, 1]
+                      }}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* AI/ML & Computer Vision */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+              >
+                <h4 className="text-sm font-medium text-[var(--color-body)] mb-3">AI/ML & Computer Vision</h4>
+                <div className="flex flex-wrap gap-2">
+                  {['OpenCV', 'PyTorch', 'Ultralytics YOLO', 'Roboflow', 'Object Detection', 'Image Classification', 'Computer Vision'].map((skill, index) => (
+                    <motion.span
+                      key={skill}
+                      className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-slate-200 rounded-lg text-xs sm:text-sm font-medium text-slate-700 hover:border-[#6B4BDD] hover:text-[#6B4BDD] transition-all duration-300 shadow-sm hover:shadow-md"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{
+                        duration: 0.4,
+                        delay: 0.6 + index * 0.05,
+                        ease: [0.25, 0.1, 0.25, 1]
+                      }}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Web Development */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+              >
+                <h4 className="text-sm font-medium text-[var(--color-body)] mb-3">Web Development</h4>
+                <div className="flex flex-wrap gap-2">
+                  {['React', 'Next.js', 'Tailwind CSS', 'Framer Motion (Animation Library)', 'CSS Variables'].map((skill, index) => (
+                    <motion.span
+                      key={skill}
+                      className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-slate-200 rounded-lg text-xs sm:text-sm font-medium text-slate-700 hover:border-[#6B4BDD] hover:text-[#6B4BDD] transition-all duration-300 shadow-sm hover:shadow-md"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{
+                        duration: 0.4,
+                        delay: 0.7 + index * 0.05,
+                        ease: [0.25, 0.1, 0.25, 1]
+                      }}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Hardware & Embedded Systems */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+              >
+                <h4 className="text-sm font-medium text-[var(--color-body)] mb-3">Hardware & Embedded Systems</h4>
+                <div className="flex flex-wrap gap-2">
+                  {['Raspberry Pi', 'GPIO', 'I2C', 'PID Control'].map((skill, index) => (
+                    <motion.span
+                      key={skill}
+                      className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-slate-200 rounded-lg text-xs sm:text-sm font-medium text-slate-700 hover:border-[#6B4BDD] hover:text-[#6B4BDD] transition-all duration-300 shadow-sm hover:shadow-md"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{
+                        duration: 0.4,
+                        delay: 0.8 + index * 0.05,
+                        ease: [0.25, 0.1, 0.25, 1]
+                      }}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Microsoft Suite */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+              >
+                <h4 className="text-sm font-medium text-[var(--color-body)] mb-3">Microsoft Suite</h4>
+                <div className="flex flex-wrap gap-2">
+                  {['Microsoft Power Platform (Power Apps, Power Automate, Power BI)', ' Microsoft Office (Excel, PowerPoint, Word)'].map((skill, index) => (
+                    <motion.span
+                      key={skill}
+                      className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-slate-200 rounded-lg text-xs sm:text-sm font-medium text-slate-700 hover:border-[#6B4BDD] hover:text-[#6B4BDD] transition-all duration-300 shadow-sm hover:shadow-md"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{
+                        duration: 0.4,
+                        delay: 0.9 + index * 0.05,
+                        ease: [0.25, 0.1, 0.25, 1]
+                      }}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
+                </div>
+              </motion.div>
+
+            </div>
+
+            {/* Industrial Skills */}
+            <div className="space-y-6">
+              <motion.div
+                className="flex items-center gap-2 mb-4"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+              >
+                <Briefcase className="w-5 h-5 text-[#6B4BDD]" />
+                <h3 className="text-lg sm:text-xl font-semibold text-[var(--color-heading)]">Industrial Skills</h3>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+              >
+                <div className="flex flex-wrap gap-2">
+                  {['3D Printing', 'Metal Casting', 'Surface Engineering', 'Sheet Metal', 'Welding', 'Machining'].map((skill, index) => (
+                    <motion.span
+                      key={skill}
+                      className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-slate-200 rounded-lg text-xs sm:text-sm font-medium text-slate-700 hover:border-[#6B4BDD] hover:text-[#6B4BDD] transition-all duration-300 shadow-sm hover:shadow-md"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{
+                        duration: 0.4,
+                        delay: 0.7 + index * 0.05,
+                        ease: [0.25, 0.1, 0.25, 1]
+                      }}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
+                </div>
               </motion.div>
             </div>
 
             {/* Design & Media */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-            >
+            <div className="space-y-6">
               <motion.div
                 className="flex items-center gap-2 mb-4"
                 initial={{ opacity: 0, x: -20 }}
@@ -987,32 +1217,94 @@ export default function Portfolio() {
                 <Palette className="w-5 h-5 text-[#6B4BDD]" />
                 <h3 className="text-lg sm:text-xl font-semibold text-[var(--color-heading)]">Design & Media</h3>
               </motion.div>
+
+              {/* Photo & Video Editing */}
               <motion.div
-                className="flex flex-wrap gap-2"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
               >
-                {['Adobe Lightroom', 'CAPCUT', 'Da Vinci Resolve', 'Canva', 'Adobe Illustrator', 'UI/UX Design', 'Responsive Web Design', 'Animation Design', 'Interaction Design', 'User Experience Optimization'].map((skill, index) => (
-                  <motion.span
-                    key={skill}
-                    className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-slate-200 rounded-lg text-xs sm:text-sm font-medium text-slate-700 hover:border-[#6B4BDD] hover:text-[#6B4BDD] transition-all duration-300 shadow-sm hover:shadow-md"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{
-                      duration: 0.4,
-                      delay: 0.6 + Math.floor(index / 4) * 0.08, // Group in batches of 4
-                      ease: [0.25, 0.1, 0.25, 1]
-                    }}
-                    whileHover={{ scale: 1.05, y: -2 }}
-                  >
-                    {skill}
-                  </motion.span>
-                ))}
+                <h4 className="text-sm font-medium text-[var(--color-body)] mb-3">Photo & Video Editing</h4>
+                <div className="flex flex-wrap gap-2">
+                  {['Adobe Lightroom', 'CAPCUT', 'Da Vinci Resolve'].map((skill, index) => (
+                    <motion.span
+                      key={skill}
+                      className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-slate-200 rounded-lg text-xs sm:text-sm font-medium text-slate-700 hover:border-[#6B4BDD] hover:text-[#6B4BDD] transition-all duration-300 shadow-sm hover:shadow-md"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{
+                        duration: 0.4,
+                        delay: 0.6 + index * 0.05,
+                        ease: [0.25, 0.1, 0.25, 1]
+                      }}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
+                </div>
               </motion.div>
-            </motion.div>
+
+              {/* Graphic Design Tools */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+              >
+                <h4 className="text-sm font-medium text-[var(--color-body)] mb-3">Graphic Design Tools</h4>
+                <div className="flex flex-wrap gap-2">
+                  {['Canva', 'Adobe Illustrator','Adobe Photoshop'].map((skill, index) => (
+                    <motion.span
+                      key={skill}
+                      className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-slate-200 rounded-lg text-xs sm:text-sm font-medium text-slate-700 hover:border-[#6B4BDD] hover:text-[#6B4BDD] transition-all duration-300 shadow-sm hover:shadow-md"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{
+                        duration: 0.4,
+                        delay: 0.7 + index * 0.05,
+                        ease: [0.25, 0.1, 0.25, 1]
+                      }}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Design Principles */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+              >
+                <h4 className="text-sm font-medium text-[var(--color-body)] mb-3">Design Principles</h4>
+                <div className="flex flex-wrap gap-2">
+                  {['UI/UX Design', 'Responsive Web Design', 'Animation Design', 'Interaction Design', 'User Experience Optimization'].map((skill, index) => (
+                    <motion.span
+                      key={skill}
+                      className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-slate-200 rounded-lg text-xs sm:text-sm font-medium text-slate-700 hover:border-[#6B4BDD] hover:text-[#6B4BDD] transition-all duration-300 shadow-sm hover:shadow-md"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{
+                        duration: 0.4,
+                        delay: 0.8 + index * 0.05,
+                        ease: [0.25, 0.1, 0.25, 1]
+                      }}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
 
           </motion.div>
         </motion.div>
@@ -2084,7 +2376,7 @@ export default function Portfolio() {
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.3 }}
             onClick={scrollToNav}
-            className="fixed bottom-6 right-6 z-40 w-12 h-12 bg-gradient-to-r from-[#6B4BDD] to-[#7C5DD8] hover:from-[#5A3BC7] hover:to-[#6B4BDD] rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-white"
+            className="fixed bottom-6 right-1/4 z-40 w-12 h-12 bg-gradient-to-r from-[#6B4BDD] to-[#7C5DD8] hover:from-[#5A3BC7] hover:to-[#6B4BDD] rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-white"
             aria-label="Scroll to navigation"
           >
             <motion.svg

@@ -24,7 +24,7 @@ export default function ScrollToTopButton() {
       // Responsive position: -0.25 * screen width + 2340
       const navPosition = -0.25 * window.innerWidth + 2340;
       // Show button when scrolling past the navigation buttons
-      setShowScrollToTop(scrollPos >= navPosition);
+      setShowScrollToTop(scrollPos > navPosition);
     };
 
     window.addEventListener('scroll', handleScroll);

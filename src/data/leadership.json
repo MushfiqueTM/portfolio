@@ -1,0 +1,52 @@
+[
+  {
+    "organization": "PolyU ENGL English Debate Club",
+    "role": "Creative Designer",
+    "date": "August 2024 – June 2025",
+    "location": "Hong Kong",
+    "highlights": [
+      "Designed visual content (social posts, posters, logos, merchandise) to communicate brand identity and increase engagement across 500+ club members."
+    ],
+    "images": [
+      "/projects/Debate_1.jpeg",
+      "/projects/Debate_2.jpeg"
+    ]
+  },
+  {
+    "organization": "PolyU International Student Association",
+    "role": "Creative Designer and Social Media Manager",
+    "date": "July 2023 – June 2024",
+    "location": "Hong Kong",
+    "highlights": [
+      "Created engaging graphics, videos, and written posts for social media platforms, successfully reaching over 15,000 views to promote the association's mission and engage with the target audience.",
+      "Produced and edited Instagram reels showcasing association activities and events."
+    ],
+    "reels": [
+      {
+        "title": "ALOHA WELCOMING WAVES",
+        "url": "https://www.instagram.com/reel/CygK3AhhwxO/?igsh=NGt3MjQ0OTlqNnE2"
+      },
+      {
+        "title": "Halloween Horizons: A Mexican Rooftop Fiesta",
+        "url": "https://www.instagram.com/reel/CzWBMwFhqm1/?igsh=MTE2NTJleWFjZnc0MA=="
+      },
+      {
+        "title": "International Fairytale Night",
+        "url": "https://www.instagram.com/reel/C688aeTBGxz/?igsh=NnB0cmVoNTJibWt6"
+      }
+    ]
+  },
+  {
+    "organization": "PolyU Student Halls of Residence",
+    "role": "Event Organizer",
+    "date": "November 2022 – June 2025",
+    "location": "Hong Kong",
+    "highlights": [
+      "Organized and led inter-hall activities involving over 120 participants, fostering community and teamwork.",
+      "Captured memorable moments through event photography, documenting community gatherings and hall activities."
+    ],
+    "images": [
+      "/projects/yellow_hall.jpeg"
+    ]
+  }
+]

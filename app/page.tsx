@@ -1,8 +1,13 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect, memo, useCallback } from 'react';
 import { Mail, Phone, Globe, BookOpen, Briefcase, ExternalLink, X, Code, Palette, Monitor, Award, Linkedin, Download, Wrench } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useTransform, useInView, useMotionValue, useSpring } from 'framer-motion';
+import ScrollToTopButton from '../components/ScrollToTopButton';
+import workExperience from '../src/data/workExperience.json';
+import projects3D from '../src/data/projects3D.json';
+import leadership from '../src/data/leadership.json';
+import allExperiencesProjects from '../src/data/allProjects.json';
 
 // Image component with loading states and error handling
 const OptimizedImage = ({
@@ -149,20 +154,26 @@ const InteractiveBackground = () => {
   );
 };
 
-export default function Portfolio() {
+export default memo(function Portfolio() {
 
   const [activeView, setActiveView] = useState<'3d' | 'all' | 'design'>('all');
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const [lightboxImages, setLightboxImages] = useState<string[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
   const [isLightboxTransitioning, setIsLightboxTransitioning] = useState(false);
-  const [showScrollToTop, setShowScrollToTop] = useState(false);
 
-  // Image visibility states for All Experiences view
-  const [showWorkImages, setShowWorkImages] = useState<{[key: string]: boolean}>({});
-  const [showWorkTeamImages, setShowWorkTeamImages] = useState<{[key: string]: boolean}>({});
-  const [showProjectImages, setShowProjectImages] = useState<{[key: string]: boolean}>({});
-  const [showLeadershipImages, setShowLeadershipImages] = useState<{[key: string]: boolean}>({});
+  // Consolidated expanded state for image visibility
+  const [expanded, setExpanded] = useState<{
+    work: {[key: string]: boolean};
+    team: {[key: string]: boolean};
+    project: {[key: string]: boolean};
+    leadership: {[key: string]: boolean};
+  }>({
+    work: {},
+    team: {},
+    project: {},
+    leadership: {}
+  });
 
   // Scroll position management
   const scrollPositionRef = useRef<number>(0);
@@ -201,73 +212,25 @@ export default function Portfolio() {
     setTimeout(() => setIsLightboxTransitioning(false), 300);
   };
 
-  // Toggle image visibility functions
-  const toggleWorkImages = (company: string) => {
+  // Memoized toggle function for image visibility
+  const toggleImages = useCallback((category: 'work' | 'team' | 'project' | 'leadership', key: string) => {
     scrollPositionRef.current = window.scrollY;
     setIsUpdatingImages(true);
-    setShowWorkImages(prev => ({
+    setExpanded(prev => ({
       ...prev,
-      [company]: !prev[company]
+      [category]: { ...prev[category], [key]: !prev[category][key] }
     }));
-  };
-
-  const toggleWorkTeamImages = (teamName: string) => {
-    scrollPositionRef.current = window.scrollY;
-    setIsUpdatingImages(true);
-    setShowWorkTeamImages(prev => ({
-      ...prev,
-      [teamName]: !prev[teamName]
-    }));
-  };
-
-  const toggleProjectImages = (title: string) => {
-    scrollPositionRef.current = window.scrollY;
-    setIsUpdatingImages(true);
-    setShowProjectImages(prev => ({
-      ...prev,
-      [title]: !prev[title]
-    }));
-  };
-
-  const toggleLeadershipImages = (organization: string) => {
-    scrollPositionRef.current = window.scrollY;
-    setIsUpdatingImages(true);
-    setShowLeadershipImages(prev => ({
-      ...prev,
-      [organization]: !prev[organization]
-    }));
-  };
+  }, []);
 
   useLayoutEffect(() => {
     if (isUpdatingImages) {
       window.scrollTo(0, scrollPositionRef.current);
       setIsUpdatingImages(false);
     }
-  }, [showWorkImages, showWorkTeamImages, showProjectImages, showLeadershipImages, isUpdatingImages]);
+  }, [expanded, isUpdatingImages]);
 
-  // Scroll to navigation buttons
-  const scrollToNav = () => {
-    // Responsive position: -0.25 * screen width + 2340
-    const navPosition = -0.25 * window.innerWidth + 2340;
+
     
-    window.scrollTo({
-      top: navPosition,
-      behavior: 'smooth'
-    });
-  };
-  
-
-  // Show/hide scroll to nav button
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPos = window.scrollY;
-      // Show button when scrolling past the navigation buttons (around 700px)
-      setShowScrollToTop(scrollPos > 750); // Show after scrolling past navigation section
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Preload images for lightbox
   useEffect(() => {
@@ -333,437 +296,11 @@ export default function Portfolio() {
     }
   };
 
-  const workExperience = [
-    {
-      company: "CLP Power Hong Kong",
-      role: "Sandwich Intern",
-      date: "July 2024 – June 2025",
-      location: "Hong Kong",
-      teams: [
-        {
-          name: "Project Execution Team (PET)",
-          highlights: [
-            "Architected and delivered an end-to-end Lessons Learned App using Microsoft Power Apps, Power Automate, and SharePoint, enabling 100+ team members to efficiently capture, review, and share organizational knowledge.",
-            "Designed an intuitive user interface featuring a centralized gallery, seven advanced dropdown filters, and a search field for rapid discovery and management of lessons, ensuring seamless navigation and accessibility for all users.",
-            "Implemented dynamic, business group–driven approval workflows with Power Automate, automatically routing submissions to the appropriate reviewers, managing notifications, and ensuring only fully approved lessons are published to the knowledge base, reducing feedback turnaround time by 70%.",
-            "Integrated interactive social features such as a Like system, personalized liked-lessons section, and a real-time leaderboard to foster engagement, recognize valuable contributions, and promote a culture of continuous improvement across the organization.",
-            "Utilized SharePoint Lists as a secure, centralized data repository, ensuring robust data integrity, auditability, and compliance while supporting efficient storage, retrieval, and reporting of all lessons learned records."
-          ],
-          images: [
-            "/projects/project_execution_team_1.jpeg",
-            "/projects/project_execution_team_2.jpeg",
-            "/projects/project_execution_team_3.jpeg",
-            "/projects/project_execution_team_4.jpeg",
-            "/projects/project_execution_team_5.jpeg",
-            "/projects/project_execution_team_6.jpeg",
-          ]
-        },
-        {
-          name: "",
-          highlights: [
-            "Gained in-depth knowledge of CLP's Project Management Governance System Lifecycle by completing training under the Project Management Academy to enhance project execution and governance."
-          ]
-        },
-        {
-          name: "Hong Kong Battery Energy Storage System (HKBESS)",
-          highlights: [
-            "Designed and delivered a comprehensive Management of Change / Process Change Control App using Microsoft Power Apps, Power Automate, and SharePoint, transforming the way process changes are initiated, tracked, and approved for the Hung Shui Kiu 'A' Substation Project.",
-            "Developed an intuitive user interface featuring a centralized gallery of all change records, advanced filtering with multiple dropdowns and a search bar, and real-time status indicators by enabling users to efficiently locate, review, and manage change requests.",
-            "Engineered dynamic, multi level approval workflows with Power Automate, allowing users to select relevant departments for endorsement, automatically routing requests to the appropriate stakeholders, and supporting iterative revisions until all endorsements are secured, thus reducing approval time by 50%",
-            "Integrated seamless collaboration and notification features, including automated Teams approvals, flexible form editing, and pre endorsement review options, fostering transparent communication and continuous process improvement.",
-            "Leveraged SharePoint Lists as a secure, centralized data repository, ensuring robust data integrity, auditability, and compliance while supporting efficient storage, retrieval, and reporting of all change management records."
-          ],
-          images: [
-            "/projects/HKBESS_1.jpeg",
-            "/projects/HKBESS_2.jpeg",
-            "/projects/HKBESS_3.jpeg",
-          ]
-        },
-        {
-          name: "",
-          highlights: [
-            "Researched various risks and operational considerations, documenting findings in the risk register to enhance safety.",
-            "Collaborated in the writing of technical specifications by accurately naming spare parts, enhancing clarity in inventory management and procurement.",
-            "Participated in analysing equipment redundancies, helping to streamline operations.",
-            "Created a Master Deliverables List by consolidating key project specifications (General, Technical, and Quality)."
-          ]
-        }
-      ],
-      images: []
-    },
-    {
-      company: "PolyU E Formula Racing Team",
-      role: "Steering Designer",
-      date: "September 2023 – May 2024",
-      location: "Hong Kong",
-      teams: [
-        {
-          name: "",
-          highlights: [
-            "Engineered and simulated precise steering geometry using Adams for optimal handling and performance.",
-            "Designed the tie rods, steering column and steering linkages in SOLIDWORKS, ensuring manufacturability.",
-            "Formulated the manufacturing plan of the steering components."
-          ]
-        }
-      ],
-      images: []
-    },
-    {
-      company: "Thai German Graduate School of Engineering (TGGS)",
-      role: "Research Intern",
-      date: "August 2023",
-      location: "Bangkok, Thailand",
-      teams: [
-        {
-          name: "",
-          highlights: [
-            "Developed and refined initial concept sketches, progressing to a detailed 3D model of the motorbike dolly for crash testing using SOLIDWORKS for precise visualization and design accuracy.",
-            "Utilized Finite Element Method (FEM) techniques to analyse and optimize the dolly's structural integrity, ensuring enhanced durability and performance under crash testing conditions.",
-            "Engineered a crash cushion system, effectively minimizing impact forces and reducing damage during crash scenarios."
-          ]
-        }
-      ],
-      images: [
-        "/projects/motorbike-dolly-1.jpg",
-        "/projects/motorbike-dolly-2.jpg",
-        "/projects/motorbike-dolly-3.jpg",
-        "/projects/motorbike-dolly-4.jpg",
-      ]
-    },
-    {
-      company: "WEXTECH HK LIMITED",
-      role: "Product Designer",
-      date: "July 2023",
-      location: "Hong Kong",
-      teams: [
-        {
-          name: "",
-          highlights: [
-            "Conceptualized and sketched initial design concepts, considering user preferences and market trends.",
-            "Utilized CAD software to create detailed 3D models and prototypes.",
-            "Successfully brought the designs from concept to production, including Seed Frame products."
-          ]
-        }
-      ],
-      images: [
-        "/projects/wextech-product-1.jpg",
-        "/projects/wextech-product-2.jpg",
-      ]
-    },
-    {
-      company: "World Green Organization (WGO) – ESG Accelerator",
-      role: "Creative Designer",
-      date: "June 2023",
-      location: "Hong Kong",
-      teams: [
-        {
-          name: "",
-          highlights: [
-            "Designed sponsorship posts, social media content, and banners, adopted in masterclasses.",
-            "Developed visually appealing designs aligned with brand guidelines, effectively conveying key messages."
-          ]
-        }
-      ],
-      images: []
-    }
-  ];
 
-  const leadership = [
-    {
-      organization: "PolyU ENGL English Debate Club",
-      role: "Creative Designer",
-      date: "August 2024 – June 2025",
-      location: "Hong Kong",
-      highlights: [
-        "Designed visual content (social posts, posters, logos, merchandise) to communicate brand identity and increase engagement across 500+ club members."
-      ],
-      images: [
-        "/projects/Debate_1.jpeg",
-        "/projects/Debate_2.jpeg",
-      ]
-    },
-    {
-      organization: "PolyU International Student Association",
-      role: "Creative Designer and Social Media Manager",
-      date: "July 2023 – June 2024",
-      location: "Hong Kong",
-      highlights: [
-        "Created engaging graphics, videos, and written posts for social media platforms, successfully reaching over 15,000 views to promote the association's mission and engage with the target audience.",
-        "Produced and edited Instagram reels showcasing association activities and events."
-      ],
-      reels: [
-        {
-          title: "ALOHA WELCOMING WAVES",
-          url: "https://www.instagram.com/reel/CygK3AhhwxO/?igsh=NGt3MjQ0OTlqNnE2"
-        },
-        {
-          title: "Halloween Horizons: A Mexican Rooftop Fiesta",
-          url: "https://www.instagram.com/reel/CzWBMwFhqm1/?igsh=MTE2NTJleWFjZnc0MA=="
-        },
-        {
-          title: "International Fairytale Night",
-          url: "https://www.instagram.com/reel/C688aeTBGxz/?igsh=NnB0cmVoNTJibWt6"
-        }
-      ]
-    },
-    {
-      organization: "PolyU Student Halls of Residence",
-      role: "Event Organizer",
-      date: "November 2022 – June 2025",
-      location: "Hong Kong",
-      highlights: [
-        "Organized and led inter-hall activities involving over 120 participants, fostering community and teamwork.",
-        "Captured memorable moments through event photography, documenting community gatherings and hall activities."
-      ],
-      images: [
-        "/projects/yellow_hall.jpeg",
-      ]
-    }
-  ];
 
-  const allExperiencesProjects = [
-    {
-      title: "Autonomous Mobile Robot with Semantic Mapping",
-      date: "Current - May 2026",
-      highlights: [
-        "Design and develop an autonomous differential-drive mobile robot powered by Raspberry Pi for real-time navigation and environmental perception.",
-        "Implement SLAM (Simultaneous Localization and Mapping) using LiDAR and IMU sensor fusion within the ROS framework to generate 2D occupancy grid maps in unknown environments.",
-        "Develop autonomous navigation pipeline including localization (AMCL), path planning (A*), and obstacle avoidance using the ROS navigation stack.",
-        "Integrate multi-sensor architecture (LiDAR, camera module, IMU, temperature and gas sensors) via GPIO, I2C, and USB interfaces for synchronized data acquisition.",
-        "Optimize computational load for Raspberry Pi by deploying lightweight deep learning models for real-time object detection and semantic labeling.",
-        "Enable semantic mapping by projecting detected object coordinates onto occupancy maps for enhanced environmental understanding.",
-      ],
-      
-    },
-    {
-      title: "Autonomous Shooting System",
-      date: "November 2025",
-      highlights: [
-        "Developed autonomous target shooting system using Python and OpenCV on Raspberry Pi for real-time green LED detection and engagement with 90% accuracy under variable lighting.",
-        "Implemented PID control algorithm with position smoothing and dead zone compensation for 2-axis servo gimbal, achieving stable tracking with minimal oscillation.",
-        "Integrated trajectory compensation using fixed offset calibration and multi-method HSV colour detection (3 parallel algorithms) for robust target acquisition at 100cm distance.",
-        "Designed firing control system with GPIO motor control and automated target sequencing."
-      ],
-      images: [
-        "/projects/shooting_system_1.jpeg",
-        "/projects/shooting_system_2.jpeg",
-      ]
-    },
-    {
-      title: "AI Multi-Model Object Detection System",
-      date: "October 2025",
-      highlights: [
-        "Developed and trained a YOLOv11n object detection model to identify beverage bottles with 90-94% confidence using a custom dataset of 100+ labeled images.",
-        "Engineered a multi-model AI system integrating YOLO with an HSV-based color classification algorithm to detect and categorize bottles by cap color (yellow vs. white/clear) with 82-99% accuracy.",
-        "Implemented end-to-end machine learning pipeline including data collection, annotation using Roboflow, model training with PyTorch, and real-time inference deployment.",
-        "Optimized color detection algorithm to analyze specific object regions (cap area) for enhanced classification performance while maintaining minimal processing overhead.",
-      ],
-      images: [
-        "/projects/object_detection_1.webp",
-        "/projects/object_detection_2.webp",
-      ]
-    },
-    {
-      title: "Designed and Manufactured an Automated Trolley",
-      date: "September 2023",
-      highlights: [
-        "Collaborated with a multidisciplinary team to develop automated trolley for industrial applications using SOLIDWORKS for precise design, ensuring efficiency.",
-        "Solved loading/unloading, straight-line motion, and 90° turn challenges, demonstrating expertise."
-      ],
-      images: [
-        "/projects/multi-disciplinary-1.jpg",
-        "/projects/multi-disciplinary-2.jpg",
-      ]
-    },
-    {
-      title: "Designed a Cleaning Device for the elderly people of Hong Kong",
-      date: "November 2022",
-      highlights: [
-        "Led 7-member team in researching and developing cleaning device for elderly users, applying functional decomposition, mind mapping, and concept sketches for ideation.",
-        "Built SOLIDWORKS prototype with optimized architecture, components, and materials."
-      ],
-      images: [
-        "/projects/cleaning-device-1.jpg",
-        "/projects/cleaning-device-2.jpg",
-        "/projects/cleaning-device-3.jpg",
-        "/projects/cleaning-device-4.jpg",
-      ]
-    },
-    {
-      title: "Designed an Innovative Rehabilitation Glove for Tremor Patients",
-      date: "April 2023",
-      highlights: [
-        "Led a team in designing a rehab glove with slider tendon actuators and a magnetic vibration absorber for physical therapy. ",
-        "The design incorporated haptic sensors for enhanced grip strength, allowing patients to lift heavy objects based on muscle movements.",
-        "Implemented a vibration absorber with magnetic field generation for stabilizing limbs affected by tremors.",
-      ],
-      images: []
-    },
-    {
-      title: "Designed 3D Vector Calculation Program in Python",
-      date: "November 2022",
-      highlights: [
-        "Created a Python app for 3D vector calculations with object-oriented design. ",
-        "Implemented secure login requiring username-password authentication, allowing three attempts before shutdown.",
-        "Designed a text menu interface for easy input of 3D vectors, enabling calculations like dot products and arctan, with a convenient application termination option.",
-      ],
-      images: []
-    },
-    {
-      title: "Redesigned a Table Fan",
-      date: "November 2022",
-      highlights: [
-        "Collaborated with a team of seven people to analyse and redesign table fan components for improved performance and manufacturability, based on analysis and market research.",
-        "Employed hand-drawn sketches and CAD models in SOLIDWORKS for detailed prototyping.",
-        "Assembled all components of the original fan in SOLIDWORKS, allowing for a comprehensive view."
-      ],
-      images: [
-        "/projects/table-fan-2.jpg",
-        "/projects/table-fan-3.jpg",
-        "/projects/table-fan-4.jpg",
-        "/projects/table-fan-1.jpg",
-      ]
-    },
-    {
-      title: "Instructed Children in Machine Learning and Programming with Emphasis on AI Recognition",
-      date: "July 2022",
-      highlights: [
-        " Educated high school students in South Africa on Machine Learning and Computer Programming through Zoom.",
-        " Guided students in applying AI recognition to aid the visually impaired, utilizing Scratch and Google's Teachable Machine to build an Object Recognition System."
-      ],
-      images: []
-    },
-    {
-      title: "Designed a Gripper with a Water Bottle",
-      date: "April 2022",
-      highlights: [
-        "Designed a bottle with predefined volume using SOLIDWORKS.",
-        "Modified the gripper to effectively grip the bottle, utilizing mechanical design principles.",
-        "Performed renderings in different appearances and utilized image mapping and animation video",
-        "Produced detailed 2D drawings of parts with title blocks and annotations",
-      ],
-      images: [
-        "/projects/gripper-design-1.jpg",
-      ]
-    },
-    {
-      title: "Assembled a Robot Arm",
-      date: "March 2022",
-      highlights: [
-        "Designed 6-DOF robot arm in SOLIDWORKS, engineering key components: cover, base, shoulder support, upper arm, power cable, and servo motor subassembly.",
-        "Assembled custom and pre-designed parts to complete functional robot arm."
-      ],
-      images: [
-        "/projects/robot-arm-1.jpg",
-      ]
-    }
-  ];
 
-  const projects3D = [
-    {
-      title: "Automated Trolley",
-      date: "September 2024",
-      description: "Built a remote-controlled platform capable of carrying a payload of up to 50 kg.",
-      highlights: [
-        "Collaborated with a multidisciplinary team to develop automated trolley for industrial applications using SOLIDWORKS for precise design, ensuring efficiency",
-        "Solved loading/unloading, straight-line motion, and 90° turn challenges, demonstrating expertise"
-      ],
-      images: [
-        "/projects/multi-disciplinary-1.jpg",
-        "/projects/multi-disciplinary-2.jpg",
-      ]
-    },
-    {
-      title: "TGGS - Motorbike Dolly for Crash Testing",
-      date: "2023",
-      description: "Design of a motorbike dolly for crash testing with comprehensive engineering analysis.",
-      highlights: [
-        "Developed and refined initial concept sketches, progressing to a detailed 3D model of the motorbike dolly for crash testing using SOLIDWORKS for precise visualization and design accuracy",
-        "Utilized Finite Element Method (FEM) techniques to analyse and optimize the dolly's structural integrity, ensuring enhanced durability and performance under crash testing conditions",
-        "Engineered a crash cushion system, effectively minimizing impact forces and reducing damage during crash scenarios"
-      ],
-      images: [
-        "/projects/motorbike-dolly-1.jpg",
-        "/projects/motorbike-dolly-2.jpg",
-        "/projects/motorbike-dolly-3.jpg",
-        "/projects/motorbike-dolly-4.jpg",
-      ]
-    },
-    {
-      title: "WEXTECH HK LIMITED - Product Designer",
-      date: "2023",
-      description: "Professional product design role focusing on consumer products from concept to production.",
-      highlights: [
-        "Conceptualized and sketched initial design concepts, considering user preferences and market trends",
-        "Utilized CAD software to create detailed 3D models and prototypes",
-        "Successfully brought the designs from concept to production, including Seed Frame products"
-      ],
-      images: [
-        "/projects/wextech-product-1.jpg",
-        "/projects/wextech-product-2.jpg",
-      ]
-    },
-    {
-      title: "Cleaning Device for Elderly People",
-      date: "2023",
-      description: "Designed an accessible cleaning device specifically for the elderly population of Hong Kong.",
-      highlights: [
-        "Conducted research with a team of seven to define objectives, constraints, and specific needs of elderly people",
-        "Utilized design tools such as functional decomposition diagrams, mind maps, morphological charts, and concept sketches",
-        "Implemented the chosen design process, including product architecture development, component selection, CAD modeling, and material selection",
-        "Presented the accessibility, ease of use, and effectiveness of the cleaning device to an audience"
-      ],
-      images: [
-        "/projects/cleaning-device-1.jpg",
-        "/projects/cleaning-device-2.jpg",
-        "/projects/cleaning-device-3.jpg",
-        "/projects/cleaning-device-4.jpg",
-      ]
-    },
-    {
-      title: "Table Fan Redesign",
-      date: "2022",
-      description: "Comprehensive redesign and optimization of a table fan with focus on performance and manufacturability.",
-      highlights: [
-        "Collaborated with a team of seven to conduct assessment and examination of multiple fan components",
-        "Introduced enhancements to individual parts based on thorough analysis and stress simulation",
-        "Created detailed CAD prototypes of each component optimizing for manufacturability and performance",
-        "Assembled all components in SOLIDWORKS for comprehensive product view"
-      ],
-      images: [
-        "/projects/table-fan-2.jpg",
-        "/projects/table-fan-3.jpg",
-        "/projects/table-fan-4.jpg",
-        "/projects/table-fan-1.jpg",
-      ]
-    },
-    {
-      title: "Gripper Design with Water Bottle",
-      date: "2022",
-      description: "Designed a mechanical gripper system for bottle handling with detailed CAD modeling.",
-      highlights: [
-        "Designed a bottle with predefined volume using SOLIDWORKS",
-        "Modified the gripper to effectively grip the bottle, utilizing mechanical design principles",
-        "Performed renderings in different appearances and utilized image mapping and animation video",
-        "Produced detailed 2D drawings of parts with title blocks and annotations"
-      ],
-      images: [
-        "/projects/gripper-design-1.jpg",
-      ]
-    },
-    {
-      title: "Robot Arm Assembly",
-      date: "2022",
-      description: "Designed and developed a six degrees of freedom robot arm using SOLIDWORKS.",
-      highlights: [
-        "Designed the Cover, Base, Shoulder Support, Upper Arm Model, Power Cable, and the Server Motor Subassembly",
-        "Assembled all created parts along with predesigned parts to create the complete Robot Arm"
-      ],
-      images: [
-        "/projects/robot-arm-1.jpg",
-      ]
-    }
-  ];
+
+
 
   return (
     <motion.div
@@ -1583,25 +1120,25 @@ export default function Portfolio() {
                           {'images' in team && team.images && team.images.length > 0 && (
                             <div className="mt-4">
                               <motion.button
-                                onClick={() => toggleWorkTeamImages(team.name)}
+                                onClick={() => toggleImages('team', team.name)}
                                 className="flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-[#6B4BDD] to-[#7C5DD8] hover:from-[#5A3BC7] hover:to-[#6B4BDD] rounded-lg transition-all duration-200 shadow-md hover:shadow-lg min-h-[44px]"
                                 whileHover={{ scale: 1.02, y: -1 }}
                                 whileTap={{ scale: 0.98 }}
                               >
-                                <motion.svg 
-                                  className="w-4 h-4" 
-                                  fill="none" 
-                                  stroke="currentColor" 
+                                <motion.svg
+                                  className="w-4 h-4"
+                                  fill="none"
+                                  stroke="currentColor"
                                   viewBox="0 0 24 24"
-                                  animate={{ rotate: showWorkTeamImages[team.name] ? 180 : 0 }}
+                                  animate={{ rotate: expanded.team[team.name] ? 180 : 0 }}
                                   transition={{ duration: 0.3 }}
                                 >
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                 </motion.svg>
-                                {showWorkTeamImages[team.name] ? 'Hide Images' : 'Show Images'}
+                                {expanded.team[team.name] ? 'Hide Images' : 'Show Images'}
                               </motion.button>
                               <AnimatePresence>
-                                {showWorkTeamImages[team.name] && 'images' in team && team.images && team.images.length > 0 && (
+                                {expanded.team[team.name] && 'images' in team && team.images && team.images.length > 0 && (
                                   <motion.div
                                     className="mt-4 space-y-4 overflow-hidden"
                                     initial={{ opacity: 0, height: 0 }}
@@ -1639,25 +1176,25 @@ export default function Portfolio() {
                       {work.images && work.images.length > 0 && (
                         <div className="mt-4">
                           <motion.button
-                            onClick={() => toggleWorkImages(work.company)}
+                            onClick={() => toggleImages('work', work.company)}
                             className="flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-[#6B4BDD] to-[#7C5DD8] hover:from-[#5A3BC7] hover:to-[#6B4BDD] rounded-lg transition-all duration-200 shadow-md hover:shadow-lg min-h-[44px]"
                             whileHover={{ scale: 1.02, y: -1 }}
                             whileTap={{ scale: 0.98 }}
                           >
-                            <motion.svg 
-                              className="w-4 h-4" 
-                              fill="none" 
-                              stroke="currentColor" 
+                            <motion.svg
+                              className="w-4 h-4"
+                              fill="none"
+                              stroke="currentColor"
                               viewBox="0 0 24 24"
-                              animate={{ rotate: showWorkImages[work.company] ? 180 : 0 }}
+                              animate={{ rotate: expanded.work[work.company] ? 180 : 0 }}
                               transition={{ duration: 0.3 }}
                             >
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                             </motion.svg>
-                            {showWorkImages[work.company] ? 'Hide Images' : 'Show Images'}
+                            {expanded.work[work.company] ? 'Hide Images' : 'Show Images'}
                           </motion.button>
                           <AnimatePresence>
-                            {showWorkImages[work.company] && (
+                            {expanded.work[work.company] && (
                               <motion.div
                                 className="mt-4 space-y-4 overflow-hidden"
                                 initial={{ opacity: 0, height: 0 }}
@@ -1759,15 +1296,15 @@ export default function Portfolio() {
                       {project.images && project.images.length > 0 && (
                         <div>
                           <button
-                            onClick={() => toggleProjectImages(project.title)}
+                            onClick={() => toggleImages('project', project.title)}
                             className="flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-[#6B4BDD] to-[#7C5DD8] hover:from-[#5A3BC7] hover:to-[#6B4BDD] rounded-lg transition-all duration-200 shadow-md hover:shadow-lg min-h-[44px]"
                           >
-                            <svg className={`w-4 h-4 transition-transform duration-200 ${showProjectImages[project.title] ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className={`w-4 h-4 transition-transform duration-200 ${expanded.project[project.title] ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                             </svg>
-                            {showProjectImages[project.title] ? 'Hide Images' : 'Show Images'}
+                            {expanded.project[project.title] ? 'Hide Images' : 'Show Images'}
                           </button>
-                          {showProjectImages[project.title] && (
+                          {expanded.project[project.title] && (
                             <div className="mt-4 space-y-4">
                               {project.title === "Redesigned a Table Fan" ? (
                                 <div className="space-y-4">
@@ -2000,15 +1537,15 @@ export default function Portfolio() {
                       {lead.images && lead.images.length > 0 && (
                         <div className="mt-4">
                           <button
-                            onClick={() => toggleLeadershipImages(lead.organization)}
+                            onClick={() => toggleImages('leadership', lead.organization)}
                             className="flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-[#6B4BDD] to-[#7C5DD8] hover:from-[#5A3BC7] hover:to-[#6B4BDD] rounded-lg transition-all duration-200 shadow-md hover:shadow-lg min-h-[44px]"
                           >
-                            <svg className={`w-4 h-4 transition-transform duration-200 ${showLeadershipImages[lead.organization] ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className={`w-4 h-4 transition-transform duration-200 ${expanded.leadership[lead.organization] ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                             </svg>
-                            {showLeadershipImages[lead.organization] ? 'Hide Images' : 'Show Images'}
+                            {expanded.leadership[lead.organization] ? 'Hide Images' : 'Show Images'}
                           </button>
-                          {showLeadershipImages[lead.organization] && (
+                          {expanded.leadership[lead.organization] && (
                             <div className="mt-4 space-y-4">
                               <div className={`grid gap-4 ${lead.images.length === 1 ? 'grid-cols-1' : lead.images.length === 2 ? 'grid-cols-1 md:grid-cols-2' : lead.images.length === 3 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4'}`}>
                                 {lead.images.map((imagePath, imgIndex) => (
@@ -2370,83 +1907,8 @@ export default function Portfolio() {
       </AnimatePresence>
 
       {/* Scroll to Top Button */}
-      <AnimatePresence>
-  {showScrollToTop && (
-    <div className="fixed inset-x-0 bottom-6 flex justify-end pointer-events-none">
-      <div className="w-full max-w-[1200px] mx-auto flex justify-end px-6 pointer-events-none">
-        <motion.button
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.8 }}
-          transition={{ duration: 0.3 }}
-          onClick={scrollToNav}
-          className="pointer-events-auto z-40 w-12 h-12 bg-gradient-to-r from-[#6B4BDD] to-[#7C5DD8] hover:from-[#5A3BC7] hover:to-[#6B4BDD] rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-white"
-          aria-label="Scroll to navigation"
-        >
-          <motion.svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            initial={{ y: 0 }}
-            animate={{ y: [0, -2, 0] }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M5 10l7-7m0 0l7 7m-7-7v18"
-            />
-          </motion.svg>
-        </motion.button>
-      </div>
-    </div>
-  )}
-</AnimatePresence>
-<AnimatePresence>
-  {showScrollToTop && (
-    <div className="fixed inset-x-0 bottom-6 flex justify-end pointer-events-none z-50">
-      <div className="w-full max-w-[1200px] mx-auto flex justify-end px-6 pointer-events-none">
-        <motion.button
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.8 }}
-          transition={{ duration: 0.3 }}
-          onClick={scrollToNav}
-          className="pointer-events-auto z-50 w-12 h-12 bg-gradient-to-r from-[#6B4BDD] to-[#7C5DD8] hover:from-[#5A3BC7] hover:to-[#6B4BDD] rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-white"
-          aria-label="Scroll to navigation"
-        >
-          <motion.svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            initial={{ y: 0 }}
-            animate={{ y: [0, -2, 0] }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M5 10l7-7m0 0l7 7m-7-7v18"
-            />
-          </motion.svg>
-        </motion.button>
-      </div>
-    </div>
-  )}
-</AnimatePresence>
+      <ScrollToTopButton />
 
     </motion.div>
   );
-}
+});

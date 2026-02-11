@@ -40,10 +40,14 @@ export const Projects: React.FC = () => {
 
   return (
     <section id="projects" className="section-container py-12 sm:py-16">
-      <ScrollReveal>
-        <NeuCard className="p-6 sm:p-10">
-          {/* Section Header */}
-          <div className="flex items-center gap-3 mb-8">
+      <NeuCard className="p-6 sm:p-10">
+        {/* Section Header */}
+        <motion.div
+          className="flex items-center gap-3 mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
             <motion.div
               whileHover={{ rotate: 360 }}
               transition={{ duration: 0.6 }}
@@ -52,7 +56,7 @@ export const Projects: React.FC = () => {
               <FolderOpen className="w-6 h-6 text-[#1A2B4A]" />
             </motion.div>
             <h2 className="text-2xl sm:text-3xl font-bold text-[#1A2B4A]">Projects</h2>
-          </div>
+          </motion.div>
 
           {/* Projects List */}
           <div className="space-y-8">
@@ -160,7 +164,6 @@ export const Projects: React.FC = () => {
             ))}
           </div>
         </NeuCard>
-      </ScrollReveal>
 
       <Lightbox
         images={lightboxImages}

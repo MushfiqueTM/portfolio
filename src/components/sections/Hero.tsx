@@ -50,7 +50,7 @@ export const Hero: React.FC = () => {
                   transition={{ duration: 0.6, delay: 0.4 }}
                 >
                   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A2B4A] tracking-tight mb-2">
-                    Hey! I am <span className="text-[#3B82F6]">Mushfique Tanzim Muztaba</span>
+                    Hey! I am <span className="text-[#1A2B4A]">Mushfique Tanzim Muztaba</span>
                   </h1>
                   <p className="text-lg sm:text-xl text-[#5F6B7A] font-light mb-6">
                     Final Year Undergraduate Student in Mechanical Engineering

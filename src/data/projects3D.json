@@ -1,0 +1,105 @@
+[
+  {
+    "title": "Automated Trolley",
+    "date": "September 2024",
+    "description": "Built a remote-controlled platform capable of carrying a payload of up to 50 kg.",
+    "highlights": [
+      "Collaborated with a multidisciplinary team to develop automated trolley for industrial applications using SOLIDWORKS for precise design, ensuring efficiency",
+      "Solved loading/unloading, straight-line motion, and 90° turn challenges, demonstrating expertise"
+    ],
+    "images": [
+      "/projects/multi-disciplinary-1.jpg",
+      "/projects/multi-disciplinary-2.jpg"
+    ]
+  },
+  {
+    "title": "TGGS - Motorbike Dolly for Crash Testing",
+    "date": "2023",
+    "description": "Design of a motorbike dolly for crash testing with comprehensive engineering analysis.",
+    "highlights": [
+      "Developed and refined initial concept sketches, progressing to a detailed 3D model of the motorbike dolly for crash testing using SOLIDWORKS for precise visualization and design accuracy",
+      "Utilized Finite Element Method (FEM) techniques to analyse and optimize the dolly's structural integrity, ensuring enhanced durability and performance under crash testing conditions",
+      "Engineered a crash cushion system, effectively minimizing impact forces and reducing damage during crash scenarios"
+    ],
+    "images": [
+      "/projects/motorbike-dolly-1.jpg",
+      "/projects/motorbike-dolly-2.jpg",
+      "/projects/motorbike-dolly-3.jpg",
+      "/projects/motorbike-dolly-4.jpg"
+    ]
+  },
+  {
+    "title": "WEXTECH HK LIMITED - Product Designer",
+    "date": "2023",
+    "description": "Professional product design role focusing on consumer products from concept to production.",
+    "highlights": [
+      "Conceptualized and sketched initial design concepts, considering user preferences and market trends",
+      "Utilized CAD software to create detailed 3D models and prototypes",
+      "Successfully brought the designs from concept to production, including Seed Frame products"
+    ],
+    "images": [
+      "/projects/wextech-product-1.jpg",
+      "/projects/wextech-product-2.jpg"
+    ]
+  },
+  {
+    "title": "Cleaning Device for Elderly People",
+    "date": "2023",
+    "description": "Designed an accessible cleaning device specifically for the elderly population of Hong Kong.",
+    "highlights": [
+      "Conducted research with a team of seven to define objectives, constraints, and specific needs of elderly people",
+      "Utilized design tools such as functional decomposition diagrams, mind maps, morphological charts, and concept sketches",
+      "Implemented the chosen design process, including product architecture development, component selection, CAD modeling, and material selection",
+      "Presented the accessibility, ease of use, and effectiveness of the cleaning device to an audience"
+    ],
+    "images": [
+      "/projects/cleaning-device-1.jpg",
+      "/projects/cleaning-device-2.jpg",
+      "/projects/cleaning-device-3.jpg",
+      "/projects/cleaning-device-4.jpg"
+    ]
+  },
+  {
+    "title": "Table Fan Redesign",
+    "date": "2022",
+    "description": "Comprehensive redesign and optimization of a table fan with focus on performance and manufacturability.",
+    "highlights": [
+      "Collaborated with a team of seven to conduct assessment and examination of multiple fan components",
+      "Introduced enhancements to individual parts based on thorough analysis and stress simulation",
+      "Created detailed CAD prototypes of each component optimizing for manufacturability and performance",
+      "Assembled all components in SOLIDWORKS for comprehensive product view"
+    ],
+    "images": [
+      "/projects/table-fan-2.jpg",
+      "/projects/table-fan-3.jpg",
+      "/projects/table-fan-4.jpg",
+      "/projects/table-fan-1.jpg"
+    ]
+  },
+  {
+    "title": "Gripper Design with Water Bottle",
+    "date": "2022",
+    "description": "Designed a mechanical gripper system for bottle handling with detailed CAD modeling.",
+    "highlights": [
+      "Designed a bottle with predefined volume using SOLIDWORKS",
+      "Modified the gripper to effectively grip the bottle, utilizing mechanical design principles",
+      "Performed renderings in different appearances and utilized image mapping and animation video",
+      "Produced detailed 2D drawings of parts with title blocks and annotations"
+    ],
+    "images": [
+      "/projects/gripper-design-1.jpg"
+    ]
+  },
+  {
+    "title": "Robot Arm Assembly",
+    "date": "2022",
+    "description": "Designed and developed a six degrees of freedom robot arm using SOLIDWORKS.",
+    "highlights": [
+      "Designed the Cover, Base, Shoulder Support, Upper Arm Model, Power Cable, and the Server Motor Subassembly",
+      "Assembled all created parts along with predesigned parts to create the complete Robot Arm"
+    ],
+    "images": [
+      "/projects/robot-arm-1.jpg"
+    ]
+  }
+]

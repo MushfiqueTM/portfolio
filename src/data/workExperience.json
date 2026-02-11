@@ -1,0 +1,134 @@
+[
+  {
+    "company": "CLP Power Hong Kong",
+    "role": "Sandwich Intern",
+    "date": "July 2024 – June 2025",
+    "location": "Hong Kong",
+    "teams": [
+      {
+        "name": "Project Execution Team (PET)",
+        "highlights": [
+          "Architected and delivered an end-to-end Lessons Learned App using Microsoft Power Apps, Power Automate, and SharePoint, enabling 100+ team members to efficiently capture, review, and share organizational knowledge.",
+          "Designed an intuitive user interface featuring a centralized gallery, seven advanced dropdown filters, and a search field for rapid discovery and management of lessons, ensuring seamless navigation and accessibility for all users.",
+          "Implemented dynamic, business group–driven approval workflows with Power Automate, automatically routing submissions to the appropriate reviewers, managing notifications, and ensuring only fully approved lessons are published to the knowledge base, reducing feedback turnaround time by 70%.",
+          "Integrated interactive social features such as a Like system, personalized liked-lessons section, and a real-time leaderboard to foster engagement, recognize valuable contributions, and promote a culture of continuous improvement across the organization.",
+          "Utilized SharePoint Lists as a secure, centralized data repository, ensuring robust data integrity, auditability, and compliance while supporting efficient storage, retrieval, and reporting of all lessons learned records."
+        ],
+        "images": [
+          "/projects/project_execution_team_1.jpeg",
+          "/projects/project_execution_team_2.jpeg",
+          "/projects/project_execution_team_3.jpeg",
+          "/projects/project_execution_team_4.jpeg",
+          "/projects/project_execution_team_5.jpeg",
+          "/projects/project_execution_team_6.jpeg"
+        ]
+      },
+      {
+        "name": "",
+        "highlights": [
+          "Gained in-depth knowledge of CLP's Project Management Governance System Lifecycle by completing training under the Project Management Academy to enhance project execution and governance."
+        ]
+      },
+      {
+        "name": "Hong Kong Battery Energy Storage System (HKBESS)",
+        "highlights": [
+          "Designed and delivered a comprehensive Management of Change / Process Change Control App using Microsoft Power Apps, Power Automate, and SharePoint, transforming the way process changes are initiated, tracked, and approved for the Hung Shui Kiu 'A' Substation Project.",
+          "Developed an intuitive user interface featuring a centralized gallery of all change records, advanced filtering with multiple dropdowns and a search bar, and real-time status indicators by enabling users to efficiently locate, review, and manage change requests.",
+          "Engineered dynamic, multi level approval workflows with Power Automate, allowing users to select relevant departments for endorsement, automatically routing requests to the appropriate stakeholders, and supporting iterative revisions until all endorsements are secured, thus reducing approval time by 50%",
+          "Integrated seamless collaboration and notification features, including automated Teams approvals, flexible form editing, and pre endorsement review options, fostering transparent communication and continuous process improvement.",
+          "Leveraged SharePoint Lists as a secure, centralized data repository, ensuring robust data integrity, auditability, and compliance while supporting efficient storage, retrieval, and reporting of all change management records."
+        ],
+        "images": [
+          "/projects/HKBESS_1.jpeg",
+          "/projects/HKBESS_2.jpeg",
+          "/projects/HKBESS_3.jpeg"
+        ]
+      },
+      {
+        "name": "",
+        "highlights": [
+          "Researched various risks and operational considerations, documenting findings in the risk register to enhance safety.",
+          "Collaborated in the writing of technical specifications by accurately naming spare parts, enhancing clarity in inventory management and procurement.",
+          "Participated in analysing equipment redundancies, helping to streamline operations.",
+          "Created a Master Deliverables List by consolidating key project specifications (General, Technical, and Quality)."
+        ]
+      }
+    ],
+    "images": []
+  },
+  {
+    "company": "PolyU E Formula Racing Team",
+    "role": "Steering Designer",
+    "date": "September 2023 – May 2024",
+    "location": "Hong Kong",
+    "teams": [
+      {
+        "name": "",
+        "highlights": [
+          "Engineered and simulated precise steering geometry using Adams for optimal handling and performance.",
+          "Designed the tie rods, steering column and steering linkages in SOLIDWORKS, ensuring manufacturability.",
+          "Formulated the manufacturing plan of the steering components."
+        ]
+      }
+    ],
+    "images": []
+  },
+  {
+    "company": "Thai German Graduate School of Engineering (TGGS)",
+    "role": "Research Intern",
+    "date": "August 2023",
+    "location": "Bangkok, Thailand",
+    "teams": [
+      {
+        "name": "",
+        "highlights": [
+          "Developed and refined initial concept sketches, progressing to a detailed 3D model of the motorbike dolly for crash testing using SOLIDWORKS for precise visualization and design accuracy.",
+          "Utilized Finite Element Method (FEM) techniques to analyse and optimize the dolly's structural integrity, ensuring enhanced durability and performance under crash testing conditions.",
+          "Engineered a crash cushion system, effectively minimizing impact forces and reducing damage during crash scenarios."
+        ]
+      }
+    ],
+    "images": [
+      "/projects/motorbike-dolly-1.jpg",
+      "/projects/motorbike-dolly-2.jpg",
+      "/projects/motorbike-dolly-3.jpg",
+      "/projects/motorbike-dolly-4.jpg"
+    ]
+  },
+  {
+    "company": "WEXTECH HK LIMITED",
+    "role": "Product Designer",
+    "date": "July 2023",
+    "location": "Hong Kong",
+    "teams": [
+      {
+        "name": "",
+        "highlights": [
+          "Conceptualized and sketched initial design concepts, considering user preferences and market trends.",
+          "Utilized CAD software to create detailed 3D models and prototypes.",
+          "Successfully brought the designs from concept to production, including Seed Frame products."
+        ]
+      }
+    ],
+    "images": [
+      "/projects/wextech-product-1.jpg",
+      "/projects/wextech-product-2.jpg"
+    ]
+  },
+  {
+    "company": "World Green Organization (WGO) – ESG Accelerator",
+    "role": "Creative Designer",
+    "date": "June 2023",
+    "location": "Hong Kong",
+    "teams": [
+      {
+        "name": "",
+        "highlights": [
+          "Designed sponsorship posts, social media content, and banners, adopted in masterclasses.",
+          "Developed visually appealing designs aligned with brand guidelines, effectively conveying key messages."
+        ]
+      }
+    ],
+    "images": []
+  }
+]

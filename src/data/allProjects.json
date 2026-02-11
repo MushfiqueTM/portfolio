@@ -1,0 +1,136 @@
+[
+  {
+    "title": "Autonomous Mobile Robot with Semantic Mapping",
+    "date": "Current - May 2026",
+    "highlights": [
+      "Design and develop an autonomous differential-drive mobile robot powered by Raspberry Pi for real-time navigation and environmental perception.",
+      "Implement SLAM (Simultaneous Localization and Mapping) using LiDAR and IMU sensor fusion within the ROS framework to generate 2D occupancy grid maps in unknown environments.",
+      "Develop autonomous navigation pipeline including localization (AMCL), path planning (A*), and obstacle avoidance using the ROS navigation stack.",
+      "Integrate multi-sensor architecture (LiDAR, camera module, IMU, temperature and gas sensors) via GPIO, I2C, and USB interfaces for synchronized data acquisition.",
+      "Optimize computational load for Raspberry Pi by deploying lightweight deep learning models for real-time object detection and semantic labeling.",
+      "Enable semantic mapping by projecting detected object coordinates onto occupancy maps for enhanced environmental understanding."
+    ]
+  },
+  {
+    "title": "Autonomous Shooting System",
+    "date": "November 2025",
+    "highlights": [
+      "Developed autonomous target shooting system using Python and OpenCV on Raspberry Pi for real-time green LED detection and engagement with 90% accuracy under variable lighting.",
+      "Implemented PID control algorithm with position smoothing and dead zone compensation for 2-axis servo gimbal, achieving stable tracking with minimal oscillation.",
+      "Integrated trajectory compensation using fixed offset calibration and multi-method HSV colour detection (3 parallel algorithms) for robust target acquisition at 100cm distance.",
+      "Designed firing control system with GPIO motor control and automated target sequencing."
+    ],
+    "images": [
+      "/projects/shooting_system_1.jpeg",
+      "/projects/shooting_system_2.jpeg"
+    ]
+  },
+  {
+    "title": "AI Multi-Model Object Detection System",
+    "date": "October 2025",
+    "highlights": [
+      "Developed and trained a YOLOv11n object detection model to identify beverage bottles with 90-94% confidence using a custom dataset of 100+ labeled images.",
+      "Engineered a multi-model AI system integrating YOLO with an HSV-based color classification algorithm to detect and categorize bottles by cap color (yellow vs. white/clear) with 82-99% accuracy.",
+      "Implemented end-to-end machine learning pipeline including data collection, annotation using Roboflow, model training with PyTorch, and real-time inference deployment.",
+      "Optimized color detection algorithm to analyze specific object regions (cap area) for enhanced classification performance while maintaining minimal processing overhead."
+    ],
+    "images": [
+      "/projects/object_detection_1.webp",
+      "/projects/object_detection_2.webp"
+    ]
+  },
+  {
+    "title": "Designed and Manufactured an Automated Trolley",
+    "date": "September 2023",
+    "highlights": [
+      "Collaborated with a multidisciplinary team to develop automated trolley for industrial applications using SOLIDWORKS for precise design, ensuring efficiency.",
+      "Solved loading/unloading, straight-line motion, and 90° turn challenges, demonstrating expertise."
+    ],
+    "images": [
+      "/projects/multi-disciplinary-1.jpg",
+      "/projects/multi-disciplinary-2.jpg"
+    ]
+  },
+  {
+    "title": "Designed a Cleaning Device for the elderly people of Hong Kong",
+    "date": "November 2022",
+    "highlights": [
+      "Led 7-member team in researching and developing cleaning device for elderly users, applying functional decomposition, mind mapping, and concept sketches for ideation.",
+      "Built SOLIDWORKS prototype with optimized architecture, components, and materials."
+    ],
+    "images": [
+      "/projects/cleaning-device-1.jpg",
+      "/projects/cleaning-device-2.jpg",
+      "/projects/cleaning-device-3.jpg",
+      "/projects/cleaning-device-4.jpg"
+    ]
+  },
+  {
+    "title": "Designed an Innovative Rehabilitation Glove for Tremor Patients",
+    "date": "April 2023",
+    "highlights": [
+      "Led a team in designing a rehab glove with slider tendon actuators and a magnetic vibration absorber for physical therapy. ",
+      "The design incorporated haptic sensors for enhanced grip strength, allowing patients to lift heavy objects based on muscle movements.",
+      "Implemented a vibration absorber with magnetic field generation for stabilizing limbs affected by tremors."
+    ],
+    "images": [
+      "/projects/gripper-design-1.jpg"
+    ]
+  },
+  {
+    "title": "Designed 3D Vector Calculation Program in Python",
+    "date": "November 2022",
+    "highlights": [
+      "Created a Python app for 3D vector calculations with object-oriented design. ",
+      "Implemented secure login requiring username-password authentication, allowing three attempts before shutdown.",
+      "Designed a text menu interface for easy input of 3D vectors, enabling calculations like dot products and arctan, with a convenient application termination option."
+    ]
+  },
+  {
+    "title": "Redesigned a Table Fan",
+    "date": "November 2022",
+    "highlights": [
+      "Collaborated with a team of seven people to analyse and redesign table fan components for improved performance and manufacturability, based on analysis and market research.",
+      "Employed hand-drawn sketches and CAD models in SOLIDWORKS for detailed prototyping.",
+      "Assembled all components of the original fan in SOLIDWORKS, allowing for a comprehensive view."
+    ],
+    "images": [
+      "/projects/table-fan-2.jpg",
+      "/projects/table-fan-3.jpg",
+      "/projects/table-fan-4.jpg",
+      "/projects/table-fan-1.jpg"
+    ]
+  },
+  {
+    "title": "Instructed Children in Machine Learning and Programming with Emphasis on AI Recognition",
+    "date": "July 2022",
+    "highlights": [
+      " Educated high school students in South Africa on Machine Learning and Computer Programming through Zoom.",
+      " Guided students in applying AI recognition to aid the visually impaired, utilizing Scratch and Google's Teachable Machine to build an Object Recognition System."
+    ]
+  },
+  {
+    "title": "Designed a Gripper with a Water Bottle",
+    "date": "April 2022",
+    "highlights": [
+      "Designed a bottle with predefined volume using SOLIDWORKS.",
+      "Modified the gripper to effectively grip the bottle, utilizing mechanical design principles.",
+      "Performed renderings in different appearances and utilized image mapping and animation video",
+      "Produced detailed 2D drawings of parts with title blocks and annotations"
+    ],
+    "images": [
+      "/projects/gripper-design-1.jpg"
+    ]
+  },
+  {
+    "title": "Assembled a Robot Arm",
+    "date": "March 2022",
+    "highlights": [
+      "Designed 6-DOF robot arm in SOLIDWORKS, engineering key components: cover, base, shoulder support, upper arm, power cable, and servo motor subassembly.",
+      "Assembled custom and pre-designed parts to complete functional robot arm."
+    ],
+    "images": [
+      "/projects/robot-arm-1.jpg"
+    ]
+  }
+]

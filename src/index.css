@@ -1,0 +1,367 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Neumorphic Color Palette - Soft Cool Tones */
+    --background: 220 20% 96%;         /* #F2F4F6 - Soft Grey */
+    --foreground: 220 35% 19%;         /* #1A2B4A - Deep Navy */
+    --card: 0 0% 100%;                 /* #FFFFFF - Pure White */
+    --card-foreground: 220 35% 19%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 35% 19%;
+    --primary: 220 35% 19%;            /* Deep Navy */
+    --primary-foreground: 0 0% 98%;
+    --secondary: 215 20% 41%;          /* #5F6B7A - Muted Blue-Grey */
+    --secondary-foreground: 0 0% 98%;
+    --muted: 220 14% 93%;              /* #E8EBF0 */
+    --muted-foreground: 215 20% 41%;
+    --accent: 217 91%  60%;            /* #3B82F6 - Bright Blue */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 13% 91%;             /* #E2E8F0 */
+    --input: 220 13% 91%;
+    --ring: 217 91% 60%;
+    --radius: 1rem;
+    
+    /* Neumorphic Shadow Colors */
+    --shadow-light: rgba(255, 255, 255, 0.9);
+    --shadow-dark: rgba(163, 177, 198, 0.5);
+    --shadow-inset-light: rgba(255, 255, 255, 0.6);
+    --shadow-inset-dark: rgba(163, 177, 198, 0.3);
+    
+    /* Surface Colors */
+    --surface: #F2F4F6;
+    --surface-raised: #FFFFFF;
+    --surface-inset: #E8EBF0;
+    
+    /* Text Colors */
+    --text-primary: #1A2B4A;
+    --text-secondary: #5F6B7A;
+    --text-muted: #8B95A5;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--surface);
+    overflow-x: hidden;
+  }
+  
+  ::selection {
+    background-color: hsl(var(--primary) / 0.15);
+    color: hsl(var(--primary));
+  }
+}
+
+@layer components {
+  /* Neumorphic Card - Raised Effect */
+  .neu-card {
+    background: var(--surface-raised);
+    border-radius: 1.25rem;
+    box-shadow: 
+      8px 8px 16px var(--shadow-dark),
+      -8px -8px 16px var(--shadow-light);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .neu-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 
+      12px 12px 24px var(--shadow-dark),
+      -12px -12px 24px var(--shadow-light);
+  }
+  
+  /* Neumorphic Card - Pressed/Inset Effect */
+  .neu-card-pressed {
+    background: var(--surface);
+    border-radius: 1.25rem;
+    box-shadow: 
+      inset 4px 4px 8px var(--shadow-inset-dark),
+      inset -4px -4px 8px var(--shadow-inset-light);
+  }
+  
+  /* Neumorphic Button - Raised */
+  .neu-button {
+    background: var(--surface);
+    border-radius: 0.75rem;
+    box-shadow: 
+      4px 4px 8px var(--shadow-dark),
+      -4px -4px 8px var(--shadow-light);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    border: none;
+    cursor: pointer;
+  }
+  
+  .neu-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      6px 6px 12px var(--shadow-dark),
+      -6px -6px 12px var(--shadow-light);
+  }
+  
+  .neu-button:active {
+    transform: translateY(0);
+    box-shadow: 
+      inset 3px 3px 6px var(--shadow-inset-dark),
+      inset -3px -3px 6px var(--shadow-inset-light);
+  }
+  
+  /* Neumorphic Button - Primary (Filled) */
+  .neu-button-primary {
+    background: hsl(var(--primary));
+    color: white;
+    border-radius: 0.75rem;
+    box-shadow: 
+      4px 4px 12px rgba(26, 43, 74, 0.3),
+      -2px -2px 8px rgba(255, 255, 255, 0.5);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    border: none;
+    cursor: pointer;
+  }
+  
+  .neu-button-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      6px 6px 16px rgba(26, 43, 74, 0.35),
+      -2px -2px 8px rgba(255, 255, 255, 0.5);
+  }
+  
+  .neu-button-primary:active {
+    transform: translateY(0);
+    box-shadow: 
+      inset 2px 2px 6px rgba(0, 0, 0, 0.2),
+      inset -2px -2px 6px rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Neumorphic Pill Button */
+  .neu-pill {
+    background: var(--surface);
+    border-radius: 9999px;
+    box-shadow: 
+      3px 3px 6px var(--shadow-dark),
+      -3px -3px 6px var(--shadow-light);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    border: none;
+    cursor: pointer;
+  }
+  
+  .neu-pill:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 
+      5px 5px 10px var(--shadow-dark),
+      -5px -5px 10px var(--shadow-light);
+  }
+  
+  .neu-pill.active {
+    background: hsl(var(--primary));
+    color: white;
+    box-shadow: 
+      inset 2px 2px 6px rgba(0, 0, 0, 0.2),
+      inset -2px -2px 6px rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Neumorphic Tag/Badge */
+  .neu-tag {
+    background: var(--surface);
+    border-radius: 0.5rem;
+    box-shadow: 
+      2px 2px 4px var(--shadow-dark),
+      -2px -2px 4px var(--shadow-light);
+    transition: all 0.2s ease;
+  }
+  
+  .neu-tag:hover {
+    transform: scale(1.05);
+    box-shadow: 
+      3px 3px 6px var(--shadow-dark),
+      -3px -3px 6px var(--shadow-light);
+  }
+  
+  /* Glassmorphism Effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  /* Glassmorphism - Dark */
+  .glass-dark {
+    background: rgba(26, 43, 74, 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Section Container */
+  .section-container {
+    @apply w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  /* Floating Navigation */
+  .floating-nav {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 9999px;
+    box-shadow: 
+      0 4px 24px rgba(0, 0, 0, 0.08),
+      0 1px 2px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+  
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Image Container with Neumorphic Frame */
+  .neu-image-frame {
+    background: var(--surface);
+    border-radius: 1rem;
+    padding: 0.5rem;
+    box-shadow: 
+      6px 6px 12px var(--shadow-dark),
+      -6px -6px 12px var(--shadow-light);
+  }
+  
+  /* Timeline Connector */
+  .timeline-line {
+    background: linear-gradient(
+      to bottom,
+      var(--shadow-dark) 0%,
+      var(--text-muted) 50%,
+      var(--shadow-dark) 100%
+    );
+  }
+  
+  /* Scroll Reveal Animation Classes */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Stagger Children */
+  .stagger-children > * {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+  .stagger-children.active > *:nth-child(1) { animation: staggerIn 0.5s 0.05s forwards; }
+  .stagger-children.active > *:nth-child(2) { animation: staggerIn 0.5s 0.1s forwards; }
+  .stagger-children.active > *:nth-child(3) { animation: staggerIn 0.5s 0.15s forwards; }
+  .stagger-children.active > *:nth-child(4) { animation: staggerIn 0.5s 0.2s forwards; }
+  .stagger-children.active > *:nth-child(5) { animation: staggerIn 0.5s 0.25s forwards; }
+  .stagger-children.active > *:nth-child(6) { animation: staggerIn 0.5s 0.3s forwards; }
+  .stagger-children.active > *:nth-child(7) { animation: staggerIn 0.5s 0.35s forwards; }
+  .stagger-children.active > *:nth-child(8) { animation: staggerIn 0.5s 0.4s forwards; }
+}
+
+@keyframes staggerIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--shadow-dark);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Smooth scroll with Lenis */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Lightbox Styles */
+.lightbox-overlay {
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(8px);
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .neu-card {
+    box-shadow: 
+      4px 4px 8px var(--shadow-dark),
+      -4px -4px 8px var(--shadow-light);
+  }
+  
+  .neu-card:hover {
+    box-shadow: 
+      6px 6px 12px var(--shadow-dark),
+      -6px -6px 12px var(--shadow-light);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -20,7 +20,12 @@ const skillCategories: SkillCategory[] = [
   {
     icon: <Code2 className="w-5 h-5" />,
     title: 'Programming',
-    skills: ['Python', 'MATLAB', 'SQL', 'JavaScript', 'TypeScript', 'HTML', 'CSS'],
+    skills: ['Python', 'C++', 'MATLAB', 'SQL', 'JavaScript', 'TypeScript', 'HTML', 'CSS'],
+  },
+  {
+    icon: <Monitor className="w-5 h-5" />,
+    title: 'Robotics & ROS',
+    skills: ['ROS 2 (Jazzy/Humble)', 'Gazebo Sim', 'SLAM (Cartographer/SLAM Toolbox)', 'Nav2 Navigation', 'URDF/Xacro', 'Robot Localization (EKF)'],
   },
   {
     icon: <Monitor className="w-5 h-5" />,

@@ -25,6 +25,7 @@ interface WorkItem {
 
 const getCompanyLogo = (company: string): string | null => {
   const logos: Record<string, string> = {
+    'MangDang Technology Co., Limited': '/projects/MANGDANG TECHNOLOGY COLIMITEDCompany Logo.webp',
     'CLP Power Hong Kong': '/projects/CLP_logo_2.png',
     'PolyU E Formula Racing Team': '/projects/Racing_logo.jpg',
     'Thai German Graduate School of Engineering (TGGS)': '/projects/TGGS_logo.png',

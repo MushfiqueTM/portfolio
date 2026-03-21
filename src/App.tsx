@@ -52,11 +52,17 @@ function App() {
       </AnimatePresence>
 
       <div className="min-h-screen bg-[#F2F4F6]">
+        {/* Background Gradient Orbs */}
+        <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+          <div className="absolute top-[10%] left-[5%] w-[500px] h-[500px] bg-gradient-radial from-[#3B82F6]/5 to-transparent rounded-full blur-3xl" />
+          <div className="absolute bottom-[20%] right-[10%] w-[400px] h-[400px] bg-gradient-radial from-[#1A2B4A]/5 to-transparent rounded-full blur-3xl" />
+        </div>
+
         {/* Floating Navigation */}
         <FloatingNav activeView={activeView} />
 
         {/* Main Content */}
-        <main className="relative">
+        <main className="relative z-10">
           {/* Hero Section */}
           <Hero />
 
@@ -114,12 +120,6 @@ function App() {
           {/* Footer */}
           <Footer />
         </main>
-
-        {/* Background Gradient Orbs */}
-        <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-          <div className="absolute top-[10%] left-[5%] w-[500px] h-[500px] bg-gradient-radial from-[#3B82F6]/5 to-transparent rounded-full blur-3xl" />
-          <div className="absolute bottom-[20%] right-[10%] w-[400px] h-[400px] bg-gradient-radial from-[#1A2B4A]/5 to-transparent rounded-full blur-3xl" />
-        </div>
       </div>
     </>
   );

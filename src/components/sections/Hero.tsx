@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, Linkedin, Download, MapPin } from 'lucide-react';
+import { Mail, Phone, Linkedin, ExternalLink, MapPin } from 'lucide-react';
 import { NeuCard } from '@/components/ui/NeuCard';
 import { NeuButton } from '@/components/ui/NeuButton';
 
@@ -83,10 +83,11 @@ export const Hero: React.FC = () => {
                   <NeuButton
                     variant="primary"
                     href="/projects/MUSHFIQUE TANZIM MUZTABA_CV.pdf"
-                    download="Mushfique_Tanzim_Muztaba_CV.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-sm px-3 py-2"
                   >
-                    <Download className="w-4 h-4" />
+                    <ExternalLink className="w-4 h-4" />
                     Download CV
                   </NeuButton>
                   

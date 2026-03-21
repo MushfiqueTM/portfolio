@@ -48,7 +48,7 @@ export const Education: React.FC = () => {
               </p>
               <div className="flex items-center gap-2 text-[#8B95A5]">
                 <Calendar className="w-4 h-4" />
-                <span className="text-sm">Graduation Date: June 2026</span>
+                <span className="text-sm">Graduation Date: May 2026</span>
               </div>
             </div>
           </div>

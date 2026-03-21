@@ -1,5 +1,22 @@
 [
   {
+    "company": "MangDang Technology Co., Limited",
+    "role": "Robotics Intern (Part-time)",
+    "date": "March 2026",
+    "location": "Hong Kong",
+    "teams": [
+      {
+        "name": "",
+        "highlights": [
+          "Migrated Mini Pupper ROS quadruped robot stack from ROS 2 Humble to Jazzy, including full Gazebo Classic → Gazebo Harmonic simulator migration (URDF sensor plugins, ros_gz_bridge, gz_ros2_control), Nav2 parameter updates, and Ubuntu 22.04 → 24.04 platform support",
+          "Rewrote the champ quadruped contact sensor node from Gazebo Classic C++ transport APIs (gazebo::transport) to Gz Harmonic (gz::transport), enabling foot contact detection in the new simulator for gait controller feedback",
+          "Validated end-to-end simulation and real robot deployment, including SLAM (Cartographer), autonomous navigation (Nav2), teleop control, and automated install scripts for both PC and Raspberry Pi targets."
+        ]
+      }
+    ],
+    "images": []
+  },
+  {
     "company": "CLP Power Hong Kong",
     "role": "Sandwich Intern",
     "date": "July 2024 – June 2025",

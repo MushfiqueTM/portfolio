@@ -3,12 +3,9 @@
     "title": "Autonomous Mobile Robot with Semantic Mapping",
     "date": "Current - May 2026",
     "highlights": [
-      "Design and develop an autonomous differential-drive mobile robot powered by Raspberry Pi for real-time navigation and environmental perception.",
-      "Implement SLAM (Simultaneous Localization and Mapping) using LiDAR and IMU sensor fusion within the ROS framework to generate 2D occupancy grid maps in unknown environments.",
-      "Develop autonomous navigation pipeline including localization (AMCL), path planning (A*), and obstacle avoidance using the ROS navigation stack.",
-      "Integrate multi-sensor architecture (LiDAR, camera module, IMU, temperature and gas sensors) via GPIO, I2C, and USB interfaces for synchronized data acquisition.",
-      "Optimize computational load for Raspberry Pi by deploying lightweight deep learning models for real-time object detection and semantic labeling.",
-      "Enable semantic mapping by projecting detected object coordinates onto occupancy maps for enhanced environmental understanding."
+      "Developing an autonomous indoor inspection robot using ROS2, SLAM Toolbox, and Nav2 for real-time mapping and navigation, integrating thermal and RGB-D cameras to detect and classify fire hazards and overheating equipment without human intervention.",
+      "Engineering a multi-sensor fusion pipeline combining LiDAR-based SLAM, IMU and wheel odometry EKF filtering, and YOLOv8 object detection triggered selectively near thermal anomalies to optimise onboard compute on a Raspberry Pi powered mecanum drive platform.",
+      "Building an interactive AI interface using a locally hosted LLM (LLaMA 3.2 via Ollama) with real-time robot context injection, enabling operators to query robot status and issue navigation commands in natural language through a live control dashboard."
     ]
   },
   {

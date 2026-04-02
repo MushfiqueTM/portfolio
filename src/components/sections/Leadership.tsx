@@ -28,7 +28,9 @@ const instagramLinks: Record<string, string> = {
 };
 
 export const Leadership: React.FC = () => {
-  const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
+  const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({
+    'PolyU ENGL English Debate Club': true,
+  });
   const [lightboxImages, setLightboxImages] = useState<string[]>([]);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);

@@ -15,7 +15,9 @@ interface Project {
 }
 
 export const Projects: React.FC = () => {
-  const [expandedProjects, setExpandedProjects] = useState<Record<string, boolean>>({});
+  const [expandedProjects, setExpandedProjects] = useState<Record<string, boolean>>({
+    'Autonomous Mobile Robot with Semantic Mapping': true,
+  });
   const [lightboxImages, setLightboxImages] = useState<string[]>([]);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);

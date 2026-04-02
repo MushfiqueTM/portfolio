@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from '@/lib/utils';
+import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 
 interface NavItem {
   id: string;
@@ -48,6 +47,12 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ activeView }) => {
       const visibleItems = getVisibleNavItems();
       const sections = visibleItems.map(item => document.getElementById(item.id));
       const scrollPosition = scrollY + window.innerHeight / 3;
+
+      // If at the bottom of the page, activate the last section
+      if (window.innerHeight + scrollY >= document.documentElement.scrollHeight - 50) {
+        setActiveSection(visibleItems[visibleItems.length - 1].id);
+        return;
+      }
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
@@ -107,20 +112,27 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ activeView }) => {
           className="fixed top-4 left-0 right-0 z-50 flex justify-center px-2 sm:px-4"
         >
           <nav className="floating-nav px-2 sm:px-3 py-1.5 flex items-center gap-1 overflow-x-auto scrollbar-hide max-w-[95vw] sm:max-w-[90vw]">
-            {getVisibleNavItems().map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={cn(
-                  'px-2 sm:px-3 py-1 sm:py-1.5 text-[9px] sm:text-xs font-medium rounded-full transition-all duration-200 whitespace-nowrap flex-shrink-0',
-                  activeSection === item.id
-                    ? 'bg-[#1A2B4A] text-white shadow-[inset_2px_2px_4px_rgba(0,0,0,0.2)]'
-                    : 'text-[#5F6B7A] hover:text-[#1A2B4A] hover:bg-[#F2F4F6]'
-                )}
-              >
-                {isMobile && item.shortLabel ? item.shortLabel : item.label}
-              </button>
-            ))}
+            <LayoutGroup>
+              {getVisibleNavItems().map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className="relative px-2 sm:px-3 py-1 sm:py-1.5 text-[9px] sm:text-xs font-medium rounded-full whitespace-nowrap flex-shrink-0 transition-colors duration-200"
+                  style={{ color: activeSection === item.id ? '#fff' : '#5F6B7A' }}
+                >
+                  {activeSection === item.id && (
+                    <motion.div
+                      layoutId="nav-pill"
+                      className="absolute inset-0 bg-[#1A2B4A] rounded-full shadow-[inset_2px_2px_4px_rgba(0,0,0,0.2)]"
+                      transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                    />
+                  )}
+                  <span className="relative z-10">
+                    {isMobile && item.shortLabel ? item.shortLabel : item.label}
+                  </span>
+                </button>
+              ))}
+            </LayoutGroup>
           </nav>
         </motion.div>
       )}

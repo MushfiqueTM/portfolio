@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Mail, Phone, Linkedin, ExternalLink, MapPin } from 'lucide-react';
 import { NeuCard } from '@/components/ui/NeuCard';
 import { NeuButton } from '@/components/ui/NeuButton';
+import { AnimatedText } from '@/components/ui/AnimatedText';
 
 export const Hero: React.FC = () => {
   return (
@@ -44,18 +45,22 @@ export const Hero: React.FC = () => {
 
               {/* Content */}
               <div className="flex-1 text-center lg:text-left">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                >
+                <div>
                   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A2B4A] tracking-tight mb-2">
-                    Hey! I am <span className="text-[#1A2B4A]">Mushfique Tanzim Muztaba</span>
+                    <AnimatedText text="Hey! I am" delay={0.3} />
+                    {' '}
+                    <AnimatedText
+                      text="Mushfique Tanzim Muztaba"
+                      delay={0.55}
+                    />
                   </h1>
-                  <p className="text-lg sm:text-xl text-[#5F6B7A] font-light mb-6">
-                    Final Year Undergraduate Student in Mechanical Engineering
-                  </p>
-                </motion.div>
+                  <AnimatedText
+                    text="Final Year Undergraduate Student in Mechanical Engineering"
+                    as="p"
+                    delay={0.9}
+                    className="text-lg sm:text-xl text-[#5F6B7A] font-light mb-6"
+                  />
+                </div>
 
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -64,12 +69,10 @@ export const Hero: React.FC = () => {
                   className="space-y-4 text-[#5F6B7A] leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-8"
                 >
                   <p>
-                    I am passionate about mechanical design and prototyping. From concept development 
-                    to physical fabrication, I enjoy turning ideas into functional solutions while 
-                    also bringing experience in project management and digital automation.
+                    I'm a Mechanical Engineering student at PolyU with experience spanning CAD design and FEA, ROS2 robotics, AI and computer vision, and enterprise software development. I've interned at CLP Power Hong Kong where I built workflow tools used by 100+ engineers, designed crash-test equipment at a research lab in Bangkok, and worked on quadruped robot software at MangDang Technology. I'm comfortable working across hardware and software, whether that's tuning a PID controller, training an object detection model, or shipping a Power Apps solution for a live infrastructure project.
                   </p>
                   <p>
-                    I am seeking opportunities where I can apply and further enhance my engineering skills.
+                    Open to graduate opportunities in engineering and technology.
                   </p>
                 </motion.div>
 
@@ -86,6 +89,7 @@ export const Hero: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm px-3 py-2"
+                    data-cursor="View"
                   >
                     <ExternalLink className="w-4 h-4" />
                     Download CV

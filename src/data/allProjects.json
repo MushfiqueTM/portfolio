@@ -3,9 +3,9 @@
     "title": "Autonomous Mobile Robot with Semantic Mapping",
     "date": "Current - May 2026",
     "highlights": [
-      "Developing an autonomous indoor inspection robot using ROS2, SLAM Toolbox, and Nav2 for real-time mapping and navigation, integrating thermal and RGB-D cameras to detect and classify fire hazards and overheating equipment without human intervention.",
-      "Engineering a multi-sensor fusion pipeline combining LiDAR-based SLAM, IMU and wheel odometry EKF filtering, and YOLOv8 object detection triggered selectively near thermal anomalies to optimise onboard compute on a Raspberry Pi powered mecanum drive platform.",
-      "Building an interactive AI interface using a locally hosted LLM (LLaMA 3.2 via Ollama) with real-time robot context injection, enabling operators to query robot status and issue navigation commands in natural language through a live control dashboard."
+      "Develop an autonomous indoor inspection robot using ROS2, SLAM Toolbox, and Nav2, with thermal and RGB-D cameras to detect and classify fire hazards in real time.",
+      "Engineer a multi-sensor fusion pipeline combining LiDAR SLAM, EKF odometry, and YOLOv8 object detection on a Raspberry Pi-powered mecanum drive platform.",
+      "Build a natural language AI interface running Qwen via Ollama on a laptop, injecting live robot context into the LLM to let operators query status and issue navigation commands in plain English."
     ]
   },
   {
@@ -40,8 +40,8 @@
     "title": "Designed and Manufactured an Automated Trolley",
     "date": "September 2023",
     "highlights": [
-      "Collaborated with a multidisciplinary team to develop automated trolley for industrial applications using SOLIDWORKS for precise design, ensuring efficiency.",
-      "Solved loading/unloading, straight-line motion, and 90° turn challenges, demonstrating expertise."
+      "Designed and manufactured an automated trolley for industrial material handling using SOLIDWORKS, incorporating motorized drive and steering mechanisms.",
+      "Engineered solutions for autonomous loading/unloading, straight-line path tracking, and 90° turning within a fixed-footprint industrial environment."
     ],
     "images": [
       "/projects/multi-disciplinary-1.jpg",

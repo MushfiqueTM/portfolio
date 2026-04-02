@@ -10,7 +10,7 @@
         "highlights": [
           "Migrated Mini Pupper ROS quadruped robot stack from ROS 2 Humble to Jazzy, including full Gazebo Classic → Gazebo Harmonic simulator migration (URDF sensor plugins, ros_gz_bridge, gz_ros2_control), Nav2 parameter updates, and Ubuntu 22.04 → 24.04 platform support",
           "Rewrote the champ quadruped contact sensor node from Gazebo Classic C++ transport APIs (gazebo::transport) to Gz Harmonic (gz::transport), enabling foot contact detection in the new simulator for gait controller feedback",
-          "Validated end-to-end simulation and real robot deployment, including SLAM (Cartographer), autonomous navigation (Nav2), teleop control, and automated install scripts for both PC and Raspberry Pi targets."
+          "Validated end-to-end simulation and real robot deployment, including SLAM (Cartographer/SLAM Toolbox), autonomous navigation (Nav2), teleop control, and automated install scripts for both PC and Raspberry Pi targets."
         ]
       }
     ],
@@ -99,9 +99,9 @@
       {
         "name": "",
         "highlights": [
-          "Developed and refined initial concept sketches, progressing to a detailed 3D model of the motorbike dolly for crash testing using SOLIDWORKS for precise visualization and design accuracy.",
-          "Utilized Finite Element Method (FEM) techniques to analyse and optimize the dolly's structural integrity, ensuring enhanced durability and performance under crash testing conditions.",
-          "Engineered a crash cushion system, effectively minimizing impact forces and reducing damage during crash scenarios."
+          "Designed a motorbike crash-test dolly in SOLIDWORKS, developing the full design from initial concept sketches through to production-ready mechanical assemblies.",
+          "Performed iterative Finite Element Analysis (FEA) under simulated crash loading conditions, optimizing geometry to meet target safety factors while minimizing material usage.",
+          "Engineered an energy-absorbing crash cushion system, reducing peak impact forces on test equipment and improving repeatability of crash test results."
         ]
       }
     ],

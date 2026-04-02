@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface LightboxProps {
   images: string[];
@@ -42,23 +42,9 @@ export const Lightbox: React.FC<LightboxProps> = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-[100] flex items-center justify-center lightbox-overlay"
+          className="fixed inset-0 z-[300] flex items-center justify-center lightbox-overlay"
           onClick={onClose}
         >
-          {/* Close Button */}
-          <motion.button
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ delay: 0.2 }}
-            onClick={onClose}
-            className="absolute top-4 right-4 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
-            whileHover={{ scale: 1.1, rotate: 90 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <X className="w-6 h-6" />
-          </motion.button>
-
           {/* Navigation Buttons */}
           {images.length > 1 && (
             <>
@@ -95,7 +81,7 @@ export const Lightbox: React.FC<LightboxProps> = ({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.3, delay: 0.1 }}
-            className="relative max-w-[90vw] max-h-[85vh] w-full h-full flex items-center justify-center px-16"
+            className="relative max-w-[90vw] max-h-[85vh] flex items-center justify-center px-16"
             onClick={(e) => e.stopPropagation()}
           >
             <img

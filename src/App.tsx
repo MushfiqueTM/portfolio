@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { useLenis } from '@/hooks/useLenis';
+import { CustomCursor } from '@/components/ui/CustomCursor';
+import { ScrollProgress } from '@/components/ui/ScrollProgress';
+import { ParticleBackground } from '@/components/ui/ParticleBackground';
 import { FloatingNav } from '@/components/FloatingNav';
 import { Hero } from '@/components/sections/Hero';
 import { Education } from '@/components/sections/Education';
@@ -16,6 +19,38 @@ import { Footer } from '@/components/Footer';
 
 type ViewType = 'all' | 'cad' | 'design';
 
+function ParallaxOrbs() {
+  const { scrollY } = useScroll();
+  const y1 = useTransform(scrollY, [0, 3000], [0, -400]);
+  const y2 = useTransform(scrollY, [0, 3000], [0, -250]);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const smoothMouseX = useSpring(mouseX, { damping: 40, stiffness: 100 });
+  const smoothMouseY = useSpring(mouseY, { damping: 40, stiffness: 100 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set((e.clientX - window.innerWidth / 2) * 0.02);
+      mouseY.set((e.clientY - window.innerHeight / 2) * 0.02);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  return (
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      <motion.div
+        className="absolute top-[10%] left-[5%] w-[500px] h-[500px] bg-gradient-radial from-[#3B82F6]/5 to-transparent rounded-full blur-3xl"
+        style={{ y: y1, x: smoothMouseX, translateY: smoothMouseY }}
+      />
+      <motion.div
+        className="absolute bottom-[20%] right-[10%] w-[400px] h-[400px] bg-gradient-radial from-[#1A2B4A]/5 to-transparent rounded-full blur-3xl"
+        style={{ y: y2, x: smoothMouseX }}
+      />
+    </div>
+  );
+}
+
 function App() {
   const [activeView, setActiveView] = useState<ViewType>('all');
   const [isLoading, setIsLoading] = useState(true);
@@ -27,7 +62,7 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 500);
+    }, 1200);
     return () => clearTimeout(timer);
   }, []);
 
@@ -38,25 +73,56 @@ function App() {
           <motion.div
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="fixed inset-0 z-[200] bg-[#F2F4F6] flex items-center justify-center"
           >
+            <div className="flex flex-col items-center gap-3">
+              <div className="flex items-center gap-0">
+                {'Mushfique'.split('').map((letter, i) => (
+                  <motion.span
+                    key={i}
+                    className="text-4xl sm:text-5xl font-bold text-[#1A2B4A] inline-block"
+                    initial={{ y: 40, opacity: 0, rotateX: -90 }}
+                    animate={{ y: 0, opacity: 1, rotateX: 0 }}
+                    exit={{ y: -30, opacity: 0 }}
+                    transition={{
+                      duration: 0.5,
+                      delay: i * 0.06,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                  >
+                    {letter}
+                  </motion.span>
+                ))}
+              </div>
+              <motion.span
+                className="text-sm sm:text-base font-light tracking-[0.3em] uppercase text-[#5F6B7A]"
+                initial={{ opacity: 0, letterSpacing: '0.1em' }}
+                animate={{ opacity: 1, letterSpacing: '0.3em' }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              >
+                Portfolio
+              </motion.span>
+            </div>
+            {/* Animated underline */}
             <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              className="w-16 h-16 border-4 border-[#E2E8F0] border-t-[#1A2B4A] rounded-full animate-spin"
+              className="absolute bottom-[42%] h-[2px] bg-gradient-to-r from-transparent via-[#3B82F6] to-transparent rounded-full"
+              initial={{ width: 0, opacity: 0 }}
+              animate={{ width: 160, opacity: 1 }}
+              exit={{ width: 0, opacity: 0 }}
+              transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             />
           </motion.div>
         )}
       </AnimatePresence>
 
+      <CustomCursor />
+      <ScrollProgress />
+      <ParticleBackground />
       <div className="min-h-screen bg-[#F2F4F6]">
-        {/* Background Gradient Orbs */}
-        <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-          <div className="absolute top-[10%] left-[5%] w-[500px] h-[500px] bg-gradient-radial from-[#3B82F6]/5 to-transparent rounded-full blur-3xl" />
-          <div className="absolute bottom-[20%] right-[10%] w-[400px] h-[400px] bg-gradient-radial from-[#1A2B4A]/5 to-transparent rounded-full blur-3xl" />
-        </div>
+        {/* Parallax Background Orbs */}
+        <ParallaxOrbs />
 
         {/* Floating Navigation */}
         <FloatingNav activeView={activeView} />

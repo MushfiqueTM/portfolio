@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
+import { ArrowUp } from 'lucide-react';
 import { useLenis } from '@/hooks/useLenis';
 import { CustomCursor } from '@/components/ui/CustomCursor';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
@@ -18,6 +19,50 @@ import { DesignView } from '@/components/views/DesignView';
 import { Footer } from '@/components/Footer';
 
 type ViewType = 'all' | 'cad' | 'design';
+
+function BackToTop() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const viewNav = document.querySelector('.section-container.py-6');
+      if (viewNav) {
+        setVisible(window.scrollY > viewNav.getBoundingClientRect().top + window.scrollY + 100);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToViewNav = useCallback(() => {
+    const viewNav = document.querySelector('.section-container.py-6');
+    if (viewNav) {
+      const offset = 60;
+      const top = viewNav.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          transition={{ duration: 0.2 }}
+          onClick={scrollToViewNav}
+          className="fixed bottom-6 z-50 w-11 h-11 rounded-full bg-[#1A2B4A] text-white shadow-lg flex items-center justify-center hover:bg-[#2a3f66] transition-colors"
+          style={{ right: 'max(1.5rem, calc((100vw - 72rem) / 2 - 3.5rem))' }}
+          whileHover={{ y: -3 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          <ArrowUp className="w-5 h-5" />
+        </motion.button>
+      )}
+    </AnimatePresence>
+  );
+}
 
 function ParallaxOrbs() {
   const { scrollY } = useScroll();
@@ -78,7 +123,7 @@ function App() {
           >
             <div className="flex flex-col items-center gap-3">
               <div className="flex items-center gap-0">
-                {'Mushfique'.split('').map((letter, i) => (
+                {"Mushfique's".split('').map((letter, i) => (
                   <motion.span
                     key={i}
                     className="text-4xl sm:text-5xl font-bold text-[#1A2B4A] inline-block"
@@ -120,6 +165,7 @@ function App() {
       <CustomCursor />
       <ScrollProgress />
       <ParticleBackground />
+      <BackToTop />
       <div className="min-h-screen bg-[#F2F4F6]">
         {/* Parallax Background Orbs */}
         <ParallaxOrbs />

@@ -40,8 +40,9 @@
     "title": "Designed and Manufactured an Automated Trolley",
     "date": "September 2023",
     "highlights": [
-      "Designed and manufactured an automated trolley for industrial material handling using SOLIDWORKS, incorporating motorized drive and steering mechanisms.",
-      "Engineered solutions for autonomous loading/unloading, straight-line path tracking, and 90° turning within a fixed-footprint industrial environment."
+      "Collaborated with a multidisciplinary team in the successful development of a practical, automated trolley solution for industrial and manufacturing applications.",
+      "Employed SOLIDWORKS for the initial design phase of the automated trolley, ensuring precision and efficiency in the development process.",
+      "Addressed challenges in loading/unloading mechanisms, straight-line movement, and 90° turns, showcasing a practical understanding of engineering applications."
     ],
     "images": [
       "/projects/multi-disciplinary-1.jpg",
@@ -50,10 +51,12 @@
   },
   {
     "title": "Designed a Cleaning Device for the elderly people of Hong Kong",
-    "date": "November 2022",
+    "date": "April 2023",
     "highlights": [
-      "Led 7-member team in researching and developing cleaning device for elderly users, applying functional decomposition, mind mapping, and concept sketches for ideation.",
-      "Built SOLIDWORKS prototype with optimized architecture, components, and materials."
+      "Conducted research with a team of seven to develop a user-friendly cleaning device for elderly residents in Hong Kong.",
+      "Utilized design tools including functional decomposition diagrams, mind maps, and concept sketches for ideation.",
+      "Developed a SOLIDWORKS prototype incorporating product architecture, component selection, and material optimization.",
+      "Presented the accessibility, ease of use, and effectiveness of the cleaning device to an audience."
     ],
     "images": [
       "/projects/cleaning-device-1.jpg",
@@ -66,16 +69,17 @@
     "title": "Designed an Innovative Rehabilitation Glove for Tremor Patients",
     "date": "April 2023",
     "highlights": [
-      "Led a team in designing a rehab glove with slider tendon actuators and a magnetic vibration absorber for physical therapy. ",
-      "The design incorporated haptic sensors for enhanced grip strength, allowing patients to lift heavy objects based on muscle movements.",
-      "Implemented a vibration absorber with magnetic field generation for stabilizing limbs affected by tremors."
+      "Led a team in designing a rehab glove with slider tendon actuators and a magnetic vibration absorber for physical therapy.",
+      "Incorporated haptic sensors for enhanced grip strength, allowing patients to lift heavy objects based on muscle movements.",
+      "Implemented a vibration absorber with magnetic field generation for stabilizing limbs affected by tremors.",
+      "Presented innovative rehab gloves, showcasing strong communication skills and effectively highlighting product features."
     ]
   },
   {
     "title": "Designed 3D Vector Calculation Program in Python",
     "date": "November 2022",
     "highlights": [
-      "Created a Python app for 3D vector calculations with object-oriented design. ",
+      "Created a Python app for 3D vector calculations with object-oriented design.",
       "Implemented secure login requiring username-password authentication, allowing three attempts before shutdown.",
       "Designed a text menu interface for easy input of 3D vectors, enabling calculations like dot products and arctan, with a convenient application termination option."
     ]
@@ -84,9 +88,9 @@
     "title": "Redesigned a Table Fan",
     "date": "November 2022",
     "highlights": [
-      "Collaborated with a team of seven people to analyse and redesign table fan components for improved performance and manufacturability, based on analysis and market research.",
-      "Employed hand-drawn sketches and CAD models in SOLIDWORKS for detailed prototyping.",
-      "Assembled all components of the original fan in SOLIDWORKS, allowing for a comprehensive view."
+      "Collaborated with a team of seven people to analyze and redesign table fan components for improved performance and manufacturability, based on analysis and market research.",
+      "Employed hand-drawn sketches and CAD models in SOLIDWORKS for detailed prototyping and stress simulation.",
+      "Assembled all components of the original fan in SOLIDWORKS, allowing for a comprehensive view of the product."
     ],
     "images": [
       "/projects/table-fan-2.jpg",
@@ -99,18 +103,18 @@
     "title": "Instructed Children in Machine Learning and Programming with Emphasis on AI Recognition",
     "date": "July 2022",
     "highlights": [
-      " Educated high school students in South Africa on Machine Learning and Computer Programming through Zoom.",
-      " Guided students in applying AI recognition to aid the visually impaired, utilizing Scratch and Google's Teachable Machine to build an Object Recognition System."
+      "Educated high school students in South Africa on Machine Learning and Computer Programming through Zoom.",
+      "Guided students in applying AI recognition to aid the visually impaired, utilizing Scratch and Google's Teachable Machine to build an Object Recognition System."
     ]
   },
   {
     "title": "Designed a Gripper with a Water Bottle",
     "date": "April 2022",
     "highlights": [
-      "Designed a bottle with predefined volume using SOLIDWORKS.",
-      "Modified the gripper to effectively grip the bottle, utilizing mechanical design principles.",
-      "Performed renderings in different appearances and utilized image mapping and animation video",
-      "Produced detailed 2D drawings of parts with title blocks and annotations"
+      "Created a volume-defined bottle design using SOLIDWORKS.",
+      "Enhanced gripper for efficient bottle grasping, employing mechanical design principles.",
+      "Generated renderings with varied appearances and utilized image mapping and animation videos to showcase the bottle's gripping mechanism.",
+      "Produced precise 2D drawings of components with title blocks and annotations."
     ],
     "images": [
       "/projects/gripper-design-1.jpg"
@@ -120,8 +124,9 @@
     "title": "Assembled a Robot Arm",
     "date": "March 2022",
     "highlights": [
-      "Designed 6-DOF robot arm in SOLIDWORKS, engineering key components: cover, base, shoulder support, upper arm, power cable, and servo motor subassembly.",
-      "Assembled custom and pre-designed parts to complete functional robot arm."
+      "Designed and developed six degrees of Freedom Robot Arm using SOLIDWORKS.",
+      "Designed the Cover, Base, Shoulder Support, Upper Arm Model, Power Cable, and the Server Motor Subassembly.",
+      "Assembled all the created parts along with the predesigned parts to create the Robot Arm."
     ],
     "images": [
       "/projects/robot-arm-1.jpg"

@@ -82,9 +82,8 @@
       {
         "name": "",
         "highlights": [
-          "Engineered and simulated precise steering geometry using Adams for optimal handling and performance.",
-          "Designed the tie rods, steering column and steering linkages in SOLIDWORKS, ensuring manufacturability.",
-          "Formulated the manufacturing plan of the steering components."
+          "Optimised suspension geometry using Lotus Suspension Analysis to evaluate handling characteristics for the team's electric formula vehicle.",
+          "Designed tie rods, steering column, and steering linkages in SOLIDWORKS, ensuring manufacturability and assembly fit."
         ]
       }
     ],

@@ -69,7 +69,7 @@ export const Hero: React.FC = () => {
                   className="space-y-4 text-[#5F6B7A] leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-8"
                 >
                   <p>
-                    I'm a Mechanical Engineering student at PolyU with experience spanning CAD design and FEA, ROS2 robotics, AI and computer vision, and enterprise software development. I've interned at CLP Power Hong Kong where I built workflow tools used by 100+ engineers, designed crash-test equipment at a research lab in Bangkok, and worked on quadruped robot software at MangDang Technology. I'm comfortable working across hardware and software, whether that's tuning a PID controller, training an object detection model, or shipping a Power Apps solution for a live infrastructure project.
+                    I'm a Mechanical Engineering student at PolyU with experience spanning CAD design and FEA, ROS2 robotics, AI and computer vision, and enterprise software development. I've interned at CLP Power Hong Kong where I built workflow tools used by 100+ members, designed crash-test equipment at a research lab in Bangkok, and worked on quadruped robot software at MangDang Technology. I'm comfortable working across hardware and software, whether that's tuning a PID controller, training an object detection model, or shipping a Power Apps solution for a live infrastructure project.
                   </p>
                   <p>
                     Open to graduate opportunities in engineering and technology.

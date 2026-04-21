@@ -1,11 +1,15 @@
 [
   {
-    "title": "Autonomous Mobile Robot with Semantic Mapping",
-    "date": "Current - May 2026",
+    "title": "Autonomous Indoor Thermal Inspection Robot",
+    "date": "January 2026 – May 2026",
     "highlights": [
-      "Develop an autonomous indoor inspection robot using ROS2, SLAM Toolbox, and Nav2, with thermal and RGB-D cameras to detect and classify fire hazards in real time.",
-      "Engineer a multi-sensor fusion pipeline combining LiDAR SLAM, EKF odometry, and YOLOv8 object detection on a Raspberry Pi-powered mecanum drive platform.",
-      "Build a natural language AI interface running Qwen via Ollama on a laptop, injecting live robot context into the LLM to let operators query status and issue navigation commands in plain English."
+      "Built an autonomous indoor inspection robot on a ROS 2 Humble stack using SLAM Toolbox, frontier-based exploration, and LiDAR + monocular RGB + MLX90640 thermal sensors for non-contact anomaly detection (>35°C).",
+      "Developed a three-layer perception pipeline (thermal hotspot detection, YOLO11s object detection, and Google Gemini 2.5 Flash multimodal analysis) running on a Raspberry Pi 5 mecanum-drive platform, with a distributed Pi/laptop architecture via rosbridge.",
+      "Created a natural-language AI chat interface (Gemini 2.5 Flash) letting operators query robot state and issue navigation commands in plain English; built a single-file React operator dashboard with live SLAM map, camera feeds, and thermal overlay."
+    ],
+    "images": [
+      "/projects/Autonomous_Robot_1.JPG",
+      "/projects/Autonomous_Robot_2.png"
     ]
   },
   {

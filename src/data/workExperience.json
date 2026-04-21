@@ -14,7 +14,11 @@
         ]
       }
     ],
-    "images": []
+    "images": [
+      "/projects/MangDang_1.jpg",
+      "/projects/MangDang_2.jpg",
+      "/projects/MangDang_3.jpg"
+    ]
   },
   {
     "company": "CLP Power Hong Kong",
@@ -32,12 +36,9 @@
           "Utilized SharePoint Lists as a secure, centralized data repository, ensuring robust data integrity, auditability, and compliance while supporting efficient storage, retrieval, and reporting of all lessons learned records."
         ],
         "images": [
-          "/projects/project_execution_team_1.jpeg",
-          "/projects/project_execution_team_2.jpeg",
-          "/projects/project_execution_team_3.jpeg",
-          "/projects/project_execution_team_4.jpeg",
-          "/projects/project_execution_team_5.jpeg",
-          "/projects/project_execution_team_6.jpeg"
+          "/projects/project_execution_team_1.JPG",
+          "/projects/project_execution_team_2.JPG",
+          "/projects/project_execution_team_3.JPG"
         ]
       },
       {
@@ -56,9 +57,9 @@
           "Leveraged SharePoint Lists as a secure, centralized data repository, ensuring robust data integrity, auditability, and compliance while supporting efficient storage, retrieval, and reporting of all change management records."
         ],
         "images": [
-          "/projects/HKBESS_1.jpeg",
-          "/projects/HKBESS_2.jpeg",
-          "/projects/HKBESS_3.jpeg"
+          "/projects/HKBESS_1.JPG",
+          "/projects/HKBESS_2.JPG",
+          "/projects/HKBESS_3.JPG"
         ]
       },
       {
@@ -87,7 +88,11 @@
         ]
       }
     ],
-    "images": []
+    "images": [
+      "/projects/POLYU_E_FORMULA_1.PNG",
+      "/projects/POLYU_E_FORMULA_2.PNG",
+      "/projects/POLYU_E_FORMULA_3.PNG"
+    ]
   },
   {
     "company": "Thai German Graduate School of Engineering (TGGS)",

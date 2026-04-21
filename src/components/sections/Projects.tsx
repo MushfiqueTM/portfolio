@@ -16,7 +16,7 @@ interface Project {
 
 export const Projects: React.FC = () => {
   const [expandedProjects, setExpandedProjects] = useState<Record<string, boolean>>({
-    'Autonomous Mobile Robot with Semantic Mapping': true,
+    'Autonomous Indoor Thermal Inspection Robot': true,
   });
   const [lightboxImages, setLightboxImages] = useState<string[]>([]);
   const [lightboxIndex, setLightboxIndex] = useState(0);
@@ -129,7 +129,7 @@ export const Projects: React.FC = () => {
                             {hasImages && (
                               project.title === "Redesigned a Table Fan" && project.images!.length === 4 ? (
                                 <div className="space-y-3">
-                                  <div className="grid grid-cols-3 gap-3">
+                                  <div className="grid grid-cols-3 gap-3 items-center">
                                     {project.images!.slice(0, 3).map((imagePath, imgIndex) => (
                                       <motion.div
                                         key={imgIndex}
@@ -166,7 +166,7 @@ export const Projects: React.FC = () => {
                                   </motion.div>
                                 </div>
                               ) : (
-                                <div className={`grid gap-3 ${project.images!.length === 1 ? 'grid-cols-1' : 'grid-cols-2'}`}>
+                                <div className={`grid gap-3 items-center ${project.images!.length === 1 ? 'grid-cols-1' : 'grid-cols-2'}`}>
                                   {project.images!.map((imagePath, imgIndex) => (
                                     <motion.div
                                       key={imgIndex}

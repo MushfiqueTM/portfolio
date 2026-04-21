@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Briefcase, ChevronDown, MapPin, Calendar } from 'lucide-react';
 import { NeuCard } from '@/components/ui/NeuCard';
-import { OptimizedImage } from '@/components/ui/OptimizedImage';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { Lightbox } from '@/components/Lightbox';
+import { ImageCarousel } from '@/components/ui/ImageCarousel';
 import workExperience from '@/data/workExperience.json';
 
 interface Team {
@@ -158,7 +158,10 @@ export const WorkExperience: React.FC = () => {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+                        transition={{
+                          height: { duration: 1.0, ease: [0.22, 1, 0.36, 1] },
+                          opacity: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+                        }}
                         className="overflow-hidden"
                       >
                         <div className="px-5 pb-5 pt-0">
@@ -192,25 +195,12 @@ export const WorkExperience: React.FC = () => {
 
                                 {/* Team images */}
                                 {team.images && team.images.length > 0 && (
-                                  <div className="mt-3 grid grid-cols-2 sm:grid-cols-3 gap-3">
-                                    {team.images.map((imagePath, imgIndex) => (
-                                      <motion.div
-                                        key={imgIndex}
-                                        onClick={() => openLightbox(team.images!, imgIndex)}
-                                        className="relative rounded-lg overflow-hidden bg-[#EEF1F5] cursor-pointer group/img"
-                                        initial={{ opacity: 0, y: 40, scale: 0.92 }}
-                                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                                        transition={{ duration: 0.55, delay: 0.15 + imgIndex * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                                        whileHover={{ scale: 1.03, y: -4 }}
-                                        data-cursor="View"
-                                      >
-                                        <OptimizedImage
-                                          src={imagePath}
-                                          alt={`${team.name} - ${imgIndex + 1}`}
-                                          className="w-full h-auto object-contain transition-transform duration-300 group-hover/img:scale-105"
-                                        />
-                                      </motion.div>
-                                    ))}
+                                  <div className="mt-3">
+                                    <ImageCarousel
+                                      images={team.images}
+                                      alt={team.name || 'Team'}
+                                      onImageClick={(i) => openLightbox(team.images!, i)}
+                                    />
                                   </div>
                                 )}
                               </div>
@@ -218,68 +208,11 @@ export const WorkExperience: React.FC = () => {
 
                             {/* Company-level images */}
                             {work.images.length > 0 && (
-                              <div>
-                                {work.company === "Thai German Graduate School of Engineering (TGGS)" && work.images.length === 4 ? (
-                                  <div className="space-y-3">
-                                    <div className="grid grid-cols-3 gap-3">
-                                      {work.images.slice(0, 3).map((imagePath, imgIndex) => (
-                                        <motion.div
-                                          key={imgIndex}
-                                          onClick={() => openLightbox(work.images, imgIndex)}
-                                          className="relative rounded-lg overflow-hidden bg-[#EEF1F5] cursor-pointer group/img"
-                                          initial={{ opacity: 0, y: 40, scale: 0.92 }}
-                                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                                          transition={{ duration: 0.55, delay: 0.15 + imgIndex * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                                          whileHover={{ scale: 1.03, y: -4 }}
-                                          data-cursor="View"
-                                        >
-                                          <OptimizedImage
-                                            src={imagePath}
-                                            alt={`${work.company} - ${imgIndex + 1}`}
-                                            className="w-full h-auto object-contain transition-transform duration-300 group-hover/img:scale-105"
-                                          />
-                                        </motion.div>
-                                      ))}
-                                    </div>
-                                    <motion.div
-                                      onClick={() => openLightbox(work.images, 3)}
-                                      className="relative rounded-lg overflow-hidden bg-[#EEF1F5] cursor-pointer group/img"
-                                      initial={{ opacity: 0, y: 40, scale: 0.92 }}
-                                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                                      transition={{ duration: 0.6, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                                      whileHover={{ scale: 1.02, y: -4 }}
-                                      data-cursor="View"
-                                    >
-                                      <OptimizedImage
-                                        src={work.images[3]}
-                                        alt={`${work.company} - 4`}
-                                        className="w-full h-auto object-contain transition-transform duration-300 group-hover/img:scale-105"
-                                      />
-                                    </motion.div>
-                                  </div>
-                                ) : (
-                                  <div className={`grid gap-3 ${work.images.length === 1 ? 'grid-cols-1' : work.images.length === 2 ? 'grid-cols-2' : 'grid-cols-2 sm:grid-cols-3'}`}>
-                                    {work.images.map((imagePath, imgIndex) => (
-                                      <motion.div
-                                        key={imgIndex}
-                                        onClick={() => openLightbox(work.images, imgIndex)}
-                                        className="relative rounded-lg overflow-hidden bg-[#EEF1F5] cursor-pointer group/img"
-                                        initial={{ opacity: 0, y: 40, scale: 0.92 }}
-                                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                                        transition={{ duration: 0.55, delay: 0.15 + imgIndex * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                                        whileHover={{ scale: 1.03, y: -4 }}
-                                        data-cursor="View"
-                                      >
-                                        <OptimizedImage
-                                          src={imagePath}
-                                          alt={`${work.company} - ${imgIndex + 1}`}
-                                          className="w-full h-auto object-contain transition-transform duration-300 group-hover/img:scale-105"
-                                        />
-                                      </motion.div>
-                                    ))}
-                                  </div>
-                                )}
-                              </div>
+                              <ImageCarousel
+                                images={work.images}
+                                alt={work.company}
+                                onImageClick={(i) => openLightbox(work.images, i)}
+                              />
                             )}
                           </div>
                         </div>

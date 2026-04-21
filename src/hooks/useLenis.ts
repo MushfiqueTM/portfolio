@@ -1,6 +1,12 @@
 import { useEffect, useRef } from 'react';
 import Lenis from 'lenis';
 
+declare global {
+  interface Window {
+    __lenis?: Lenis;
+  }
+}
+
 export function useLenis() {
   const lenisRef = useRef<Lenis | null>(null);
 
@@ -15,6 +21,7 @@ export function useLenis() {
     });
 
     lenisRef.current = lenis;
+    window.__lenis = lenis;
 
     function raf(time: number) {
       lenis.raf(time);
@@ -24,6 +31,7 @@ export function useLenis() {
     requestAnimationFrame(raf);
 
     return () => {
+      window.__lenis = undefined;
       lenis.destroy();
     };
   }, []);

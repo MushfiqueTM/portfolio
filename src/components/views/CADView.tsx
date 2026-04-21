@@ -41,7 +41,7 @@ export const CADView: React.FC = () => {
     if (images.length === 4 && (title.includes('TGGS') || title.includes('Table Fan'))) {
       return (
         <div className="space-y-3">
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-3 gap-3 items-center">
             {images.slice(0, 3).map((imagePath, imgIndex) => (
               <motion.div
                 key={imgIndex}
@@ -76,7 +76,7 @@ export const CADView: React.FC = () => {
 
     // Default grid
     return (
-      <div className={`grid gap-3 ${images.length === 1 ? 'grid-cols-1' : 'grid-cols-2'}`}>
+      <div className={`grid gap-3 items-center ${images.length === 1 ? 'grid-cols-1' : 'grid-cols-2'}`}>
         {images.map((imagePath, imgIndex) => (
           <motion.div
             key={imgIndex}

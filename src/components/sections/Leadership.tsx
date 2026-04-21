@@ -185,10 +185,10 @@ export const Leadership: React.FC = () => {
                                     key={imgIndex}
                                     onClick={() => openLightbox(item.images!, imgIndex)}
                                     className="relative rounded-lg overflow-hidden bg-[#EEF1F5] cursor-pointer group/img"
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    transition={{ duration: 0.3, delay: imgIndex * 0.08 }}
-                                    whileHover={{ scale: 1.03 }}
+                                    initial={{ opacity: 0, y: 40, scale: 0.92 }}
+                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                    transition={{ duration: 0.55, delay: 0.15 + imgIndex * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                                    whileHover={{ scale: 1.03, y: -4 }}
                                     data-cursor="View"
                                   >
                                     <img

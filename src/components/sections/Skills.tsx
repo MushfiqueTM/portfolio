@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Code2, Wrench, Palette, Monitor, Cpu, Bot, AppWindow } from 'lucide-react';
+import { Code2, Wrench, Palette, Monitor, Cpu, Bot, AppWindow, Box, Sparkles } from 'lucide-react';
 import { NeuCard } from '@/components/ui/NeuCard';
 import { NeuTag } from '@/components/ui/NeuTag';
 import { ScrollReveal } from '@/components/ScrollReveal';
@@ -15,13 +15,7 @@ interface SkillCategory {
 
 const skillCategories: SkillCategory[] = [
   {
-    icon: <Code2 className="w-5 h-5" />,
-    title: 'Programming',
-    skills: ['Python', 'C++', 'MATLAB', 'SQL', 'JavaScript', 'TypeScript', 'HTML', 'CSS'],
-    colSpan: 'sm:col-span-2',
-  },
-  {
-    icon: <Monitor className="w-5 h-5" />,
+    icon: <Box className="w-5 h-5" />,
     title: 'CAD & Design',
     skills: ['SOLIDWORKS', 'AutoCAD'],
   },
@@ -32,9 +26,15 @@ const skillCategories: SkillCategory[] = [
     colSpan: 'sm:col-span-2',
   },
   {
-    icon: <Cpu className="w-5 h-5" />,
+    icon: <Sparkles className="w-5 h-5" />,
     title: 'AI/ML & Computer Vision',
     skills: ['OpenCV', 'PyTorch', 'Ultralytics YOLO', 'Roboflow', 'Object Detection', 'Image Classification'],
+  },
+  {
+    icon: <Code2 className="w-5 h-5" />,
+    title: 'Programming',
+    skills: ['Python', 'C++', 'MATLAB', 'SQL', 'JavaScript', 'TypeScript', 'HTML', 'CSS'],
+    colSpan: 'sm:col-span-2',
   },
   {
     icon: <Cpu className="w-5 h-5" />,
@@ -43,7 +43,7 @@ const skillCategories: SkillCategory[] = [
   },
   {
     icon: <AppWindow className="w-5 h-5" />,
-    title: 'Microsoft Suite',
+    title: 'Microsoft Power Platform',
     skills: ['Power Apps', 'Power Automate', 'Power BI', 'Excel', 'PowerPoint'],
   },
 ];

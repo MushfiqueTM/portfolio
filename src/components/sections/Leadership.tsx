@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Users, ChevronDown, MapPin, Calendar, ExternalLink } from 'lucide-react';
 import { NeuCard } from '@/components/ui/NeuCard';
@@ -34,6 +34,16 @@ export const Leadership: React.FC = () => {
   const [lightboxImages, setLightboxImages] = useState<string[]>([]);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+
+  // Preload all leadership images in the background so first-tab-open doesn't lag
+  useEffect(() => {
+    const allImages = (leadership as LeadershipItem[]).flatMap((i) => i.images || []);
+    allImages.forEach((src) => {
+      const img = new Image();
+      img.decoding = 'async';
+      img.src = src;
+    });
+  }, []);
 
   const toggleItem = (org: string) => {
     setExpandedItems(prev => ({ ...prev, [org]: !prev[org] }));

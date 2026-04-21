@@ -139,61 +139,52 @@ export const Projects: React.FC = () => {
                             {hasImages && (
                               project.title === "Redesigned a Table Fan" && project.images!.length === 4 ? (
                                 <div className="space-y-3">
-                                  <div className="grid grid-cols-3 gap-3 items-center">
+                                  <div className="grid grid-cols-3 gap-3">
                                     {project.images!.slice(0, 3).map((imagePath, imgIndex) => (
-                                      <motion.div
+                                      <div
                                         key={imgIndex}
                                         onClick={() => openLightbox(project.images!, imgIndex)}
-                                        className="relative rounded-lg overflow-hidden bg-[#EEF1F5] cursor-pointer group/img"
-                                        initial={{ opacity: 0, y: 40, scale: 0.92 }}
-                                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                                        transition={{ duration: 0.55, delay: 0.15 + imgIndex * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                                        whileHover={{ scale: 1.03, y: -4 }}
+                                        className="relative h-[210px] sm:h-[270px] md:h-[320px] cursor-pointer group/img flex items-center justify-center"
                                         data-cursor="View"
                                       >
                                         <OptimizedImage
                                           src={imagePath}
                                           alt={`${project.title} - ${imgIndex + 1}`}
-                                          className="w-full h-auto object-contain transition-transform duration-300 group-hover/img:scale-105"
+                                          containerClassName="w-full h-full flex items-center justify-center"
+                                          className="max-w-full max-h-full object-contain rounded-2xl transition-transform duration-300 group-hover/img:scale-105"
                                         />
-                                      </motion.div>
+                                      </div>
                                     ))}
                                   </div>
-                                  <motion.div
+                                  <div
                                     onClick={() => openLightbox(project.images!, 3)}
-                                    className="relative rounded-lg overflow-hidden bg-[#EEF1F5] cursor-pointer group/img"
-                                    initial={{ opacity: 0, y: 40, scale: 0.92 }}
-                                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                                    transition={{ duration: 0.6, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                                    whileHover={{ scale: 1.02, y: -4 }}
+                                    className="relative h-[380px] sm:h-[480px] md:h-[560px] cursor-pointer group/img flex items-center justify-center"
                                     data-cursor="View"
                                   >
                                     <OptimizedImage
                                       src={project.images![3]}
                                       alt={`${project.title} - 4`}
-                                      className="w-full h-auto object-contain transition-transform duration-300 group-hover/img:scale-105"
+                                      containerClassName="w-full h-full flex items-center justify-center"
+                                      className="max-w-full max-h-full object-contain rounded-2xl transition-transform duration-300 group-hover/img:scale-105"
                                     />
-                                  </motion.div>
+                                  </div>
                                 </div>
                               ) : (
-                                <div className={`grid gap-3 items-center ${project.images!.length === 1 ? 'grid-cols-1' : 'grid-cols-2'}`}>
+                                <div className={`grid gap-3 ${project.images!.length === 1 ? 'grid-cols-1' : 'grid-cols-2'}`}>
                                   {project.images!.map((imagePath, imgIndex) => (
-                                    <motion.div
+                                    <div
                                       key={imgIndex}
                                       onClick={() => openLightbox(project.images!, imgIndex)}
-                                      className="relative rounded-lg overflow-hidden bg-[#EEF1F5] cursor-pointer group/img"
-                                      initial={{ opacity: 0, scale: 0.9 }}
-                                      animate={{ opacity: 1, scale: 1 }}
-                                      transition={{ duration: 0.3, delay: imgIndex * 0.08 }}
-                                      whileHover={{ scale: 1.03 }}
+                                      className="relative h-[320px] sm:h-[400px] md:h-[480px] cursor-pointer group/img flex items-center justify-center"
                                       data-cursor="View"
                                     >
                                       <OptimizedImage
                                         src={imagePath}
                                         alt={`${project.title} - ${imgIndex + 1}`}
-                                        className="w-full h-auto object-contain transition-transform duration-300 group-hover/img:scale-105"
+                                        containerClassName="w-full h-full flex items-center justify-center"
+                                        className="max-w-full max-h-full object-contain rounded-2xl transition-transform duration-300 group-hover/img:scale-105"
                                       />
-                                    </motion.div>
+                                    </div>
                                   ))}
                                 </div>
                               )

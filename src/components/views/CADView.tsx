@@ -47,7 +47,11 @@ export const CADView: React.FC = () => {
                 key={imgIndex}
                 onClick={() => openLightbox(images, imgIndex)}
                 className="relative rounded-lg overflow-hidden bg-[#EEF1F5] cursor-pointer group/img"
-                whileHover={{ scale: 1.03 }}
+                initial={{ opacity: 0, y: 40, scale: 0.92 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 0.55, delay: 0.15 + imgIndex * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ scale: 1.03, y: -4 }}
                 data-cursor="View"
               >
                 <OptimizedImage
@@ -61,7 +65,11 @@ export const CADView: React.FC = () => {
           <motion.div
             onClick={() => openLightbox(images, 3)}
             className="relative rounded-lg overflow-hidden bg-[#EEF1F5] cursor-pointer group/img"
-            whileHover={{ scale: 1.02 }}
+            initial={{ opacity: 0, y: 40, scale: 0.92 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.6, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ scale: 1.02, y: -4 }}
             data-cursor="View"
           >
             <OptimizedImage
@@ -82,7 +90,11 @@ export const CADView: React.FC = () => {
             key={imgIndex}
             onClick={() => openLightbox(images, imgIndex)}
             className="relative rounded-lg overflow-hidden bg-[#EEF1F5] cursor-pointer group/img"
-            whileHover={{ scale: 1.03 }}
+            initial={{ opacity: 0, y: 40, scale: 0.92 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.55, delay: 0.15 + imgIndex * 0.12, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ scale: 1.03, y: -4 }}
             data-cursor="View"
           >
             <OptimizedImage

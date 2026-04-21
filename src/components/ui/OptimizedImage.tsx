@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
@@ -19,17 +19,34 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   onClick,
   disableHover = false,
 }) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [loaded, setLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
 
-  const handleLoad = () => {
-    setIsLoading(false);
-  };
+  useEffect(() => {
+    let cancelled = false;
+    setLoaded(false);
+    setHasError(false);
 
-  const handleError = () => {
-    setIsLoading(false);
-    setHasError(true);
-  };
+    const img = new Image();
+    img.src = src;
+
+    const finish = () => {
+      if (!cancelled) setLoaded(true);
+    };
+
+    if (img.decode) {
+      img.decode().then(finish).catch(finish);
+    } else {
+      img.onload = finish;
+      img.onerror = () => {
+        if (!cancelled) setHasError(true);
+      };
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, [src]);
 
   return (
     <motion.div
@@ -42,12 +59,6 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
       whileHover={!disableHover && onClick ? { scale: 1.02 } : undefined}
       whileTap={onClick ? { scale: 0.98 } : undefined}
     >
-      {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-[#F2F4F6] z-10">
-          <div className="w-8 h-8 border-2 border-[#E2E8F0] border-t-[#1A2B4A] rounded-full animate-spin" />
-        </div>
-      )}
-      
       {hasError ? (
         <div className="absolute inset-0 flex items-center justify-center bg-[#F2F4F6] text-[#8B95A5] z-10">
           <div className="text-center">
@@ -58,20 +69,18 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
           </div>
         </div>
       ) : (
-        <motion.img
+        <img
           src={src}
           alt={alt}
+          loading="eager"
+          decoding="async"
+          onError={() => setHasError(true)}
           className={cn(
-            'w-full h-full object-cover transition-all duration-300',
-            isLoading ? 'opacity-0' : 'opacity-100',
+            'transition-opacity duration-500 ease-out',
+            loaded ? 'opacity-100' : 'opacity-0',
             !disableHover && onClick && 'group-hover:scale-105',
             className
           )}
-          onLoad={handleLoad}
-          onError={handleError}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isLoading ? 0 : 1 }}
-          transition={{ duration: 0.3 }}
         />
       )}
     </motion.div>

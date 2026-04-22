@@ -42,11 +42,11 @@ export const ViewNavigator: React.FC<ViewNavigatorProps> = ({
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="relative px-4 sm:px-8 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-medium min-h-[40px] sm:min-h-[44px] transition-colors duration-200"
               style={{
-                color: activeView === view.id ? '#fff' : '#5F6B7A',
+                color: activeView === view.id ? '#fff' : '#1A2B4A',
                 boxShadow: activeView !== view.id
-                  ? '4px 4px 8px rgba(163,177,198,0.5), -4px -4px 8px rgba(255,255,255,0.9)'
+                  ? '6px 6px 14px rgba(163,177,198,0.55), -6px -6px 14px rgba(255,255,255,1), inset 0 0 0 1px rgba(26,43,74,0.06)'
                   : 'none',
-                backgroundColor: activeView !== view.id ? '#F2F4F6' : 'transparent',
+                backgroundColor: activeView !== view.id ? '#FFFFFF' : 'transparent',
               }}
               whileHover={activeView !== view.id ? { y: -2 } : undefined}
               whileTap={{ scale: 0.98 }}

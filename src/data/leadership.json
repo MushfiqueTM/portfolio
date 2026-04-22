@@ -9,7 +9,9 @@
     ],
     "images": [
       "/projects/Debate_1.jpeg",
-      "/projects/Debate_2.jpeg"
+      "/projects/Debate_2.jpeg",
+      "/projects/Debate_3.png",
+      "/projects/Debate_4.png"
     ]
   },
   {
@@ -24,16 +26,23 @@
     "reels": [
       {
         "title": "ALOHA WELCOMING WAVES",
-        "url": "https://www.instagram.com/reel/CygK3AhhwxO/?igsh=NGt3MjQ0OTlqNnE2"
+        "url": "https://www.instagram.com/reel/CygK3AhhwxO/?igsh=NGt3MjQ0OTlqNnE2",
+        "thumbnail": "/projects/ISA_Reel_1.PNG"
       },
       {
         "title": "Halloween Horizons: A Mexican Rooftop Fiesta",
-        "url": "https://www.instagram.com/reel/CzWBMwFhqm1/?igsh=MTE2NTJleWFjZnc0MA=="
+        "url": "https://www.instagram.com/reel/CzWBMwFhqm1/?igsh=MTE2NTJleWFjZnc0MA==",
+        "thumbnail": "/projects/ISA_Reel_2.PNG"
       },
       {
         "title": "International Fairytale Night",
-        "url": "https://www.instagram.com/reel/C688aeTBGxz/?igsh=NnB0cmVoNTJibWt6"
+        "url": "https://www.instagram.com/reel/C688aeTBGxz/?igsh=NnB0cmVoNTJibWt6",
+        "thumbnail": "/projects/ISA_Reel_3.PNG"
       }
+    ],
+    "images": [
+      "/projects/ISA_1.png",
+      "/projects/ISA_2.png"
     ]
   },
   {

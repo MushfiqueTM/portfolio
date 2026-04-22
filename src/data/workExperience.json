@@ -150,6 +150,10 @@
         ]
       }
     ],
-    "images": []
+    "images": [
+      "/projects/ESG_1.jpg",
+      "/projects/ESG_2.png",
+      "/projects/ESG_3.png"
+    ]
   }
 ]

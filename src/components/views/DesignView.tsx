@@ -196,10 +196,15 @@ export const DesignView: React.FC = () => {
                         <div className="space-y-3">
                           <div className="grid grid-cols-3 gap-3">
                             {item.images.slice(0, 3).map((imagePath, imgIndex) => (
-                              <div
+                              <motion.div
                                 key={imgIndex}
                                 onClick={() => openLightbox(item.images!, imgIndex)}
                                 className="relative h-[210px] sm:h-[270px] md:h-[320px] cursor-pointer group/img flex items-center justify-center"
+                                initial={{ opacity: 0, y: 40, scale: 0.92 }}
+                                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                                viewport={{ once: true, margin: '-50px' }}
+                                transition={{ duration: 0.55, delay: 0.15 + imgIndex * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                                whileHover={{ scale: 1.03, y: -4 }}
                                 data-cursor="View"
                               >
                                 <img
@@ -209,12 +214,17 @@ export const DesignView: React.FC = () => {
                                   decoding="async"
                                   className="max-w-full max-h-full object-contain rounded-2xl transition-transform duration-300 group-hover/img:scale-105"
                                 />
-                              </div>
+                              </motion.div>
                             ))}
                           </div>
-                          <div
+                          <motion.div
                             onClick={() => openLightbox(item.images!, 3)}
                             className="relative h-[380px] sm:h-[480px] md:h-[560px] cursor-pointer group/img flex items-center justify-center"
+                            initial={{ opacity: 0, y: 40, scale: 0.92 }}
+                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                            viewport={{ once: true, margin: '-50px' }}
+                            transition={{ duration: 0.6, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                            whileHover={{ scale: 1.02, y: -4 }}
                             data-cursor="View"
                           >
                             <img
@@ -224,15 +234,20 @@ export const DesignView: React.FC = () => {
                               decoding="async"
                               className="max-w-full max-h-full object-contain rounded-2xl transition-transform duration-300 group-hover/img:scale-105"
                             />
-                          </div>
+                          </motion.div>
                         </div>
                       ) : (
                         <div className={`grid gap-3 ${item.images.length === 1 ? 'grid-cols-1' : 'grid-cols-2'}`}>
                           {item.images.map((imagePath, imgIndex) => (
-                            <div
+                            <motion.div
                               key={imgIndex}
                               onClick={() => openLightbox(item.images!, imgIndex)}
                               className="relative h-[320px] sm:h-[400px] md:h-[480px] cursor-pointer group/img flex items-center justify-center"
+                              initial={{ opacity: 0, y: 40, scale: 0.92 }}
+                              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                              viewport={{ once: true, margin: '-50px' }}
+                              transition={{ duration: 0.55, delay: 0.15 + imgIndex * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                              whileHover={{ scale: 1.03, y: -4 }}
                               data-cursor="View"
                             >
                               <img
@@ -242,7 +257,7 @@ export const DesignView: React.FC = () => {
                                 decoding="async"
                                 className="max-w-full max-h-full object-contain rounded-2xl transition-transform duration-300 group-hover/img:scale-105"
                               />
-                            </div>
+                            </motion.div>
                           ))}
                         </div>
                       )

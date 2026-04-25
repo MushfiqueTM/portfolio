@@ -4,12 +4,11 @@ import { ArrowUp } from 'lucide-react';
 import { useLenis } from '@/hooks/useLenis';
 import { CustomCursor } from '@/components/ui/CustomCursor';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
-import { ParticleBackground } from '@/components/ui/ParticleBackground';
+import { EngineeredGridBackground as ParticleBackground } from '@/components/ui/EngineeredGridBackground';
 import { FloatingNav } from '@/components/FloatingNav';
 import { Hero } from '@/components/sections/Hero';
 import { Education } from '@/components/sections/Education';
 import { Skills } from '@/components/sections/Skills';
-import { ViewNavigator } from '@/components/ViewNavigator';
 import { WorkExperience } from '@/components/sections/WorkExperience';
 import { Projects } from '@/components/sections/Projects';
 import { Certifications } from '@/components/sections/Certifications';
@@ -25,22 +24,15 @@ function BackToTop() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const viewNav = document.querySelector('.section-container.py-6');
-      if (viewNav) {
-        setVisible(window.scrollY > viewNav.getBoundingClientRect().top + window.scrollY + 100);
-      }
+      // Show after the user scrolls past the hero
+      setVisible(window.scrollY > window.innerHeight * 0.8);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToViewNav = useCallback(() => {
-    const viewNav = document.querySelector('.section-container.py-6');
-    if (viewNav) {
-      const offset = 60;
-      const top = viewNav.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
   return (
@@ -51,7 +43,7 @@ function BackToTop() {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.2 }}
-          onClick={scrollToViewNav}
+          onClick={scrollToTop}
           className="fixed bottom-6 z-50 w-11 h-11 rounded-full bg-[#1A2B4A] text-white shadow-lg flex items-center justify-center hover:bg-[#2a3f66] transition-colors"
           style={{ right: 'max(1.5rem, calc((100vw - 72rem) / 2 - 3.5rem))' }}
           whileHover={{ y: -3 }}
@@ -98,70 +90,21 @@ function ParallaxOrbs() {
 
 function App() {
   const [activeView, setActiveView] = useState<ViewType>('all');
-  const [isLoading, setIsLoading] = useState(true);
 
   // Initialize Lenis smooth scroll
   useLenis();
 
-  // Loading screen
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1200);
-    return () => clearTimeout(timer);
+  // Switch view AND scroll to the cards section so the user sees the new selection state
+  const handleViewChange = useCallback((view: ViewType) => {
+    setActiveView(view);
+    setTimeout(() => {
+      const target = document.getElementById('view-cards');
+      target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 80);
   }, []);
 
   return (
     <>
-      <AnimatePresence>
-        {isLoading && (
-          <motion.div
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-[200] bg-[#F2F4F6] flex items-center justify-center"
-          >
-            <div className="flex flex-col items-center gap-3">
-              <div className="flex items-center gap-0">
-                {"Mushfique's".split('').map((letter, i) => (
-                  <motion.span
-                    key={i}
-                    className="text-4xl sm:text-5xl font-bold text-[#1A2B4A] inline-block"
-                    initial={{ y: 40, opacity: 0, rotateX: -90 }}
-                    animate={{ y: 0, opacity: 1, rotateX: 0 }}
-                    exit={{ y: -30, opacity: 0 }}
-                    transition={{
-                      duration: 0.5,
-                      delay: i * 0.06,
-                      ease: [0.16, 1, 0.3, 1],
-                    }}
-                  >
-                    {letter}
-                  </motion.span>
-                ))}
-              </div>
-              <motion.span
-                className="text-sm sm:text-base font-light tracking-[0.3em] uppercase text-[#5F6B7A]"
-                initial={{ opacity: 0, letterSpacing: '0.1em' }}
-                animate={{ opacity: 1, letterSpacing: '0.3em' }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              >
-                Portfolio
-              </motion.span>
-            </div>
-            {/* Animated underline */}
-            <motion.div
-              className="absolute bottom-[42%] h-[2px] bg-gradient-to-r from-transparent via-[#3B82F6] to-transparent rounded-full"
-              initial={{ width: 0, opacity: 0 }}
-              animate={{ width: 160, opacity: 1 }}
-              exit={{ width: 0, opacity: 0 }}
-              transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       <CustomCursor />
       <ScrollProgress />
       <ParticleBackground />
@@ -171,21 +114,12 @@ function App() {
         <ParallaxOrbs />
 
         {/* Floating Navigation */}
-        <FloatingNav activeView={activeView} />
+        <FloatingNav activeView={activeView} onViewChange={handleViewChange} />
 
         {/* Main Content */}
         <main className="relative z-10">
           {/* Hero Section */}
-          <Hero />
-
-          {/* Education Section */}
-          <Education />
-
-          {/* Skills Section */}
-          <Skills />
-
-          {/* View Navigator */}
-          <ViewNavigator activeView={activeView} onViewChange={setActiveView} />
+          <Hero activeView={activeView} onViewChange={handleViewChange} />
 
           {/* Dynamic Content Based on Active View */}
           <AnimatePresence mode="wait">
@@ -228,6 +162,12 @@ function App() {
               </motion.div>
             )}
           </AnimatePresence>
+
+          {/* Education Section */}
+          <Education />
+
+          {/* Skills Section */}
+          <Skills />
 
           {/* Footer */}
           <Footer />

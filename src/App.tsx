@@ -2,12 +2,12 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
 import { useLenis } from '@/hooks/useLenis';
+import { useImagePreloader } from '@/hooks/useImagePreloader';
 import { CustomCursor } from '@/components/ui/CustomCursor';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
 import { EngineeredGridBackground as ParticleBackground } from '@/components/ui/EngineeredGridBackground';
 import { FloatingNav } from '@/components/FloatingNav';
 import { Hero } from '@/components/sections/Hero';
-import { Education } from '@/components/sections/Education';
 import { Skills } from '@/components/sections/Skills';
 import { WorkExperience } from '@/components/sections/WorkExperience';
 import { Projects } from '@/components/sections/Projects';
@@ -32,7 +32,17 @@ function BackToTop() {
   }, []);
 
   const scrollToTop = useCallback(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const target = document.getElementById('view-cards');
+    if (!target) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    const lenis = window.__lenis;
+    if (lenis) {
+      lenis.scrollTo(target, { offset: -96 });
+    } else {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }, []);
 
   return (
@@ -94,12 +104,24 @@ function App() {
   // Initialize Lenis smooth scroll
   useLenis();
 
-  // Switch view AND scroll to the cards section so the user sees the new selection state
+  // Preload every project image up-front so section animations don't hitch on first reveal
+  useImagePreloader();
+
+  // Switch view AND scroll to the cards section so the user sees the new selection state.
+  // Use Lenis (when available) so the smooth scroll re-evaluates the target each frame —
+  // the AnimatePresence exit/enter animation changes document height mid-scroll and
+  // a native scrollIntoView would otherwise stop short at the now-stale Y.
   const handleViewChange = useCallback((view: ViewType) => {
     setActiveView(view);
     setTimeout(() => {
       const target = document.getElementById('view-cards');
-      target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (!target) return;
+      const lenis = window.__lenis;
+      if (lenis) {
+        lenis.scrollTo(target, { duration: 1.2, offset: -96 });
+      } else {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }, 80);
   }, []);
 
@@ -133,7 +155,6 @@ function App() {
               >
                 <WorkExperience />
                 <Projects />
-                <Certifications />
                 <Leadership />
               </motion.div>
             )}
@@ -163,8 +184,8 @@ function App() {
             )}
           </AnimatePresence>
 
-          {/* Education Section */}
-          <Education />
+          {/* Certifications — visible across all views, sits below Leadership in the All view */}
+          <Certifications />
 
           {/* Skills Section */}
           <Skills />

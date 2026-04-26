@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FolderOpen, ChevronDown, Calendar, ImageIcon } from 'lucide-react';
 import { NeuCard } from '@/components/ui/NeuCard';
@@ -21,16 +21,6 @@ export const Projects: React.FC = () => {
   const [lightboxImages, setLightboxImages] = useState<string[]>([]);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-
-  // Preload all project images in the background so first-tab-open doesn't block on network + decode
-  useEffect(() => {
-    const allImages = (allProjects as Project[]).flatMap((p) => p.images || []);
-    allImages.forEach((src) => {
-      const img = new Image();
-      img.decoding = 'async';
-      img.src = src;
-    });
-  }, []);
 
   const toggleProject = (title: string) => {
     setExpandedProjects(prev => ({ ...prev, [title]: !prev[title] }));

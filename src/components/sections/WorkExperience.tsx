@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Briefcase, ChevronDown, MapPin, Calendar } from 'lucide-react';
 import { NeuCard } from '@/components/ui/NeuCard';
@@ -40,19 +40,6 @@ export const WorkExperience: React.FC = () => {
   const [lightboxImages, setLightboxImages] = useState<string[]>([]);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-
-  // Preload all work experience images in the background so first-tab-open doesn't lag
-  useEffect(() => {
-    const allImages = (workExperience as WorkItem[]).flatMap((w) => [
-      ...w.images,
-      ...w.teams.flatMap((t) => t.images || []),
-    ]);
-    allImages.forEach((src) => {
-      const img = new Image();
-      img.decoding = 'async';
-      img.src = src;
-    });
-  }, []);
 
   const toggleCompany = (company: string) => {
     setExpandedCompanies(prev => ({ ...prev, [company]: !prev[company] }));

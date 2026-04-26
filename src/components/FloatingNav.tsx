@@ -12,10 +12,9 @@ type ViewType = 'all' | 'cad' | 'design';
 const navItems: NavItem[] = [
   { id: 'hero', label: 'Home', shortLabel: 'Home' },
   { id: 'experience', label: 'Experience', shortLabel: 'Work' },
-  { id: 'projects', label: 'Projects', shortLabel: 'Projects' },
-  { id: 'certifications', label: 'Certs', shortLabel: 'Certs' },
+  { id: 'projects', label: 'Projects', shortLabel: 'Proj' },
   { id: 'leadership', label: 'Leadership', shortLabel: 'Lead' },
-  { id: 'education', label: 'Education', shortLabel: 'Edu' },
+  { id: 'certifications', label: 'Certs', shortLabel: 'Certs' },
   { id: 'skills', label: 'Skills', shortLabel: 'Skills' },
 ];
 
@@ -80,8 +79,8 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ activeView, onViewChan
 
   const getVisibleNavItems = () => {
     const home = { id: 'hero', label: 'Home', shortLabel: 'Home' };
+    const certifications = { id: 'certifications', label: 'Certs', shortLabel: 'Certs' };
     const skills = { id: 'skills', label: 'Skills', shortLabel: 'Skills' };
-    const education = { id: 'education', label: 'Education', shortLabel: 'Edu' };
 
     if (activeView === 'all') {
       return navItems;
@@ -90,14 +89,14 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ activeView, onViewChan
         home,
         { id: 'solidworks', label: 'SOLIDWORKS', shortLabel: 'SW' },
         { id: 'autocad', label: 'AutoCAD', shortLabel: 'CAD' },
-        education,
+        certifications,
         skills,
       ];
     } else if (activeView === 'design') {
       return [
         home,
         { id: 'design', label: 'Graphic Designs', shortLabel: 'Design' },
-        education,
+        certifications,
         skills,
       ];
     }
@@ -114,15 +113,15 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ activeView, onViewChan
           transition={{ duration: 0.3 }}
           className="fixed top-4 left-0 right-0 z-50 flex justify-center px-2 sm:px-4"
         >
-          <nav className="floating-nav px-2 sm:px-3 py-1.5 flex items-center gap-1 sm:gap-2 overflow-x-auto scrollbar-hide max-w-[95vw] sm:max-w-[92vw]">
+          <nav className="floating-nav px-2 sm:px-3 py-1.5 flex flex-wrap sm:flex-nowrap justify-center items-center gap-y-1.5 gap-x-1 sm:gap-x-2 max-w-[95vw] sm:max-w-[92vw]">
             {/* Section links */}
             <LayoutGroup id="section-nav">
-              <div className="flex items-center gap-1">
+              <div className="flex flex-wrap justify-center items-center gap-y-1 gap-x-0.5 sm:gap-x-1">
                 {getVisibleNavItems().map((item) => (
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className="relative px-2 sm:px-3 py-1 sm:py-1.5 text-[9px] sm:text-xs font-medium rounded-full whitespace-nowrap flex-shrink-0 transition-colors duration-200"
+                    className="relative px-1.5 sm:px-3 py-1 sm:py-1.5 text-[10px] sm:text-xs font-medium rounded-full whitespace-nowrap flex-shrink-0 transition-colors duration-200"
                     style={{ color: activeSection === item.id ? '#fff' : '#5F6B7A' }}
                   >
                     {activeSection === item.id && (
@@ -140,8 +139,8 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ activeView, onViewChan
               </div>
             </LayoutGroup>
 
-            {/* Divider */}
-            <div className="w-px h-5 sm:h-6 bg-[#1A2B4A]/12 flex-shrink-0" />
+            {/* Divider — hidden on mobile where the toggle wraps to its own row */}
+            <div className="hidden sm:block w-px h-6 bg-[#1A2B4A]/12 flex-shrink-0" />
 
             {/* View toggle */}
             <LayoutGroup id="view-toggle">
@@ -150,7 +149,7 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ activeView, onViewChan
                   <button
                     key={t.id}
                     onClick={() => onViewChange(t.id)}
-                    className="relative px-2 sm:px-2.5 py-0.5 sm:py-1 text-[9px] sm:text-[11px] font-semibold rounded-full whitespace-nowrap transition-colors duration-200"
+                    className="relative px-2 sm:px-2.5 py-0.5 sm:py-1 text-[10px] sm:text-[11px] font-semibold rounded-full whitespace-nowrap transition-colors duration-200"
                     style={{ color: activeView === t.id ? '#fff' : '#5F6B7A' }}
                     aria-pressed={activeView === t.id}
                   >

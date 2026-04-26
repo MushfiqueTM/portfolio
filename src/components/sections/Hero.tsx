@@ -217,7 +217,7 @@ export const Hero: React.FC<HeroProps> = ({ activeView, onViewChange }) => {
                 }`}
               >
                 <div
-                  className={`relative h-[130px] transition-colors duration-300 ${
+                  className={`relative w-full aspect-[400/235] transition-colors duration-300 ${
                     isActive ? 'bg-[#142139] border-b border-white/10' : 'bg-[#F8FAFC] border-b border-[#1A2B4A]/5'
                   }`}
                 >

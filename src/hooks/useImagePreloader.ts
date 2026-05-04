@@ -34,22 +34,20 @@ function collectAllImages(): string[] {
 
 /**
  * Kick off background image fetch+decode for every project image at app start.
- * Avoids the animation-time hitch when a section first mounts.
+ *
+ * Fires synchronously on mount (no requestIdleCallback) so that on production —
+ * where each image is a real network request to the CDN — the downloads start as
+ * early as possible, ideally before the user has time to open a section. Idle
+ * callbacks were getting deferred behind hydration / Framer Motion / Lenis init
+ * for 1–3s, leaving sections to "snap in" once the user clicked them.
  */
 export function useImagePreloader() {
   useEffect(() => {
     const sources = Array.from(new Set(collectAllImages()));
-    const start = () => {
-      sources.forEach((src) => {
-        const img = new Image();
-        img.decoding = 'async';
-        img.src = src;
-      });
-    };
-    if ('requestIdleCallback' in window) {
-      (window as Window & typeof globalThis).requestIdleCallback(start, { timeout: 1500 });
-    } else {
-      setTimeout(start, 0);
-    }
+    sources.forEach((src) => {
+      const img = new Image();
+      img.decoding = 'async';
+      img.src = src;
+    });
   }, []);
 }

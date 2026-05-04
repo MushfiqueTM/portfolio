@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
@@ -16,14 +16,13 @@ interface OptimizedImageProps {
 /**
  * Thin wrapper around <img> with click + error fallback.
  *
- * The previous version constructed a separate Image() and called .decode() on every mount,
- * holding the visible <img> at opacity 0 until that decode resolved. Combined with the
- * global useImagePreloader (which already pulls every image into the browser cache via
- * requestIdleCallback) this caused a redundant re-decode and a 500ms fade — the "snap"
- * users saw was the empty container suddenly filling once the fade completed.
- *
- * Now the browser handles decoding natively: cached images render immediately, uncached
- * ones stream in progressively without a fade.
+ * Conditional fade-in:
+ *   - If the image is already in the browser cache at mount (preloader has finished
+ *     fetching, or the user is revisiting), it's revealed synchronously before the
+ *     first paint via useLayoutEffect — no fade, no flash.
+ *   - If it's still mid-download (common on first production load before the
+ *     CDN-served bytes arrive), it stays at opacity 0 and fades in once the native
+ *     onLoad fires, so the user never sees an empty container suddenly fill with bytes.
  */
 export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   src,
@@ -35,7 +34,16 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   width,
   height,
 }) => {
+  const imgRef = useRef<HTMLImageElement>(null);
   const [hasError, setHasError] = useState(false);
+  const [shown, setShown] = useState(false);
+
+  useLayoutEffect(() => {
+    const img = imgRef.current;
+    if (img?.complete && img.naturalHeight > 0) {
+      setShown(true);
+    }
+  }, []);
 
   return (
     <motion.div
@@ -59,14 +67,18 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
         </div>
       ) : (
         <img
+          ref={imgRef}
           src={src}
           alt={alt}
           width={width}
           height={height}
           loading="eager"
           decoding="async"
+          onLoad={() => setShown(true)}
           onError={() => setHasError(true)}
           className={cn(
+            'transition-opacity duration-300 ease-out',
+            shown ? 'opacity-100' : 'opacity-0',
             !disableHover && onClick && 'group-hover:scale-105',
             className
           )}

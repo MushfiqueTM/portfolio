@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
@@ -9,8 +9,22 @@ interface OptimizedImageProps {
   containerClassName?: string;
   onClick?: () => void;
   disableHover?: boolean;
+  width?: number;
+  height?: number;
 }
 
+/**
+ * Thin wrapper around <img> with click + error fallback.
+ *
+ * The previous version constructed a separate Image() and called .decode() on every mount,
+ * holding the visible <img> at opacity 0 until that decode resolved. Combined with the
+ * global useImagePreloader (which already pulls every image into the browser cache via
+ * requestIdleCallback) this caused a redundant re-decode and a 500ms fade — the "snap"
+ * users saw was the empty container suddenly filling once the fade completed.
+ *
+ * Now the browser handles decoding natively: cached images render immediately, uncached
+ * ones stream in progressively without a fade.
+ */
 export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   src,
   alt,
@@ -18,35 +32,10 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   containerClassName,
   onClick,
   disableHover = false,
+  width,
+  height,
 }) => {
-  const [loaded, setLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
-
-  useEffect(() => {
-    let cancelled = false;
-    setLoaded(false);
-    setHasError(false);
-
-    const img = new Image();
-    img.src = src;
-
-    const finish = () => {
-      if (!cancelled) setLoaded(true);
-    };
-
-    if (img.decode) {
-      img.decode().then(finish).catch(finish);
-    } else {
-      img.onload = finish;
-      img.onerror = () => {
-        if (!cancelled) setHasError(true);
-      };
-    }
-
-    return () => {
-      cancelled = true;
-    };
-  }, [src]);
 
   return (
     <motion.div
@@ -72,12 +61,12 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
         <img
           src={src}
           alt={alt}
+          width={width}
+          height={height}
           loading="eager"
           decoding="async"
           onError={() => setHasError(true)}
           className={cn(
-            'transition-opacity duration-500 ease-out',
-            loaded ? 'opacity-100' : 'opacity-0',
             !disableHover && onClick && 'group-hover:scale-105',
             className
           )}

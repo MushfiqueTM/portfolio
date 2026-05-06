@@ -224,10 +224,10 @@ export const CADView: React.FC = () => {
                   </ul>
 
                   <div className="grid grid-cols-1 gap-3">
-                    {["/projects/AutoCAD_1.jpg", "/projects/AutoCAD_2.jpg"].map((imagePath, imgIndex) => (
+                    {["/projects/AutoCAD_1.webp", "/projects/AutoCAD_2.webp"].map((imagePath, imgIndex) => (
                       <motion.div
                         key={imgIndex}
-                        onClick={() => openLightbox(["/projects/AutoCAD_1.jpg", "/projects/AutoCAD_2.jpg"], imgIndex)}
+                        onClick={() => openLightbox(["/projects/AutoCAD_1.webp", "/projects/AutoCAD_2.webp"], imgIndex)}
                         className="relative rounded-lg overflow-hidden bg-[#EEF1F5] cursor-pointer group/img"
                         whileHover={{ scale: 1.02 }}
                         data-cursor="View"

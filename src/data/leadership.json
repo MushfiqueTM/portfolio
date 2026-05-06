@@ -8,10 +8,10 @@
       "Designed visual content (social posts, posters, logos, merchandise) to communicate brand identity and increase engagement across 500+ club members."
     ],
     "images": [
-      "/projects/Debate_1.jpeg",
-      "/projects/Debate_2.jpeg",
-      "/projects/Debate_3.png",
-      "/projects/Debate_4.png"
+      "/projects/Debate_1.webp",
+      "/projects/Debate_2.webp",
+      "/projects/Debate_3.webp",
+      "/projects/Debate_4.webp"
     ]
   },
   {
@@ -27,22 +27,22 @@
       {
         "title": "ALOHA WELCOMING WAVES",
         "url": "https://www.instagram.com/reel/CygK3AhhwxO/?igsh=NGt3MjQ0OTlqNnE2",
-        "thumbnail": "/projects/ISA_Reel_1.PNG"
+        "thumbnail": "/projects/ISA_Reel_1.webp"
       },
       {
         "title": "Halloween Horizons: A Mexican Rooftop Fiesta",
         "url": "https://www.instagram.com/reel/CzWBMwFhqm1/?igsh=MTE2NTJleWFjZnc0MA==",
-        "thumbnail": "/projects/ISA_Reel_2.PNG"
+        "thumbnail": "/projects/ISA_Reel_2.webp"
       },
       {
         "title": "International Fairytale Night",
         "url": "https://www.instagram.com/reel/C688aeTBGxz/?igsh=NnB0cmVoNTJibWt6",
-        "thumbnail": "/projects/ISA_Reel_3.PNG"
+        "thumbnail": "/projects/ISA_Reel_3.webp"
       }
     ],
     "images": [
-      "/projects/ISA_1.png",
-      "/projects/ISA_2.png"
+      "/projects/ISA_1.webp",
+      "/projects/ISA_2.webp"
     ]
   },
   {
@@ -55,7 +55,7 @@
       "Captured memorable moments through event photography, documenting community gatherings and hall activities."
     ],
     "images": [
-      "/projects/yellow_hall.jpeg"
+      "/projects/yellow_hall.webp"
     ]
   }
 ]

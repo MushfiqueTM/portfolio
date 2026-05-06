@@ -9,8 +9,8 @@
       "Addressed challenges in loading/unloading mechanisms, straight-line movement, and 90° turns, showcasing a practical understanding of engineering applications."
     ],
     "images": [
-      "/projects/multi-disciplinary-1.jpg",
-      "/projects/multi-disciplinary-2.jpg"
+      "/projects/multi-disciplinary-1.webp",
+      "/projects/multi-disciplinary-2.webp"
     ]
   },
   {
@@ -23,10 +23,10 @@
       "Engineered an energy-absorbing crash cushion system, reducing peak impact forces on test equipment and improving repeatability of crash test results."
     ],
     "images": [
-      "/projects/motorbike-dolly-1.jpg",
-      "/projects/motorbike-dolly-2.jpg",
-      "/projects/motorbike-dolly-3.jpg",
-      "/projects/motorbike-dolly-4.jpg"
+      "/projects/motorbike-dolly-1.webp",
+      "/projects/motorbike-dolly-2.webp",
+      "/projects/motorbike-dolly-3.webp",
+      "/projects/motorbike-dolly-4.webp"
     ]
   },
   {
@@ -39,8 +39,8 @@
       "Successfully brought the designs from concept to production, including Seed Frame products"
     ],
     "images": [
-      "/projects/wextech-product-1.jpg",
-      "/projects/wextech-product-2.jpg"
+      "/projects/wextech-product-1.webp",
+      "/projects/wextech-product-2.webp"
     ]
   },
   {
@@ -54,10 +54,10 @@
       "Presented the accessibility, ease of use, and effectiveness of the cleaning device to an audience."
     ],
     "images": [
-      "/projects/cleaning-device-1.jpg",
-      "/projects/cleaning-device-2.jpg",
-      "/projects/cleaning-device-3.jpg",
-      "/projects/cleaning-device-4.jpg"
+      "/projects/cleaning-device-1.webp",
+      "/projects/cleaning-device-2.webp",
+      "/projects/cleaning-device-3.webp",
+      "/projects/cleaning-device-4.webp"
     ]
   },
   {
@@ -70,10 +70,10 @@
       "Assembled all components of the original fan in SOLIDWORKS, allowing for a comprehensive view of the product."
     ],
     "images": [
-      "/projects/table-fan-2.jpg",
-      "/projects/table-fan-3.jpg",
-      "/projects/table-fan-4.jpg",
-      "/projects/table-fan-1.jpg"
+      "/projects/table-fan-2.webp",
+      "/projects/table-fan-3.webp",
+      "/projects/table-fan-4.webp",
+      "/projects/table-fan-1.webp"
     ]
   },
   {
@@ -87,7 +87,7 @@
       "Produced precise 2D drawings of components with title blocks and annotations."
     ],
     "images": [
-      "/projects/gripper-design-1.jpg"
+      "/projects/gripper-design-1.webp"
     ]
   },
   {
@@ -100,7 +100,7 @@
       "Assembled all the created parts along with the predesigned parts to create the Robot Arm."
     ],
     "images": [
-      "/projects/robot-arm-1.jpg"
+      "/projects/robot-arm-1.webp"
     ]
   }
 ]

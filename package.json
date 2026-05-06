@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "node ./node_modules/typescript/bin/tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "convert:webp": "node scripts/convert-to-webp.mjs",
+    "convert:webp:dry": "node scripts/convert-to-webp.mjs --dry-run"
   },
   "dependencies": {
     "clsx": "^2.1.1",

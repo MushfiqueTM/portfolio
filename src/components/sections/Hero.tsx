@@ -25,9 +25,9 @@ const CardImage: React.FC<{ src: string; alt: string }> = ({ src, alt }) => (
   />
 );
 
-const AllPattern: React.FC = () => <CardImage src="/projects/All%20Experience_card.jpeg" alt="All experiences illustration" />;
-const CadPattern: React.FC = () => <CardImage src="/projects/CAD%20View_card.jpeg" alt="Computer aided designs illustration" />;
-const DesignPattern: React.FC = () => <CardImage src="/projects/Graphic%20Design_card.jpeg" alt="Graphic designs illustration" />;
+const AllPattern: React.FC = () => <CardImage src="/projects/All%20Experience_card.webp" alt="All experiences illustration" />;
+const CadPattern: React.FC = () => <CardImage src="/projects/CAD%20View_card.webp" alt="Computer aided designs illustration" />;
+const DesignPattern: React.FC = () => <CardImage src="/projects/Graphic%20Design_card.webp" alt="Graphic designs illustration" />;
 
 const allCount = workExperience.length + allProjects.length + leadership.length;
 const cadCount = projects3D.length;
@@ -91,7 +91,7 @@ export const Hero: React.FC<HeroProps> = ({ activeView, onViewChange }) => {
             className="relative w-48 h-48 sm:w-56 sm:h-56 lg:w-72 lg:h-72 rounded-full overflow-hidden shadow-[8px_8px_16px_rgba(163,177,198,0.55),-8px_-8px_16px_rgba(255,255,255,0.95)] ring-4 ring-[#1A2B4A]"
           >
             <img
-              src="/projects/my_picture_2.jpg"
+              src="/projects/my_picture_2.webp"
               alt="Mushfique Tanzim Muztaba"
               className="w-full h-full object-cover"
             />

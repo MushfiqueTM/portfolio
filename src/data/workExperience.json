@@ -15,9 +15,9 @@
       }
     ],
     "images": [
-      "/projects/MangDang_1.jpg",
-      "/projects/MangDang_2.jpg",
-      "/projects/MangDang_3.jpg"
+      "/projects/MangDang_1.webp",
+      "/projects/MangDang_2.webp",
+      "/projects/MangDang_3.webp"
     ]
   },
   {
@@ -36,9 +36,9 @@
           "Utilized SharePoint Lists as a secure, centralized data repository, ensuring robust data integrity, auditability, and compliance while supporting efficient storage, retrieval, and reporting of all lessons learned records."
         ],
         "images": [
-          "/projects/project_execution_team_1.JPG",
-          "/projects/project_execution_team_2.JPG",
-          "/projects/project_execution_team_3.JPG"
+          "/projects/project_execution_team_1.webp",
+          "/projects/project_execution_team_2.webp",
+          "/projects/project_execution_team_3.webp"
         ]
       },
       {
@@ -57,9 +57,9 @@
           "Leveraged SharePoint Lists as a secure, centralized data repository, ensuring robust data integrity, auditability, and compliance while supporting efficient storage, retrieval, and reporting of all change management records."
         ],
         "images": [
-          "/projects/HKBESS_1.JPG",
-          "/projects/HKBESS_2.JPG",
-          "/projects/HKBESS_3.JPG"
+          "/projects/HKBESS_1.webp",
+          "/projects/HKBESS_2.webp",
+          "/projects/HKBESS_3.webp"
         ]
       },
       {
@@ -89,9 +89,9 @@
       }
     ],
     "images": [
-      "/projects/POLYU_E_FORMULA_1.PNG",
-      "/projects/POLYU_E_FORMULA_2.PNG",
-      "/projects/POLYU_E_FORMULA_3.PNG"
+      "/projects/POLYU_E_FORMULA_1.webp",
+      "/projects/POLYU_E_FORMULA_2.webp",
+      "/projects/POLYU_E_FORMULA_3.webp"
     ]
   },
   {
@@ -110,10 +110,10 @@
       }
     ],
     "images": [
-      "/projects/motorbike-dolly-1.jpg",
-      "/projects/motorbike-dolly-2.jpg",
-      "/projects/motorbike-dolly-3.jpg",
-      "/projects/motorbike-dolly-4.jpg"
+      "/projects/motorbike-dolly-1.webp",
+      "/projects/motorbike-dolly-2.webp",
+      "/projects/motorbike-dolly-3.webp",
+      "/projects/motorbike-dolly-4.webp"
     ]
   },
   {
@@ -132,8 +132,8 @@
       }
     ],
     "images": [
-      "/projects/wextech-product-1.jpg",
-      "/projects/wextech-product-2.jpg"
+      "/projects/wextech-product-1.webp",
+      "/projects/wextech-product-2.webp"
     ]
   },
   {
@@ -151,9 +151,9 @@
       }
     ],
     "images": [
-      "/projects/ESG_1.jpg",
-      "/projects/ESG_2.png",
-      "/projects/ESG_3.png"
+      "/projects/ESG_1.webp",
+      "/projects/ESG_2.webp",
+      "/projects/ESG_3.webp"
     ]
   }
 ]

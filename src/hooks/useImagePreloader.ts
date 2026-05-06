@@ -11,10 +11,10 @@ interface LeadershipItem { images?: string[]; reels?: { thumbnail?: string }[] }
 interface CADItem { images?: string[] }
 
 const HERO_CARD_IMAGES = [
-  '/projects/All%20Experience_card.jpeg',
-  '/projects/CAD%20View_card.jpeg',
-  '/projects/Graphic%20Design_card.jpeg',
-  '/projects/my_picture_2.jpg',
+  '/projects/All%20Experience_card.webp',
+  '/projects/CAD%20View_card.webp',
+  '/projects/Graphic%20Design_card.webp',
+  '/projects/my_picture_2.webp',
 ];
 
 const CONCURRENCY = 4;

@@ -8,8 +8,8 @@
       "Created a natural-language AI chat interface (Gemini 2.5 Flash) letting operators query robot state and issue navigation commands in plain English; built a single-file React operator dashboard with live SLAM map, camera feeds, and thermal overlay."
     ],
     "images": [
-      "/projects/Autonomous_Robot_1.JPG",
-      "/projects/Autonomous_Robot_2.png"
+      "/projects/Autonomous_Robot_1.webp",
+      "/projects/Autonomous_Robot_2.webp"
     ]
   },
   {
@@ -22,8 +22,8 @@
       "Designed firing control system with GPIO motor control and automated target sequencing."
     ],
     "images": [
-      "/projects/shooting_system_1.jpeg",
-      "/projects/shooting_system_2.jpeg"
+      "/projects/shooting_system_1.webp",
+      "/projects/shooting_system_2.webp"
     ]
   },
   {
@@ -49,8 +49,8 @@
       "Addressed challenges in loading/unloading mechanisms, straight-line movement, and 90° turns, showcasing a practical understanding of engineering applications."
     ],
     "images": [
-      "/projects/multi-disciplinary-1.jpg",
-      "/projects/multi-disciplinary-2.jpg"
+      "/projects/multi-disciplinary-1.webp",
+      "/projects/multi-disciplinary-2.webp"
     ]
   },
   {
@@ -63,10 +63,10 @@
       "Presented the accessibility, ease of use, and effectiveness of the cleaning device to an audience."
     ],
     "images": [
-      "/projects/cleaning-device-1.jpg",
-      "/projects/cleaning-device-2.jpg",
-      "/projects/cleaning-device-3.jpg",
-      "/projects/cleaning-device-4.jpg"
+      "/projects/cleaning-device-1.webp",
+      "/projects/cleaning-device-2.webp",
+      "/projects/cleaning-device-3.webp",
+      "/projects/cleaning-device-4.webp"
     ]
   },
   {
@@ -97,10 +97,10 @@
       "Assembled all components of the original fan in SOLIDWORKS, allowing for a comprehensive view of the product."
     ],
     "images": [
-      "/projects/table-fan-2.jpg",
-      "/projects/table-fan-3.jpg",
-      "/projects/table-fan-4.jpg",
-      "/projects/table-fan-1.jpg"
+      "/projects/table-fan-2.webp",
+      "/projects/table-fan-3.webp",
+      "/projects/table-fan-4.webp",
+      "/projects/table-fan-1.webp"
     ]
   },
   {
@@ -121,7 +121,7 @@
       "Produced precise 2D drawings of components with title blocks and annotations."
     ],
     "images": [
-      "/projects/gripper-design-1.jpg"
+      "/projects/gripper-design-1.webp"
     ]
   },
   {
@@ -133,7 +133,7 @@
       "Assembled all the created parts along with the predesigned parts to create the Robot Arm."
     ],
     "images": [
-      "/projects/robot-arm-1.jpg"
+      "/projects/robot-arm-1.webp"
     ]
   }
 ]

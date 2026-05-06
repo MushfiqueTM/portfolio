@@ -6,6 +6,45 @@
 
     <meta name="google-site-verification" content="KDDmgbUolVqQC4Sm4zBX0wu4_EbcbQtAz_gQRFAK7WU" />
 
+    <!-- Start fetching the hero portrait in parallel with the JS bundle so it is ready when Hero renders -->
+    <link rel="preload" as="image" href="/projects/my_picture_2.jpg" fetchpriority="high" />
+
+    <!-- Inline splash so mobile users see something immediately while the JS bundle loads.
+         createRoot replaces #root's contents on first render, so this disappears as soon as React mounts. -->
+    <style>
+      html, body { margin: 0; padding: 0; background: #F2F4F6; }
+      #initial-loader {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        background: #F2F4F6;
+        color: #1A2B4A;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      }
+      #initial-loader .ring {
+        width: 32px;
+        height: 32px;
+        border: 2px solid rgba(26, 43, 74, 0.15);
+        border-top-color: #1A2B4A;
+        border-radius: 50%;
+        animation: il-spin 0.9s linear infinite;
+      }
+      #initial-loader .name {
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+      #initial-loader .sub {
+        font-size: 12px;
+        color: #5F6B7A;
+      }
+      @keyframes il-spin { to { transform: rotate(360deg); } }
+    </style>
+
     <!-- SEO -->
     <title>Mushfique Tanzim Muztaba — Mechanical Engineer</title>
     <meta name="description" content="Portfolio of Mushfique Tanzim Muztaba — Mechanical Engineering student at PolyU with experience in CAD/FEA, ROS2 robotics, AI/computer vision, and enterprise software. Open to graduate opportunities." />
@@ -47,7 +86,13 @@
     </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div id="initial-loader">
+        <div class="ring"></div>
+        <div class="name">Mushfique Tanzim Muztaba</div>
+        <div class="sub">Loading portfolio…</div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -17,6 +17,8 @@ const HERO_CARD_IMAGES = [
   '/projects/my_picture_2.jpg',
 ];
 
+const CONCURRENCY = 4;
+
 function collectAllImages(): string[] {
   const work = (workExperience as WorkItem[]).flatMap((w) => [
     ...(w.images || []),
@@ -29,25 +31,34 @@ function collectAllImages(): string[] {
   ]);
   const cad = (projects3D as CADItem[]).flatMap((c) => c.images || []);
 
+  // Hero card images first so they win the queue when the preloader starts.
   return [...HERO_CARD_IMAGES, ...work, ...projects, ...lead, ...cad];
 }
 
 /**
- * Kick off background image fetch+decode for every project image at app start.
+ * Background fetch+decode of every project image, with bounded concurrency.
  *
- * Fires synchronously on mount (no requestIdleCallback) so that on production —
- * where each image is a real network request to the CDN — the downloads start as
- * early as possible, ideally before the user has time to open a section. Idle
- * callbacks were getting deferred behind hydration / Framer Motion / Lenis init
- * for 1–3s, leaving sections to "snap in" once the user clicked them.
+ * Firing all ~75 `new Image()` requests at once on mobile saturates the connection
+ * and starves the section images that the user is actively scrolling toward. We
+ * keep the eager start (no idle-callback deferral, which previously got stuck
+ * 1–3s behind hydration), but hold the in-flight count to CONCURRENCY so visible
+ * content has bandwidth headroom.
  */
 export function useImagePreloader() {
   useEffect(() => {
     const sources = Array.from(new Set(collectAllImages()));
-    sources.forEach((src) => {
+    let cursor = 0;
+
+    const next = () => {
+      if (cursor >= sources.length) return;
+      const src = sources[cursor++];
       const img = new Image();
       img.decoding = 'async';
+      img.onload = next;
+      img.onerror = next;
       img.src = src;
-    });
+    };
+
+    for (let i = 0; i < CONCURRENCY; i++) next();
   }, []);
 }

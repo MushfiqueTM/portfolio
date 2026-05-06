@@ -9,7 +9,11 @@ interface UseScrollRevealOptions {
 export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
   options: UseScrollRevealOptions = {}
 ) {
-  const { threshold = 0.1, rootMargin = '-50px', triggerOnce = true } = options;
+  // Trigger as soon as any pixel intersects, and extend the bottom of the root box
+  // so reveals fire ~200px before the element actually enters the viewport. This
+  // means content is already animating in by the time the user scrolls to it,
+  // instead of "snapping in" once it's well inside the viewport.
+  const { threshold = 0, rootMargin = '0px 0px 200px 0px', triggerOnce = true } = options;
   const ref = useRef<T>(null);
   const [isInView, setIsInView] = useState(false);
 

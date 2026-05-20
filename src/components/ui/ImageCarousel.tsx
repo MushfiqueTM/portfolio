@@ -2,6 +2,44 @@ import React, { useState, useRef, useEffect, useLayoutEffect, useCallback } from
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import type { PanInfo } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Skeleton } from '@/components/ui/Skeleton';
+
+interface SlideImgProps {
+  src: string;
+  alt: string;
+  className: string;
+  onClick?: () => void;
+  cursor?: string;
+}
+
+const SlideImg: React.FC<SlideImgProps> = ({ src, alt, className, onClick, cursor }) => {
+  const imgRef = useRef<HTMLImageElement>(null);
+  const [shown, setShown] = useState(false);
+
+  useLayoutEffect(() => {
+    const img = imgRef.current;
+    if (img?.complete && img.naturalHeight > 0) setShown(true);
+  }, []);
+
+  return (
+    <>
+      {!shown && <Skeleton rounded="rounded-lg" className="absolute inset-3 sm:inset-6" />}
+      <img
+        ref={imgRef}
+        src={src}
+        alt={alt}
+        draggable={false}
+        loading="lazy"
+        decoding="async"
+        onLoad={() => setShown(true)}
+        onClick={onClick}
+        data-cursor={cursor}
+        className={className}
+        style={{ opacity: shown ? 1 : 0, transition: 'opacity 300ms ease-out' }}
+      />
+    </>
+  );
+};
 
 interface ImageCarouselProps {
   images: string[];
@@ -193,13 +231,12 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
   if (images.length === 1) {
     return (
       <div className={`relative ${heightClass} rounded-lg overflow-hidden flex items-center justify-center`}>
-        <img
+        <SlideImg
           src={images[0]}
           alt={alt}
-          draggable={false}
-          className="max-w-full max-h-full object-contain cursor-pointer drop-shadow-2xl rounded-lg"
           onClick={() => onImageClick?.(0)}
-          data-cursor="View"
+          cursor="View"
+          className="max-w-full max-h-full object-contain cursor-pointer drop-shadow-2xl rounded-lg"
         />
       </div>
     );
@@ -236,10 +273,9 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               data-cursor={isActive ? 'View' : undefined}
             >
-              <img
+              <SlideImg
                 src={src}
                 alt={`${alt} - ${i + 1}`}
-                draggable={false}
                 className={`max-w-full max-h-full object-contain pointer-events-none rounded-lg transition-[filter] duration-300 ${
                   isActive ? 'drop-shadow-2xl' : 'drop-shadow-lg'
                 }`}

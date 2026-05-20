@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FolderOpen, ChevronDown, Calendar, ImageIcon } from 'lucide-react';
 import { NeuCard } from '@/components/ui/NeuCard';
 import { OptimizedImage } from '@/components/ui/OptimizedImage';
 import { ScrollReveal } from '@/components/ScrollReveal';
-import { Lightbox } from '@/components/Lightbox';
 import allProjects from '@/data/allProjects.json';
+
+const Lightbox = lazy(() =>
+  import('@/components/Lightbox').then((m) => ({ default: m.Lightbox }))
+);
 
 interface Project {
   title: string;
@@ -191,13 +194,17 @@ export const Projects: React.FC = () => {
         </div>
       </NeuCard>
 
-      <Lightbox
-        images={lightboxImages}
-        currentIndex={lightboxIndex}
-        isOpen={isLightboxOpen}
-        onClose={() => setIsLightboxOpen(false)}
-        onNavigate={navigateLightbox}
-      />
+      {isLightboxOpen && (
+        <Suspense fallback={null}>
+          <Lightbox
+            images={lightboxImages}
+            currentIndex={lightboxIndex}
+            isOpen={isLightboxOpen}
+            onClose={() => setIsLightboxOpen(false)}
+            onNavigate={navigateLightbox}
+          />
+        </Suspense>
+      )}
     </section>
   );
 };

@@ -6,8 +6,15 @@
 
     <meta name="google-site-verification" content="KDDmgbUolVqQC4Sm4zBX0wu4_EbcbQtAz_gQRFAK7WU" />
 
-    <!-- Start fetching the hero portrait in parallel with the JS bundle so it is ready when Hero renders -->
+    <!-- Critical resource hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" as="image" href="/projects/my_picture_2.webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="/projects/All%20Experience_card.webp" />
+    <link rel="preload" as="image" href="/projects/CAD%20View_card.webp" />
+    <link rel="preload" as="image" href="/projects/Graphic%20Design_card.webp" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" />
 
     <!-- Inline splash so mobile users see something immediately while the JS bundle loads.
          createRoot replaces #root's contents on first render, so this disappears as soon as React mounts. -->
@@ -20,18 +27,18 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 18px;
+        gap: 14px;
         background: #F2F4F6;
         color: #1A2B4A;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
       }
-      #initial-loader .ring {
-        width: 32px;
-        height: 32px;
-        border: 2px solid rgba(26, 43, 74, 0.15);
-        border-top-color: #1A2B4A;
-        border-radius: 50%;
-        animation: il-spin 0.9s linear infinite;
+      #initial-loader .skeleton-bar {
+        width: 180px;
+        height: 10px;
+        border-radius: 9999px;
+        background: linear-gradient(110deg, #E8EBF0 8%, #F2F4F6 18%, #E8EBF0 33%);
+        background-size: 200% 100%;
+        animation: il-shimmer 1.6s linear infinite;
       }
       #initial-loader .name {
         font-size: 15px;
@@ -42,7 +49,10 @@
         font-size: 12px;
         color: #5F6B7A;
       }
-      @keyframes il-spin { to { transform: rotate(360deg); } }
+      @keyframes il-shimmer {
+        0%   { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
     </style>
 
     <!-- SEO -->
@@ -88,8 +98,8 @@
   <body>
     <div id="root">
       <div id="initial-loader">
-        <div class="ring"></div>
         <div class="name">Mushfique Tanzim Muztaba</div>
+        <div class="skeleton-bar"></div>
         <div class="sub">Loading portfolio…</div>
       </div>
     </div>

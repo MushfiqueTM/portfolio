@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Briefcase, ChevronDown, MapPin, Calendar } from 'lucide-react';
 import { NeuCard } from '@/components/ui/NeuCard';
 import { ScrollReveal } from '@/components/ScrollReveal';
-import { Lightbox } from '@/components/Lightbox';
-import { ImageCarousel } from '@/components/ui/ImageCarousel';
 import workExperience from '@/data/workExperience.json';
+
+const Lightbox = lazy(() =>
+  import('@/components/Lightbox').then((m) => ({ default: m.Lightbox }))
+);
+const ImageCarousel = lazy(() =>
+  import('@/components/ui/ImageCarousel').then((m) => ({ default: m.ImageCarousel }))
+);
 
 interface Team {
   name: string;
@@ -199,11 +204,13 @@ export const WorkExperience: React.FC = () => {
                                 {/* Team images */}
                                 {team.images && team.images.length > 0 && (
                                   <div className="mt-3">
-                                    <ImageCarousel
-                                      images={team.images}
-                                      alt={team.name || 'Team'}
-                                      onImageClick={(i) => openLightbox(team.images!, i)}
-                                    />
+                                    <Suspense fallback={null}>
+                                      <ImageCarousel
+                                        images={team.images}
+                                        alt={team.name || 'Team'}
+                                        onImageClick={(i) => openLightbox(team.images!, i)}
+                                      />
+                                    </Suspense>
                                   </div>
                                 )}
                               </div>
@@ -211,11 +218,13 @@ export const WorkExperience: React.FC = () => {
 
                             {/* Company-level images */}
                             {work.images.length > 0 && (
-                              <ImageCarousel
-                                images={work.images}
-                                alt={work.company}
-                                onImageClick={(i) => openLightbox(work.images, i)}
-                              />
+                              <Suspense fallback={null}>
+                                <ImageCarousel
+                                  images={work.images}
+                                  alt={work.company}
+                                  onImageClick={(i) => openLightbox(work.images, i)}
+                                />
+                              </Suspense>
                             )}
                           </div>
                         </div>
@@ -229,13 +238,17 @@ export const WorkExperience: React.FC = () => {
         </div>
       </NeuCard>
 
-      <Lightbox
-        images={lightboxImages}
-        currentIndex={lightboxIndex}
-        isOpen={isLightboxOpen}
-        onClose={() => setIsLightboxOpen(false)}
-        onNavigate={navigateLightbox}
-      />
+      {isLightboxOpen && (
+        <Suspense fallback={null}>
+          <Lightbox
+            images={lightboxImages}
+            currentIndex={lightboxIndex}
+            isOpen={isLightboxOpen}
+            onClose={() => setIsLightboxOpen(false)}
+            onNavigate={navigateLightbox}
+          />
+        </Suspense>
+      )}
     </section>
   );
 };

@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+﻿import React, { lazy, Suspense, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Users, ChevronDown, MapPin, Calendar, Play } from 'lucide-react';
 import { NeuCard } from '@/components/ui/NeuCard';
 import { ScrollReveal } from '@/components/ScrollReveal';
-import { Lightbox } from '@/components/Lightbox';
 import leadership from '@/data/leadership.json';
+
+const Lightbox = lazy(() =>
+  import('@/components/Lightbox').then((m) => ({ default: m.Lightbox }))
+);
 
 interface Reel {
   title: string;
@@ -200,7 +203,7 @@ export const Leadership: React.FC = () => {
                                           <img
                                             src={reel.thumbnail}
                                             alt={reel.title}
-                                            loading="eager"
+                                            loading="lazy"
                                             decoding="async"
                                             className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover/reel:scale-105"
                                           />
@@ -247,7 +250,7 @@ export const Leadership: React.FC = () => {
                                         <img
                                           src={imagePath}
                                           alt={`${item.organization} - ${imgIndex + 1}`}
-                                          loading="eager"
+                                          loading="lazy"
                                           decoding="async"
                                           className="max-w-full max-h-full object-contain rounded-2xl transition-transform duration-300 group-hover/img:scale-105"
                                         />
@@ -262,7 +265,7 @@ export const Leadership: React.FC = () => {
                                     <img
                                       src={item.images[3]}
                                       alt={`${item.organization} - 4`}
-                                      loading="eager"
+                                      loading="lazy"
                                       decoding="async"
                                       className="max-w-full max-h-full object-contain rounded-2xl transition-transform duration-300 group-hover/img:scale-105"
                                     />
@@ -280,7 +283,7 @@ export const Leadership: React.FC = () => {
                                       <img
                                         src={imagePath}
                                         alt={`${item.organization} - ${imgIndex + 1}`}
-                                        loading="eager"
+                                        loading="lazy"
                                         decoding="async"
                                         className="max-w-full max-h-full object-contain rounded-2xl transition-transform duration-300 group-hover/img:scale-105"
                                       />
@@ -301,13 +304,17 @@ export const Leadership: React.FC = () => {
         </div>
       </NeuCard>
 
-      <Lightbox
-        images={lightboxImages}
-        currentIndex={lightboxIndex}
-        isOpen={isLightboxOpen}
-        onClose={() => setIsLightboxOpen(false)}
-        onNavigate={navigateLightbox}
-      />
+      {isLightboxOpen && (
+        <Suspense fallback={null}>
+          <Lightbox
+            images={lightboxImages}
+            currentIndex={lightboxIndex}
+            isOpen={isLightboxOpen}
+            onClose={() => setIsLightboxOpen(false)}
+            onNavigate={navigateLightbox}
+          />
+        </Suspense>
+      )}
     </section>
   );
 };

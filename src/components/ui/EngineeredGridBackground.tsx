@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 /**
  * Engineered Grid Background
@@ -6,6 +6,7 @@ import { useEffect, useRef } from 'react';
  * axis labels (X/Y coordinates), and an accent halo.
  *
  * Performance:
+ * - Returns null entirely on small touch devices (no canvas, no effect cost)
  * - Static grid is rendered once into an offscreen canvas and blitted each frame
  * - The render loop runs only while the mouse is moving (or smoothing is catching up)
  * - Pauses when the tab is hidden, when the cursor leaves the document, or on prefers-reduced-motion
@@ -13,16 +14,16 @@ import { useEffect, useRef } from 'react';
  */
 export const EngineeredGridBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [skip] = useState(
+    () => 'ontouchstart' in window && window.innerWidth < 768
+  );
 
   useEffect(() => {
+    if (skip) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-
-    // Skip on small touch devices for perf
-    const isTouchDevice = 'ontouchstart' in window && window.innerWidth < 768;
-    if (isTouchDevice) return;
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -226,7 +227,8 @@ export const EngineeredGridBackground: React.FC = () => {
       document.removeEventListener('visibilitychange', handleVisibility);
       cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [skip]);
 
+  if (skip) return null;
   return <canvas ref={canvasRef} className="fixed inset-0 z-0 pointer-events-none" />;
 };

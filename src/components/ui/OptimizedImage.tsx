@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { Skeleton } from '@/components/ui/Skeleton';
 
 interface OptimizedImageProps {
   src: string;
@@ -14,15 +15,13 @@ interface OptimizedImageProps {
 }
 
 /**
- * Thin wrapper around <img> with click + error fallback.
+ * Thin wrapper around <img> with skeleton placeholder and error fallback.
  *
- * Conditional fade-in:
- *   - If the image is already in the browser cache at mount (preloader has finished
- *     fetching, or the user is revisiting), it's revealed synchronously before the
- *     first paint via useLayoutEffect — no fade, no flash.
- *   - If it's still mid-download (common on first production load before the
- *     CDN-served bytes arrive), it stays at opacity 0 and fades in once the native
- *     onLoad fires, so the user never sees an empty container suddenly fill with bytes.
+ * - If the image is already in the browser cache at mount, it's revealed
+ *   synchronously before the first paint via useLayoutEffect — no skeleton,
+ *   no fade.
+ * - If it's still mid-download, a shimmer skeleton fills the container; the
+ *   image fades in over it once the native onLoad fires.
  */
 export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   src,
@@ -66,23 +65,31 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
           </div>
         </div>
       ) : (
-        <img
-          ref={imgRef}
-          src={src}
-          alt={alt}
-          width={width}
-          height={height}
-          loading="eager"
-          decoding="async"
-          onLoad={() => setShown(true)}
-          onError={() => setHasError(true)}
-          className={cn(
-            'transition-opacity duration-300 ease-out',
-            shown ? 'opacity-100' : 'opacity-0',
-            !disableHover && onClick && 'group-hover:scale-105',
-            className
+        <>
+          {!shown && (
+            <Skeleton
+              rounded=""
+              className="absolute inset-0 transition-opacity duration-300"
+            />
           )}
-        />
+          <img
+            ref={imgRef}
+            src={src}
+            alt={alt}
+            width={width}
+            height={height}
+            loading="lazy"
+            decoding="async"
+            onLoad={() => setShown(true)}
+            onError={() => setHasError(true)}
+            className={cn(
+              'relative transition-opacity duration-300 ease-out',
+              shown ? 'opacity-100' : 'opacity-0',
+              !disableHover && onClick && 'group-hover:scale-105',
+              className
+            )}
+          />
+        </>
       )}
     </motion.div>
   );

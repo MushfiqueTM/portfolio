@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+﻿import React, { lazy, Suspense, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Palette, Calendar, MapPin, Play } from 'lucide-react';
 import { NeuCard } from '@/components/ui/NeuCard';
 import { ScrollReveal } from '@/components/ScrollReveal';
-import { Lightbox } from '@/components/Lightbox';
 import leadership from '@/data/leadership.json';
+
+const Lightbox = lazy(() =>
+  import('@/components/Lightbox').then((m) => ({ default: m.Lightbox }))
+);
 
 interface Reel {
   title: string;
@@ -71,7 +74,7 @@ export const DesignView: React.FC = () => {
           Click the Instagram badge beside any name to explore more content on the page.
         </p>
 
-        {/* Design Cards — always expanded */}
+        {/* Design Cards â€” always expanded */}
         <div className="space-y-3">
           {(leadership as DesignItem[]).map((item, index) => (
             <ScrollReveal key={item.organization} delay={index * 0.08}>
@@ -112,7 +115,7 @@ export const DesignView: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Content — always visible */}
+                {/* Content â€” always visible */}
                 <div className="px-5 pb-5 pt-0">
                   {/* Mobile meta */}
                   <div className="sm:hidden flex items-center gap-3 mb-3 text-xs text-[#8B95A5]">
@@ -158,7 +161,7 @@ export const DesignView: React.FC = () => {
                                   <img
                                     src={reel.thumbnail}
                                     alt={reel.title}
-                                    loading="eager"
+                                    loading="lazy"
                                     decoding="async"
                                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover/reel:scale-105"
                                   />
@@ -210,7 +213,7 @@ export const DesignView: React.FC = () => {
                                 <img
                                   src={imagePath}
                                   alt={`${item.organization} - ${imgIndex + 1}`}
-                                  loading="eager"
+                                  loading="lazy"
                                   decoding="async"
                                   className="max-w-full max-h-full object-contain rounded-2xl transition-transform duration-300 group-hover/img:scale-105"
                                 />
@@ -230,7 +233,7 @@ export const DesignView: React.FC = () => {
                             <img
                               src={item.images[3]}
                               alt={`${item.organization} - 4`}
-                              loading="eager"
+                              loading="lazy"
                               decoding="async"
                               className="max-w-full max-h-full object-contain rounded-2xl transition-transform duration-300 group-hover/img:scale-105"
                             />
@@ -253,7 +256,7 @@ export const DesignView: React.FC = () => {
                               <img
                                 src={imagePath}
                                 alt={`${item.organization} - ${imgIndex + 1}`}
-                                loading="eager"
+                                loading="lazy"
                                 decoding="async"
                                 className="max-w-full max-h-full object-contain rounded-2xl transition-transform duration-300 group-hover/img:scale-105"
                               />
@@ -270,13 +273,17 @@ export const DesignView: React.FC = () => {
         </div>
       </NeuCard>
 
-      <Lightbox
-        images={lightboxImages}
-        currentIndex={lightboxIndex}
-        isOpen={isLightboxOpen}
-        onClose={() => setIsLightboxOpen(false)}
-        onNavigate={navigateLightbox}
-      />
+      {isLightboxOpen && (
+        <Suspense fallback={null}>
+          <Lightbox
+            images={lightboxImages}
+            currentIndex={lightboxIndex}
+            isOpen={isLightboxOpen}
+            onClose={() => setIsLightboxOpen(false)}
+            onNavigate={navigateLightbox}
+          />
+        </Suspense>
+      )}
     </section>
   );
 };

@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
 import { useLenis } from '@/hooks/useLenis';
-import { useImagePreloader } from '@/hooks/useImagePreloader';
 import { CustomCursor } from '@/components/ui/CustomCursor';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
 import { EngineeredGridBackground as ParticleBackground } from '@/components/ui/EngineeredGridBackground';
@@ -103,9 +102,6 @@ function App() {
 
   // Initialize Lenis smooth scroll
   useLenis();
-
-  // Preload every project image up-front so section animations don't hitch on first reveal
-  useImagePreloader();
 
   // Switch view AND scroll to the cards section so the user sees the new selection state.
   // Use Lenis (when available) so the smooth scroll re-evaluates the target each frame —

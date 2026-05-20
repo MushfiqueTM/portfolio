@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Box, FileText, Calendar } from 'lucide-react';
 import { NeuCard } from '@/components/ui/NeuCard';
 import { OptimizedImage } from '@/components/ui/OptimizedImage';
 import { ScrollReveal } from '@/components/ScrollReveal';
-import { Lightbox } from '@/components/Lightbox';
 import projects3D from '@/data/projects3D.json';
+
+const Lightbox = lazy(() =>
+  import('@/components/Lightbox').then((m) => ({ default: m.Lightbox }))
+);
 
 interface Project3D {
   title: string;
@@ -247,13 +250,17 @@ export const CADView: React.FC = () => {
         </NeuCard>
       </div>
 
-      <Lightbox
-        images={lightboxImages}
-        currentIndex={lightboxIndex}
-        isOpen={isLightboxOpen}
-        onClose={() => setIsLightboxOpen(false)}
-        onNavigate={navigateLightbox}
-      />
+      {isLightboxOpen && (
+        <Suspense fallback={null}>
+          <Lightbox
+            images={lightboxImages}
+            currentIndex={lightboxIndex}
+            isOpen={isLightboxOpen}
+            onClose={() => setIsLightboxOpen(false)}
+            onNavigate={navigateLightbox}
+          />
+        </Suspense>
+      )}
     </section>
   );
 };

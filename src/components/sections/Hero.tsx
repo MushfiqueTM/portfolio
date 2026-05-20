@@ -73,16 +73,16 @@ export const Hero: React.FC<HeroProps> = ({ activeView, onViewChange }) => {
       <NeuCard className="p-6 sm:p-10 lg:p-12">
       {/* Hero text + portrait + actions */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="flex flex-col sm:flex-row items-center gap-6 sm:gap-10 lg:gap-12"
       >
         {/* Portrait — large, beside the name */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.85 }}
+          initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.45, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
           className="flex-shrink-0"
         >
           <motion.div
@@ -101,15 +101,15 @@ export const Hero: React.FC<HeroProps> = ({ activeView, onViewChange }) => {
         {/* Content */}
         <div className="flex-1 text-center sm:text-left min-w-0">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1A2B4A] tracking-tight leading-[1.08]">
-            <AnimatedText text="Hey! I am" delay={0.3} />
+            <AnimatedText text="Hey! I am" delay={0.15} />
             {' '}
-            <AnimatedText text="Mushfique Tanzim Muztaba" delay={0.55} />
+            <AnimatedText text="Mushfique Tanzim Muztaba" delay={0.25} />
           </h1>
 
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.85 }}
+            transition={{ duration: 0.45, delay: 0.4 }}
             className="mt-4 text-sm sm:text-[15px] text-[#5F6B7A] leading-[1.65] max-w-[760px] mx-auto sm:mx-0"
           >
             I'm a Mechanical Engineering student at PolyU with experience spanning CAD design and FEA, ROS2 robotics,
@@ -122,7 +122,7 @@ export const Hero: React.FC<HeroProps> = ({ activeView, onViewChange }) => {
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.0 }}
+            transition={{ duration: 0.45, delay: 0.5 }}
             className="mt-3 text-sm text-[#5F6B7A] font-medium"
           >
             Open to graduate opportunities in engineering and technology.
@@ -132,7 +132,7 @@ export const Hero: React.FC<HeroProps> = ({ activeView, onViewChange }) => {
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.15 }}
+            transition={{ duration: 0.45, delay: 0.6 }}
             className="mt-6 flex items-center justify-center sm:justify-start gap-2.5 flex-wrap"
           >
             <a
@@ -171,7 +171,7 @@ export const Hero: React.FC<HeroProps> = ({ activeView, onViewChange }) => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1.3 }}
+            transition={{ duration: 0.45, delay: 0.7 }}
             className="mt-4 flex items-center gap-1.5 justify-center sm:justify-start text-[#8B95A5]"
           >
             <MapPin className="w-3.5 h-3.5" />
@@ -186,7 +186,7 @@ export const Hero: React.FC<HeroProps> = ({ activeView, onViewChange }) => {
         id="view-cards"
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 1.0, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.5, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
         className="mt-24 sm:mt-32 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 scroll-mt-24"
       >
         <LayoutGroup id="hero-view-cards">
@@ -204,7 +204,7 @@ export const Hero: React.FC<HeroProps> = ({ activeView, onViewChange }) => {
                   backgroundColor: isActive ? '#1A2B4A' : '#FFFFFF',
                 }}
                 transition={{
-                  opacity: { duration: 0.5, delay: 1.05 + i * 0.08, ease: [0.16, 1, 0.3, 1] },
+                  opacity: { duration: 0.4, delay: 0.6 + i * 0.06, ease: [0.16, 1, 0.3, 1] },
                   y: { type: 'spring', stiffness: 300, damping: 28 },
                   backgroundColor: { duration: 0.35 },
                 }}

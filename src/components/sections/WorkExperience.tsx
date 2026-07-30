@@ -1,13 +1,14 @@
 import React, { lazy, Suspense, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Briefcase, ChevronDown, MapPin, Calendar } from 'lucide-react';
+import { Briefcase, ChevronDown } from 'lucide-react';
 import { NeuCard } from '@/components/ui/NeuCard';
+import { MetaRow } from '@/components/ui/MetaRow';
+import { HighlightList } from '@/components/ui/HighlightList';
+import { LightboxHost } from '@/components/LightboxHost';
+import { useLightbox } from '@/hooks/useLightbox';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import workExperience from '@/data/workExperience.json';
 
-const Lightbox = lazy(() =>
-  import('@/components/Lightbox').then((m) => ({ default: m.Lightbox }))
-);
 const ImageCarousel = lazy(() =>
   import('@/components/ui/ImageCarousel').then((m) => ({ default: m.ImageCarousel }))
 );
@@ -29,6 +30,7 @@ interface WorkItem {
 
 const getCompanyLogo = (company: string): string | null => {
   const logos: Record<string, string> = {
+    'Alpha Vision Technology Limited': '/projects/AlphaVisionLogo.webp',
     'MangDang Technology Co., Limited': '/projects/MANGDANG TECHNOLOGY COLIMITEDCompany Logo.webp',
     'CLP Power Hong Kong': '/projects/CLP_logo_2.webp',
     'PolyU E Formula Racing Team': '/projects/Racing_logo.webp',
@@ -42,28 +44,11 @@ export const WorkExperience: React.FC = () => {
   const [expandedCompanies, setExpandedCompanies] = useState<Record<string, boolean>>({
     [(workExperience as WorkItem[])[0]?.company]: true,
   });
-  const [lightboxImages, setLightboxImages] = useState<string[]>([]);
-  const [lightboxIndex, setLightboxIndex] = useState(0);
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const lightbox = useLightbox();
 
   const toggleCompany = (company: string) => {
     setExpandedCompanies(prev => ({ ...prev, [company]: !prev[company] }));
   };
-
-  const openLightbox = (images: string[], index: number) => {
-    setLightboxImages(images);
-    setLightboxIndex(index);
-    setIsLightboxOpen(true);
-  };
-
-  const navigateLightbox = (direction: 'next' | 'prev') => {
-    if (direction === 'next') {
-      setLightboxIndex(prev => (prev + 1) % lightboxImages.length);
-    } else {
-      setLightboxIndex(prev => (prev - 1 + lightboxImages.length) % lightboxImages.length);
-    }
-  };
-
 
   return (
     <section id="experience" className="section-container py-12 sm:py-16">
@@ -95,6 +80,7 @@ export const WorkExperience: React.FC = () => {
                   {/* Collapsed header — always visible */}
                   <motion.button
                     onClick={() => toggleCompany(work.company)}
+                    aria-expanded={isExpanded}
                     className="w-full text-left p-4 sm:p-5 flex items-center gap-4"
                     whileTap={{ scale: 0.995 }}
                   >
@@ -123,16 +109,7 @@ export const WorkExperience: React.FC = () => {
 
                     {/* Right side: date + badges + chevron */}
                     <div className="flex items-center gap-3 flex-shrink-0">
-                      <div className="hidden sm:flex flex-col items-end gap-1">
-                        <span className="flex items-center gap-1 text-xs text-[#8B95A5]">
-                          <Calendar className="w-3 h-3" />
-                          {work.date}
-                        </span>
-                        <span className="flex items-center gap-1 text-xs text-[#8B95A5]">
-                          <MapPin className="w-3 h-3" />
-                          {work.location}
-                        </span>
-                      </div>
+                      <MetaRow date={work.date} location={work.location} variant="stacked" />
                       <motion.div
                         animate={{ rotate: isExpanded ? 180 : 0 }}
                         transition={{ duration: 0.3 }}
@@ -144,16 +121,12 @@ export const WorkExperience: React.FC = () => {
 
                   {/* Mobile meta — only shown in header on small screens */}
                   {!isExpanded && (
-                    <div className="sm:hidden flex items-center gap-3 px-5 pb-3 -mt-1 text-xs text-[#8B95A5]">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-3 h-3" />
-                        {work.date}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <MapPin className="w-3 h-3" />
-                        {work.location}
-                      </span>
-                    </div>
+                    <MetaRow
+                      date={work.date}
+                      location={work.location}
+                      variant="inline"
+                      className="px-5 pb-3 -mt-1"
+                    />
                   )}
 
                   {/* Expanded content */}
@@ -174,16 +147,7 @@ export const WorkExperience: React.FC = () => {
                       >
                         <div className="px-5 pb-5 pt-0">
                           {/* Mobile meta when expanded */}
-                          <div className="sm:hidden flex items-center gap-3 mb-4 text-xs text-[#8B95A5]">
-                            <span className="flex items-center gap-1">
-                              <Calendar className="w-3 h-3" />
-                              {work.date}
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <MapPin className="w-3 h-3" />
-                              {work.location}
-                            </span>
-                          </div>
+                          <MetaRow date={work.date} location={work.location} variant="inline" className="mb-4" />
 
                           <div className="border-t border-[#E2E8F0] pt-4 space-y-5">
                             {/* Teams */}
@@ -192,14 +156,7 @@ export const WorkExperience: React.FC = () => {
                                 {team.name && (
                                   <h4 className="font-medium text-[#1A2B4A] mb-2 text-sm">{team.name}</h4>
                                 )}
-                                <ul className="space-y-1.5">
-                                  {team.highlights.map((highlight, i) => (
-                                    <li key={i} className="text-sm text-[#5F6B7A] flex gap-2">
-                                      <span className="w-1.5 h-1.5 rounded-full bg-[#1A2B4A] mt-2 flex-shrink-0" />
-                                      <span>{highlight}</span>
-                                    </li>
-                                  ))}
-                                </ul>
+                                <HighlightList items={team.highlights} />
 
                                 {/* Team images */}
                                 {team.images && team.images.length > 0 && (
@@ -208,7 +165,7 @@ export const WorkExperience: React.FC = () => {
                                       <ImageCarousel
                                         images={team.images}
                                         alt={team.name || 'Team'}
-                                        onImageClick={(i) => openLightbox(team.images!, i)}
+                                        onImageClick={(i) => lightbox.open(team.images!, i)}
                                       />
                                     </Suspense>
                                   </div>
@@ -222,7 +179,7 @@ export const WorkExperience: React.FC = () => {
                                 <ImageCarousel
                                   images={work.images}
                                   alt={work.company}
-                                  onImageClick={(i) => openLightbox(work.images, i)}
+                                  onImageClick={(i) => lightbox.open(work.images, i)}
                                 />
                               </Suspense>
                             )}
@@ -238,17 +195,7 @@ export const WorkExperience: React.FC = () => {
         </div>
       </NeuCard>
 
-      {isLightboxOpen && (
-        <Suspense fallback={null}>
-          <Lightbox
-            images={lightboxImages}
-            currentIndex={lightboxIndex}
-            isOpen={isLightboxOpen}
-            onClose={() => setIsLightboxOpen(false)}
-            onNavigate={navigateLightbox}
-          />
-        </Suspense>
-      )}
+      <LightboxHost lightbox={lightbox} />
     </section>
   );
 };

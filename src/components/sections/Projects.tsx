@@ -1,46 +1,31 @@
-import React, { lazy, Suspense, useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FolderOpen, ChevronDown, Calendar, ImageIcon } from 'lucide-react';
 import { NeuCard } from '@/components/ui/NeuCard';
-import { OptimizedImage } from '@/components/ui/OptimizedImage';
+import { ProjectImageGrid } from '@/components/ui/ProjectImageGrid';
+import type { ImageLayout } from '@/components/ui/ProjectImageGrid';
+import { HighlightList } from '@/components/ui/HighlightList';
+import { LightboxHost } from '@/components/LightboxHost';
+import { useLightbox } from '@/hooks/useLightbox';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import allProjects from '@/data/allProjects.json';
-
-const Lightbox = lazy(() =>
-  import('@/components/Lightbox').then((m) => ({ default: m.Lightbox }))
-);
 
 interface Project {
   title: string;
   date: string;
   highlights: string[];
   images?: string[];
+  imageLayout?: ImageLayout;
 }
 
 export const Projects: React.FC = () => {
   const [expandedProjects, setExpandedProjects] = useState<Record<string, boolean>>({
     'Autonomous Indoor Thermal Inspection Robot': true,
   });
-  const [lightboxImages, setLightboxImages] = useState<string[]>([]);
-  const [lightboxIndex, setLightboxIndex] = useState(0);
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const lightbox = useLightbox();
 
   const toggleProject = (title: string) => {
     setExpandedProjects(prev => ({ ...prev, [title]: !prev[title] }));
-  };
-
-  const openLightbox = (images: string[], index: number) => {
-    setLightboxImages(images);
-    setLightboxIndex(index);
-    setIsLightboxOpen(true);
-  };
-
-  const navigateLightbox = (direction: 'next' | 'prev') => {
-    if (direction === 'next') {
-      setLightboxIndex(prev => (prev + 1) % lightboxImages.length);
-    } else {
-      setLightboxIndex(prev => (prev - 1 + lightboxImages.length) % lightboxImages.length);
-    }
   };
 
   return (
@@ -75,6 +60,7 @@ export const Projects: React.FC = () => {
                   {/* Clickable header */}
                   <motion.button
                     onClick={() => toggleProject(project.title)}
+                    aria-expanded={isExpanded}
                     className="w-full text-left p-4 sm:p-5 flex items-center gap-4"
                     whileTap={{ scale: 0.995 }}
                   >
@@ -119,68 +105,17 @@ export const Projects: React.FC = () => {
                         <div className="px-5 pb-5 pt-0">
                           <div className="border-t border-[#E2E8F0] pt-4 space-y-4">
                             {/* Highlights */}
-                            <ul className="space-y-1.5">
-                              {project.highlights.map((highlight, i) => (
-                                <li key={i} className="text-sm text-[#5F6B7A] flex gap-2">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-[#1A2B4A] mt-2 flex-shrink-0" />
-                                  <span>{highlight}</span>
-                                </li>
-                              ))}
-                            </ul>
+                            <HighlightList items={project.highlights} />
 
                             {/* Images */}
                             {hasImages && (
-                              project.title === "Redesigned a Table Fan" && project.images!.length === 4 ? (
-                                <div className="space-y-3">
-                                  <div className="grid grid-cols-3 gap-3">
-                                    {project.images!.slice(0, 3).map((imagePath, imgIndex) => (
-                                      <div
-                                        key={imgIndex}
-                                        onClick={() => openLightbox(project.images!, imgIndex)}
-                                        className="relative h-[210px] sm:h-[270px] md:h-[320px] cursor-pointer group/img flex items-center justify-center"
-                                        data-cursor="View"
-                                      >
-                                        <OptimizedImage
-                                          src={imagePath}
-                                          alt={`${project.title} - ${imgIndex + 1}`}
-                                          containerClassName="w-full h-full flex items-center justify-center"
-                                          className="max-w-full max-h-full object-contain rounded-2xl transition-transform duration-300 group-hover/img:scale-105"
-                                        />
-                                      </div>
-                                    ))}
-                                  </div>
-                                  <div
-                                    onClick={() => openLightbox(project.images!, 3)}
-                                    className="relative h-[380px] sm:h-[480px] md:h-[560px] cursor-pointer group/img flex items-center justify-center"
-                                    data-cursor="View"
-                                  >
-                                    <OptimizedImage
-                                      src={project.images![3]}
-                                      alt={`${project.title} - 4`}
-                                      containerClassName="w-full h-full flex items-center justify-center"
-                                      className="max-w-full max-h-full object-contain rounded-2xl transition-transform duration-300 group-hover/img:scale-105"
-                                    />
-                                  </div>
-                                </div>
-                              ) : (
-                                <div className={`grid gap-3 ${project.images!.length === 1 ? 'grid-cols-1' : 'grid-cols-2'}`}>
-                                  {project.images!.map((imagePath, imgIndex) => (
-                                    <div
-                                      key={imgIndex}
-                                      onClick={() => openLightbox(project.images!, imgIndex)}
-                                      className="relative h-[320px] sm:h-[400px] md:h-[480px] cursor-pointer group/img flex items-center justify-center"
-                                      data-cursor="View"
-                                    >
-                                      <OptimizedImage
-                                        src={imagePath}
-                                        alt={`${project.title} - ${imgIndex + 1}`}
-                                        containerClassName="w-full h-full flex items-center justify-center"
-                                        className="max-w-full max-h-full object-contain rounded-2xl transition-transform duration-300 group-hover/img:scale-105"
-                                      />
-                                    </div>
-                                  ))}
-                                </div>
-                              )
+                              <ProjectImageGrid
+                                images={project.images!}
+                                alt={project.title}
+                                layout={project.imageLayout}
+                                withSkeleton
+                                onImageClick={(i) => lightbox.open(project.images!, i)}
+                              />
                             )}
                           </div>
                         </div>
@@ -194,17 +129,7 @@ export const Projects: React.FC = () => {
         </div>
       </NeuCard>
 
-      {isLightboxOpen && (
-        <Suspense fallback={null}>
-          <Lightbox
-            images={lightboxImages}
-            currentIndex={lightboxIndex}
-            isOpen={isLightboxOpen}
-            onClose={() => setIsLightboxOpen(false)}
-            onNavigate={navigateLightbox}
-          />
-        </Suspense>
-      )}
+      <LightboxHost lightbox={lightbox} />
     </section>
   );
 };

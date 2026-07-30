@@ -13,11 +13,11 @@ interface SlideImgProps {
 }
 
 const SlideImg: React.FC<SlideImgProps> = ({ src, alt, className, onClick, cursor }) => {
-  const imgRef = useRef<HTMLImageElement>(null);
   const [shown, setShown] = useState(false);
 
-  useLayoutEffect(() => {
-    const img = imgRef.current;
+  // Cached images are `complete` before onLoad can attach, so their load event
+  // never fires — catch them as the node attaches, before paint.
+  const captureImg = useCallback((img: HTMLImageElement | null) => {
     if (img?.complete && img.naturalHeight > 0) setShown(true);
   }, []);
 
@@ -25,7 +25,7 @@ const SlideImg: React.FC<SlideImgProps> = ({ src, alt, className, onClick, curso
     <>
       {!shown && <Skeleton rounded="rounded-lg" className="absolute inset-3 sm:inset-6" />}
       <img
-        ref={imgRef}
+        ref={captureImg}
         src={src}
         alt={alt}
         draggable={false}

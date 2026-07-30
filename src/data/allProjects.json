@@ -91,6 +91,7 @@
   {
     "title": "Redesigned a Table Fan",
     "date": "November 2022",
+    "imageLayout": "3+1",
     "highlights": [
       "Collaborated with a team of seven people to analyze and redesign table fan components for improved performance and manufacturability, based on analysis and market research.",
       "Employed hand-drawn sketches and CAD models in SOLIDWORKS for detailed prototyping and stress simulation.",

@@ -1,73 +1,108 @@
-# React + TypeScript + Vite
+# Portfolio — Mushfique Tanzim Muztaba
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio site. Single page, no router, no backend — all content lives in
+JSON files under `src/data/` and the components are pure presentation.
 
-Currently, two official plugins are available:
+Live at <https://mushfique-portfolio.vercel.app/>.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Stack
 
-## React Compiler
+React 19 · TypeScript · Vite · Tailwind CSS · Framer Motion · Lenis (smooth scroll)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Commands
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev              # dev server on http://localhost:5173
+npm run build            # tsc -b, then vite build → dist/
+npm run preview          # serve the production build locally
+npm run lint             # eslint
+npm run convert:webp     # generate .webp siblings for images in public/projects/
+npm run convert:webp:dry # report what convert:webp would write, without writing
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## How the page is put together
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+[`src/App.tsx`](src/App.tsx) holds the only piece of app state: `activeView`, one of
+`'all' | 'cad' | 'design'`. It swaps the middle of the page while the hero,
+certifications, skills, and footer stay mounted.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| View | Sections rendered |
+| --- | --- |
+| `all` | Work Experience → Projects → Leadership |
+| `cad` | CAD View (SOLIDWORKS + AutoCAD) |
+| `design` | Design View |
+
+The view changes from two places — the three image cards in the hero, and the pill
+toggle in the floating nav — both routed through `handleViewChange`, which sets the
+state and then scrolls to `#view-cards` using Lenis. Lenis rather than
+`scrollIntoView` because the enter/exit animation changes document height
+mid-scroll, so a native scroll would stop at a stale offset.
+
 ```
+src/
+  App.tsx                     view state, background layers, section order
+  components/
+    FloatingNav.tsx           sticky pill nav; its section links depend on activeView
+    Footer.tsx  Lightbox.tsx  ScrollReveal.tsx
+    sections/                 Hero, WorkExperience, Projects, Leadership,
+                              Certifications, Skills — the 'all' view
+    views/                    CADView, DesignView — the alternate views
+    ui/                       presentational primitives (NeuCard, ProjectImageGrid,
+                              OptimizedImage, ImageCarousel, CustomCursor, …)
+  data/                       all page content, as JSON
+  hooks/                      useLenis, useScrollReveal
+  index.css                   design tokens + neumorphic component classes
+```
+
+## Editing content
+
+Nothing about the copy lives in the components. Edit the JSON:
+
+| File | Feeds |
+| --- | --- |
+| `src/data/workExperience.json` | Work Experience (companies, each with nested `teams[]`) |
+| `src/data/allProjects.json` | Projects |
+| `src/data/projects3D.json` | the SOLIDWORKS half of the CAD view |
+| `src/data/leadership.json` | both Leadership and the Design view |
+
+Image paths point into `public/projects/`. See
+[`public/projects/README.md`](public/projects/README.md) for adding images and for the
+optional `imageLayout` field that controls how an entry's images are arranged.
+
+The hero's category counts are derived from these files, so they update on their own.
+Certifications and Skills are the two exceptions — their content is inline in
+[`Certifications.tsx`](src/components/sections/Certifications.tsx) and
+[`Skills.tsx`](src/components/sections/Skills.tsx).
+
+## Design system
+
+Neumorphism: a soft grey `#F2F4F6` surface, deep navy `#1A2B4A`, blue accent
+`#3B82F6`, and paired light/dark box-shadows for depth. Tokens are CSS custom
+properties in [`src/index.css`](src/index.css), alongside `.neu-card`, `.neu-button`,
+`.neu-pill`, and `.neu-tag` component classes.
+
+Note that `cursor: none` is set globally, because
+[`CustomCursor`](src/components/ui/CustomCursor.tsx) draws a replacement that expands
+and shows the label from any `data-cursor` attribute it hovers. Both are reverted
+under `(hover: none) and (pointer: coarse)` so touch devices keep the native cursor.
+
+## Performance notes
+
+Worth knowing before changing the image or loading paths:
+
+- Images are served as WebP, generated by `scripts/convert-to-webp.mjs`.
+- `index.html` inlines a splash skeleton, which React replaces on mount, and
+  preloads the portrait plus the three hero card images.
+- `Lightbox` and `ImageCarousel` are `lazy()` + `Suspense` at every call site.
+- `OptimizedImage` reveals cached images before first paint via `useLayoutEffect` +
+  `img.complete`, so only genuinely-uncached images get a shimmer and a fade.
+- `EngineeredGridBackground` skips itself entirely on small touch devices, renders
+  its static grid once offscreen, and only runs its RAF loop while the mouse moves.
+- `vite.config.ts` splits `framer-motion`, `lenis`, and `lucide-react` into
+  separate chunks.
+
+## Deployment
+
+Pushes to `main` deploy to Vercel. `public/sitemap.xml` and the canonical URL and
+Open Graph tags in `index.html` are maintained by hand.

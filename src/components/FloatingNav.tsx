@@ -9,14 +9,40 @@ interface NavItem {
 
 type ViewType = 'all' | 'cad' | 'design';
 
+const HOME: NavItem = { id: 'hero', label: 'Home', shortLabel: 'Home' };
+const CERTIFICATIONS: NavItem = { id: 'certifications', label: 'Certs', shortLabel: 'Certs' };
+const SKILLS: NavItem = { id: 'skills', label: 'Skills', shortLabel: 'Skills' };
+
 const navItems: NavItem[] = [
-  { id: 'hero', label: 'Home', shortLabel: 'Home' },
+  HOME,
   { id: 'experience', label: 'Experience', shortLabel: 'Work' },
   { id: 'projects', label: 'Projects', shortLabel: 'Proj' },
   { id: 'leadership', label: 'Leadership', shortLabel: 'Lead' },
-  { id: 'certifications', label: 'Certs', shortLabel: 'Certs' },
-  { id: 'skills', label: 'Skills', shortLabel: 'Skills' },
+  CERTIFICATIONS,
+  SKILLS,
 ];
+
+/**
+ * Which section links the nav shows, per view. Module scope on purpose: the
+ * scroll handler reads this, and a function declared in the component body
+ * would be captured stale by the effect that registers the handler.
+ */
+const navItemsByView: Record<ViewType, NavItem[]> = {
+  all: navItems,
+  cad: [
+    HOME,
+    { id: 'solidworks', label: 'SOLIDWORKS', shortLabel: 'SW' },
+    { id: 'autocad', label: 'AutoCAD', shortLabel: 'CAD' },
+    CERTIFICATIONS,
+    SKILLS,
+  ],
+  design: [
+    HOME,
+    { id: 'design', label: 'Graphic Designs', shortLabel: 'Design' },
+    CERTIFICATIONS,
+    SKILLS,
+  ],
+};
 
 const viewToggle: { id: ViewType; label: string; shortLabel: string }[] = [
   { id: 'all', label: 'All', shortLabel: 'All' },
@@ -48,7 +74,7 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ activeView, onViewChan
       const scrollY = window.scrollY;
       setIsVisible(scrollY > 300);
 
-      const visibleItems = getVisibleNavItems();
+      const visibleItems = navItemsByView[activeView];
       const sections = visibleItems.map((item) => document.getElementById(item.id));
       const scrollPosition = scrollY + window.innerHeight / 3;
 
@@ -77,32 +103,6 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ activeView, onViewChan
     }
   };
 
-  const getVisibleNavItems = () => {
-    const home = { id: 'hero', label: 'Home', shortLabel: 'Home' };
-    const certifications = { id: 'certifications', label: 'Certs', shortLabel: 'Certs' };
-    const skills = { id: 'skills', label: 'Skills', shortLabel: 'Skills' };
-
-    if (activeView === 'all') {
-      return navItems;
-    } else if (activeView === 'cad') {
-      return [
-        home,
-        { id: 'solidworks', label: 'SOLIDWORKS', shortLabel: 'SW' },
-        { id: 'autocad', label: 'AutoCAD', shortLabel: 'CAD' },
-        certifications,
-        skills,
-      ];
-    } else if (activeView === 'design') {
-      return [
-        home,
-        { id: 'design', label: 'Graphic Designs', shortLabel: 'Design' },
-        certifications,
-        skills,
-      ];
-    }
-    return [home];
-  };
-
   return (
     <AnimatePresence>
       {isVisible && (
@@ -117,7 +117,7 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ activeView, onViewChan
             {/* Section links */}
             <LayoutGroup id="section-nav">
               <div className="flex flex-wrap justify-center items-center gap-y-1 gap-x-0.5 sm:gap-x-1">
-                {getVisibleNavItems().map((item) => (
+                {navItemsByView[activeView].map((item) => (
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}

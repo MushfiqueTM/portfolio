@@ -4,7 +4,7 @@ import { ArrowUp } from 'lucide-react';
 import { useLenis } from '@/hooks/useLenis';
 import { CustomCursor } from '@/components/ui/CustomCursor';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
-import { EngineeredGridBackground as ParticleBackground } from '@/components/ui/EngineeredGridBackground';
+import { EngineeredGridBackground } from '@/components/ui/EngineeredGridBackground';
 import { FloatingNav } from '@/components/FloatingNav';
 import { Hero } from '@/components/sections/Hero';
 import { Skills } from '@/components/sections/Skills';
@@ -125,7 +125,7 @@ function App() {
     <>
       <CustomCursor />
       <ScrollProgress />
-      <ParticleBackground />
+      <EngineeredGridBackground />
       <BackToTop />
       <div className="min-h-screen bg-[#F2F4F6]">
         {/* Parallax Background Orbs */}

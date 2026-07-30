@@ -1,8 +1,53 @@
 [
   {
+    "company": "Alpha Vision Technology Limited",
+    "role": "Mechanical Design Intern",
+    "date": "June 2026 – August 2026",
+    "location": "Hong Kong",
+    "teams": [
+      {
+        "name": "Pipeline Inspection Crawler",
+        "highlights": [
+          "Designed and additively manufactured the complete outer enclosure for a pipeline inspection crawler robot in SOLIDWORKS, taking the design from concept through functional prototype.",
+          "Engineered a vented gas sensor housing incorporating an ePTFE membrane, enabling gas diffusion while protecting internal electronics from water splashes and particulate ingress."
+        ],
+        "images": [
+          "/projects/InspectionCar1.webp",
+          "/projects/InspectionCar2.webp",
+          "/projects/InspectionCar3.webp",
+          "/projects/InspectionCar4.webp",
+          "/projects/InspectionCar5.webp"
+        ]
+      },
+      {
+        "name": "Controller Enclosure",
+        "highlights": [
+          "Designed and 3D-printed a controller enclosure with an integrated display opening, PCB mounting standoffs, and cable routing features to support reliable assembly and maintenance."
+        ],
+        "images": [
+          "/projects/Controller1.webp",
+          "/projects/Controller2.webp",
+          "/projects/Controller3.webp",
+          "/projects/Controller5.webp"
+        ]
+      },
+      {
+        "name": "6-DOF Robot Arm",
+        "highlights": [
+          "Designed 3D-printable arm links for a consumer robot in SOLIDWORKS, achieving six degrees of freedom of movement within a printable envelope."
+        ],
+        "images": [
+          "/projects/6DOFRobotArm1.webp",
+          "/projects/6DOFRobotArm2.webp"
+        ]
+      }
+    ],
+    "images": []
+  },
+  {
     "company": "MangDang Technology Co., Limited",
-    "role": "Robotics Intern (Part-time)",
-    "date": "March 2026",
+    "role": "Programmer (Part-Time)",
+    "date": "February – March 2026",
     "location": "Hong Kong",
     "teams": [
       {

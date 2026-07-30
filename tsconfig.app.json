@@ -8,7 +8,8 @@
     "types": ["vite/client"],
     "skipLibCheck": true,
 
-    "baseUrl": ".",
+    /* Resolved relative to this file — `paths` needs no `baseUrl`, which is
+       deprecated and stops functioning in TypeScript 7.0. */
     "paths": {
       "@/*": [
         "./src/*"

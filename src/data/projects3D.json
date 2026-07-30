@@ -1,6 +1,48 @@
 [
   {
-    "title": "Automated Trolley",
+    "title": "Alpha Vision Technology Limited - 6-DOF Robot Arm",
+    "date": "August 2026",
+    "description": "Six-axis arm structure for a consumer robot platform.",
+    "highlights": [
+      "Designed 3D-printable arm links for a consumer robot in SOLIDWORKS, achieving six degrees of freedom of movement within a printable envelope."
+    ],
+    "images": [
+      "/projects/6DOFRobotArm1.webp",
+      "/projects/6DOFRobotArm2.webp"
+    ]
+  },
+  {
+    "title": "Alpha Vision Technology Limited - Controller Enclosure",
+    "date": "July 2026",
+    "description": "Serviceable controller housing designed around display, PCB, and cable routing constraints.",
+    "highlights": [
+      "Designed and 3D-printed a controller enclosure with an integrated display opening, PCB mounting standoffs, and cable routing features to support reliable assembly and maintenance."
+    ],
+    "images": [
+      "/projects/Controller1.webp",
+      "/projects/Controller2.webp",
+      "/projects/Controller3.webp",
+      "/projects/Controller5.webp"
+    ]
+  },
+  {
+    "title": "Alpha Vision Technology Limited - Pipeline Inspection Crawler",
+    "date": "June 2026",
+    "description": "Full outer enclosure for a pipeline inspection crawler, concept through functional prototype.",
+    "highlights": [
+      "Designed and additively manufactured the complete outer enclosure for a pipeline inspection crawler robot in SOLIDWORKS, taking the design from concept through functional prototype.",
+      "Engineered a vented gas sensor housing incorporating an ePTFE membrane, enabling gas diffusion while protecting internal electronics from water splashes and particulate ingress."
+    ],
+    "images": [
+      "/projects/InspectionCar1.webp",
+      "/projects/InspectionCar2.webp",
+      "/projects/InspectionCar3.webp",
+      "/projects/InspectionCar4.webp",
+      "/projects/InspectionCar5.webp"
+    ]
+  },
+  {
+    "title": "PolyU - Automated Trolley",
     "date": "September 2023",
     "description": "Built a remote-controlled platform capable of carrying a payload of up to 50 kg.",
     "highlights": [
@@ -15,7 +57,8 @@
   },
   {
     "title": "TGGS - Motorbike Dolly for Crash Testing",
-    "date": "2023",
+    "date": "August 2023",
+    "imageLayout": "3+1",
     "description": "Design of a motorbike dolly for crash testing with comprehensive engineering analysis.",
     "highlights": [
       "Designed a motorbike crash-test dolly in SOLIDWORKS, developing the full design from initial concept sketches through to production-ready mechanical assemblies.",
@@ -31,7 +74,7 @@
   },
   {
     "title": "WEXTECH HK LIMITED - Product Designer",
-    "date": "2023",
+    "date": "July 2023",
     "description": "Professional product design role focusing on consumer products from concept to production.",
     "highlights": [
       "Conceptualized and sketched initial design concepts, considering user preferences and market trends",
@@ -44,7 +87,7 @@
     ]
   },
   {
-    "title": "Cleaning Device for Elderly People",
+    "title": "PolyU - Cleaning Device for Elderly People",
     "date": "April 2023",
     "description": "Designed an accessible cleaning device specifically for the elderly population of Hong Kong.",
     "highlights": [
@@ -61,8 +104,9 @@
     ]
   },
   {
-    "title": "Table Fan Redesign",
+    "title": "PolyU - Table Fan Redesign",
     "date": "November 2022",
+    "imageLayout": "3+1",
     "description": "Comprehensive redesign and optimization of a table fan with focus on performance and manufacturability.",
     "highlights": [
       "Collaborated with a team of seven people to analyze and redesign table fan components for improved performance and manufacturability, based on analysis and market research.",
@@ -77,7 +121,7 @@
     ]
   },
   {
-    "title": "Gripper Design with Water Bottle",
+    "title": "PolyU - Gripper Design with Water Bottle",
     "date": "April 2022",
     "description": "Designed a mechanical gripper system for bottle handling with detailed CAD modeling.",
     "highlights": [
@@ -91,7 +135,7 @@
     ]
   },
   {
-    "title": "Robot Arm Assembly",
+    "title": "PolyU - Robot Arm Assembly",
     "date": "March 2022",
     "description": "Designed and developed a six degrees of freedom robot arm using SOLIDWORKS.",
     "highlights": [

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/Skeleton';
@@ -18,7 +18,7 @@ interface OptimizedImageProps {
  * Thin wrapper around <img> with skeleton placeholder and error fallback.
  *
  * - If the image is already in the browser cache at mount, it's revealed
- *   synchronously before the first paint via useLayoutEffect — no skeleton,
+ *   synchronously before the first paint from the ref callback — no skeleton,
  *   no fade.
  * - If it's still mid-download, a shimmer skeleton fills the container; the
  *   image fades in over it once the native onLoad fires.
@@ -33,12 +33,13 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   width,
   height,
 }) => {
-  const imgRef = useRef<HTMLImageElement>(null);
   const [hasError, setHasError] = useState(false);
   const [shown, setShown] = useState(false);
 
-  useLayoutEffect(() => {
-    const img = imgRef.current;
+  // A cached image is already `complete` before React can attach onLoad, so its
+  // load event never fires. Catch it as the node attaches instead — ref
+  // callbacks run during commit, ahead of layout effects and still before paint.
+  const captureImg = useCallback((img: HTMLImageElement | null) => {
     if (img?.complete && img.naturalHeight > 0) {
       setShown(true);
     }
@@ -73,7 +74,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
             />
           )}
           <img
-            ref={imgRef}
+            ref={captureImg}
             src={src}
             alt={alt}
             width={width}

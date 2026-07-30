@@ -1,14 +1,15 @@
-import React, { lazy, Suspense, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Box, FileText, Calendar } from 'lucide-react';
 import { NeuCard } from '@/components/ui/NeuCard';
 import { OptimizedImage } from '@/components/ui/OptimizedImage';
+import { ProjectImageGrid } from '@/components/ui/ProjectImageGrid';
+import type { ImageLayout } from '@/components/ui/ProjectImageGrid';
+import { HighlightList } from '@/components/ui/HighlightList';
+import { LightboxHost } from '@/components/LightboxHost';
+import { useLightbox } from '@/hooks/useLightbox';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import projects3D from '@/data/projects3D.json';
-
-const Lightbox = lazy(() =>
-  import('@/components/Lightbox').then((m) => ({ default: m.Lightbox }))
-);
 
 interface Project3D {
   title: string;
@@ -16,100 +17,11 @@ interface Project3D {
   description: string;
   highlights: string[];
   images: string[];
+  imageLayout?: ImageLayout;
 }
 
 export const CADView: React.FC = () => {
-  const [lightboxImages, setLightboxImages] = useState<string[]>([]);
-  const [lightboxIndex, setLightboxIndex] = useState(0);
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-
-  const openLightbox = (images: string[], index: number) => {
-    setLightboxImages(images);
-    setLightboxIndex(index);
-    setIsLightboxOpen(true);
-  };
-
-  const navigateLightbox = (direction: 'next' | 'prev') => {
-    if (direction === 'next') {
-      setLightboxIndex(prev => (prev + 1) % lightboxImages.length);
-    } else {
-      setLightboxIndex(prev => (prev - 1 + lightboxImages.length) % lightboxImages.length);
-    }
-  };
-
-  const renderImages = (images: string[], title: string) => {
-    if (images.length === 0) return null;
-
-    // 3+1 layout for 4 images (TGGS / Table Fan)
-    if (images.length === 4 && (title.includes('TGGS') || title.includes('Table Fan'))) {
-      return (
-        <div className="space-y-3">
-          <div className="grid grid-cols-3 gap-3 items-center">
-            {images.slice(0, 3).map((imagePath, imgIndex) => (
-              <motion.div
-                key={imgIndex}
-                onClick={() => openLightbox(images, imgIndex)}
-                className="relative rounded-lg overflow-hidden bg-[#EEF1F5] cursor-pointer group/img"
-                initial={{ opacity: 0, y: 40, scale: 0.92 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.55, delay: 0.15 + imgIndex * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ scale: 1.03, y: -4 }}
-                data-cursor="View"
-              >
-                <OptimizedImage
-                  src={imagePath}
-                  alt={`${title} - ${imgIndex + 1}`}
-                  className="w-full h-auto object-contain transition-transform duration-300 group-hover/img:scale-105"
-                />
-              </motion.div>
-            ))}
-          </div>
-          <motion.div
-            onClick={() => openLightbox(images, 3)}
-            className="relative rounded-lg overflow-hidden bg-[#EEF1F5] cursor-pointer group/img"
-            initial={{ opacity: 0, y: 40, scale: 0.92 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.6, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-            whileHover={{ scale: 1.02, y: -4 }}
-            data-cursor="View"
-          >
-            <OptimizedImage
-              src={images[3]}
-              alt={`${title} - 4`}
-              className="w-full h-auto object-contain transition-transform duration-300 group-hover/img:scale-105"
-            />
-          </motion.div>
-        </div>
-      );
-    }
-
-    // Default grid
-    return (
-      <div className={`grid gap-3 items-center ${images.length === 1 ? 'grid-cols-1' : 'grid-cols-2'}`}>
-        {images.map((imagePath, imgIndex) => (
-          <motion.div
-            key={imgIndex}
-            onClick={() => openLightbox(images, imgIndex)}
-            className="relative rounded-lg overflow-hidden bg-[#EEF1F5] cursor-pointer group/img"
-            initial={{ opacity: 0, y: 40, scale: 0.92 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.55, delay: 0.15 + imgIndex * 0.12, ease: [0.16, 1, 0.3, 1] }}
-            whileHover={{ scale: 1.03, y: -4 }}
-            data-cursor="View"
-          >
-            <OptimizedImage
-              src={imagePath}
-              alt={`${title} - ${imgIndex + 1}`}
-              className="w-full h-auto object-contain transition-transform duration-300 group-hover/img:scale-105"
-            />
-          </motion.div>
-        ))}
-      </div>
-    );
-  };
+  const lightbox = useLightbox();
 
   return (
     <section id="cad" className="section-container py-12 sm:py-16">
@@ -155,17 +67,18 @@ export const CADView: React.FC = () => {
                   <div className="px-5 pb-5 pt-0">
                     <div className="border-t border-[#E2E8F0] pt-4 space-y-4">
                       {/* Highlights */}
-                      <ul className="space-y-1.5">
-                        {project.highlights.map((highlight, i) => (
-                          <li key={i} className="text-sm text-[#5F6B7A] flex gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#1A2B4A] mt-2 flex-shrink-0" />
-                            <span>{highlight}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      <HighlightList items={project.highlights} />
 
                       {/* Images */}
-                      {renderImages(project.images, project.title)}
+                      <ProjectImageGrid
+                        images={project.images}
+                        alt={project.title}
+                        layout={project.imageLayout}
+                        sizing="natural"
+                        withSkeleton
+                        reveal
+                        onImageClick={(i) => lightbox.open(project.images, i)}
+                      />
                     </div>
                   </div>
                 </div>
@@ -211,26 +124,19 @@ export const CADView: React.FC = () => {
 
               <div className="px-5 pb-5 pt-0">
                 <div className="border-t border-[#E2E8F0] pt-4 space-y-4">
-                  <ul className="space-y-1.5">
-                    <li className="text-sm text-[#5F6B7A] flex gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#1A2B4A] mt-2 flex-shrink-0" />
-                      <span>Created detailed technical drawings with precise dimensions and annotations</span>
-                    </li>
-                    <li className="text-sm text-[#5F6B7A] flex gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#1A2B4A] mt-2 flex-shrink-0" />
-                      <span>Developed comprehensive 2D design layouts for various engineering applications</span>
-                    </li>
-                    <li className="text-sm text-[#5F6B7A] flex gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#1A2B4A] mt-2 flex-shrink-0" />
-                      <span>Utilized AutoCAD's advanced drafting tools for professional documentation</span>
-                    </li>
-                  </ul>
+                  <HighlightList
+                    items={[
+                      'Created detailed technical drawings with precise dimensions and annotations',
+                      'Developed comprehensive 2D design layouts for various engineering applications',
+                      "Utilized AutoCAD's advanced drafting tools for professional documentation",
+                    ]}
+                  />
 
                   <div className="grid grid-cols-1 gap-3">
                     {["/projects/AutoCAD_1.webp", "/projects/AutoCAD_2.webp"].map((imagePath, imgIndex) => (
                       <motion.div
                         key={imgIndex}
-                        onClick={() => openLightbox(["/projects/AutoCAD_1.webp", "/projects/AutoCAD_2.webp"], imgIndex)}
+                        onClick={() => lightbox.open(["/projects/AutoCAD_1.webp", "/projects/AutoCAD_2.webp"], imgIndex)}
                         className="relative rounded-lg overflow-hidden bg-[#EEF1F5] cursor-pointer group/img"
                         whileHover={{ scale: 1.02 }}
                         data-cursor="View"
@@ -250,17 +156,7 @@ export const CADView: React.FC = () => {
         </NeuCard>
       </div>
 
-      {isLightboxOpen && (
-        <Suspense fallback={null}>
-          <Lightbox
-            images={lightboxImages}
-            currentIndex={lightboxIndex}
-            isOpen={isLightboxOpen}
-            onClose={() => setIsLightboxOpen(false)}
-            onNavigate={navigateLightbox}
-          />
-        </Suspense>
-      )}
+      <LightboxHost lightbox={lightbox} />
     </section>
   );
 };

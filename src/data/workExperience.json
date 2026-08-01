@@ -32,9 +32,9 @@
         ]
       },
       {
-        "name": "6-DOF Robot Arm",
+        "name": "Humanoid Robot Arm",
         "highlights": [
-          "Designed 3D-printable arm links for a consumer robot in SOLIDWORKS, achieving six degrees of freedom of movement within a printable envelope."
+          "Designed a multi-joint mechanical robot arm for a consumer humanoid robot in SOLIDWORKS, optimizing the structure for manufacturability, assembly, and aesthetic integration."
         ],
         "images": [
           "/projects/6DOFRobotArm1.webp",

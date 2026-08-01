@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, LayoutGroup } from 'framer-motion';
-import { Mail, Phone, Linkedin, Download, MapPin } from 'lucide-react';
+import { Mail, Phone, Linkedin, Download, MapPin, Layers, Box, Palette } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { NeuCard } from '@/components/ui/NeuCard';
 import { AnimatedText } from '@/components/ui/AnimatedText';
 import allProjects from '@/data/allProjects.json';
@@ -15,20 +16,6 @@ interface HeroProps {
   onViewChange: (view: ViewType) => void;
 }
 
-const CardImage: React.FC<{ src: string; alt: string }> = ({ src, alt }) => (
-  <img
-    src={src}
-    alt={alt}
-    loading="eager"
-    decoding="async"
-    className="absolute inset-0 w-full h-full object-cover"
-  />
-);
-
-const AllPattern: React.FC = () => <CardImage src="/projects/All%20Experience_card.webp" alt="All experiences illustration" />;
-const CadPattern: React.FC = () => <CardImage src="/projects/CAD%20View_card.webp" alt="Computer aided designs illustration" />;
-const DesignPattern: React.FC = () => <CardImage src="/projects/Graphic%20Design_card.webp" alt="Graphic designs illustration" />;
-
 const allCount = workExperience.length + allProjects.length + leadership.length;
 const cadCount = projects3D.length;
 const designCount = leadership.length;
@@ -38,30 +25,37 @@ const cards: {
   label: string;
   desc: string;
   count: string;
-  Pattern: React.FC;
+  Icon: LucideIcon;
 }[] = [
   {
     id: 'all',
     label: 'All Experiences',
     desc: 'CAD, robotics, software, and design. The full mix.',
     count: `${allCount} entries`,
-    Pattern: AllPattern,
+    Icon: Layers,
   },
   {
     id: 'cad',
     label: 'Computer Aided Designs',
     desc: 'Mechanical design and analysis using SolidWorks, AutoCAD, and FEA tools.',
     count: `${cadCount} projects`,
-    Pattern: CadPattern,
+    Icon: Box,
   },
   {
     id: 'design',
     label: 'Graphic Designs',
     desc: 'Posters, social content, and visual experiments.',
     count: `${designCount} projects`,
-    Pattern: DesignPattern,
+    Icon: Palette,
   },
 ];
+
+/* Faint drafting grid laid over the selected card, echoing the page background. */
+const BLUEPRINT_HATCH = {
+  backgroundImage:
+    'linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px)',
+  backgroundSize: '20px 20px',
+};
 
 export const Hero: React.FC<HeroProps> = ({ activeView, onViewChange }) => {
   const handleCardClick = (view: ViewType) => {
@@ -210,42 +204,67 @@ export const Hero: React.FC<HeroProps> = ({ activeView, onViewChange }) => {
                 }}
                 whileHover={{ y: isActive ? -6 : -3 }}
                 whileTap={{ scale: 0.98 }}
-                className={`group relative flex flex-col rounded-[20px] overflow-hidden text-left transition-shadow duration-300 ${
+                aria-pressed={isActive}
+                className={`group relative flex h-full flex-col items-start rounded-[20px] overflow-hidden p-6 text-left transition-shadow duration-300 ${
                   isActive
                     ? 'shadow-[0_0_0_3px_#1A2B4A,0_0_24px_rgba(26,43,74,0.25),14px_14px_32px_rgba(26,43,74,0.45)]'
                     : 'shadow-[8px_8px_18px_rgba(163,177,198,0.55),-6px_-6px_14px_rgba(255,255,255,1),inset_0_0_0_1px_rgba(26,43,74,0.06)]'
                 }`}
               >
-                <div
-                  className={`relative w-full aspect-[400/235] transition-colors duration-300 ${
-                    isActive ? 'bg-[#142139] border-b border-white/10' : 'bg-[#F8FAFC] border-b border-[#1A2B4A]/5'
-                  }`}
-                >
-                  <c.Pattern />
-                  {isActive && (
+                {isActive && (
+                  <span aria-hidden="true" className="pointer-events-none absolute inset-0" style={BLUEPRINT_HATCH} />
+                )}
+
+                {/* Icon well + index — the well matches every section header on the page */}
+                <div className="relative flex w-full items-start justify-between">
+                  <div
+                    className={`flex h-12 w-12 items-center justify-center rounded-xl transition-all duration-300 group-hover:-translate-y-0.5 ${
+                      isActive
+                        ? 'bg-white/10 text-white ring-1 ring-white/15'
+                        : 'bg-[#F2F4F6] text-[#1A2B4A] shadow-[4px_4px_10px_rgba(163,177,198,0.55),-3px_-3px_8px_rgba(255,255,255,1)]'
+                    }`}
+                  >
+                    <c.Icon className="h-[22px] w-[22px]" strokeWidth={1.75} />
+                  </div>
+
+                  {isActive ? (
                     <motion.div
                       layoutId="card-active-check"
-                      className="absolute top-3 right-3 w-6 h-6 rounded-full bg-[#1A2B4A] text-white flex items-center justify-center text-xs font-bold shadow-md ring-2 ring-white"
+                      className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-bold text-[#1A2B4A] shadow-md"
                       transition={{ type: 'spring', stiffness: 350, damping: 32 }}
                     >
                       ✓
                     </motion.div>
+                  ) : (
+                    <span className="font-mono text-[11px] tabular-nums text-[#B4BDC9]">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
                   )}
                 </div>
 
-                <div className="px-5 py-4">
-                  <div className="flex items-baseline justify-between gap-2 mb-1">
-                    <div className={`text-[15px] font-bold tracking-tight transition-colors duration-300 ${isActive ? 'text-white' : 'text-[#1A2B4A]'}`}>
-                      {c.label}
-                    </div>
-                    <div className={`text-[11px] font-mono whitespace-nowrap transition-colors duration-300 ${isActive ? 'text-white/60' : 'text-[#8B95A5]'}`}>
-                      {c.count}
-                    </div>
+                {/* Label + count */}
+                <div className="relative mt-5 w-full">
+                  <div className={`text-[17px] font-bold leading-tight tracking-tight transition-colors duration-300 ${isActive ? 'text-white' : 'text-[#1A2B4A]'}`}>
+                    {c.label}
                   </div>
-                  <div className={`text-[13px] leading-[1.5] transition-colors duration-300 ${isActive ? 'text-white/80' : 'text-[#5F6B7A]'}`}>
-                    {c.desc}
+                  <div className={`mt-1.5 font-mono text-[11px] tabular-nums transition-colors duration-300 ${isActive ? 'text-white/55' : 'text-[#8B95A5]'}`}>
+                    {c.count}
                   </div>
                 </div>
+
+                {/* Hairline with an accent segment that extends on hover */}
+                <div className="relative mt-4 h-px w-full">
+                  <span className={`absolute inset-0 transition-colors duration-300 ${isActive ? 'bg-white/15' : 'bg-[#1A2B4A]/8'}`} />
+                  <span
+                    className={`absolute left-0 top-0 h-px w-8 transition-all duration-500 ease-out group-hover:w-20 ${
+                      isActive ? 'bg-white/70' : 'bg-[#3B82F6]'
+                    }`}
+                  />
+                </div>
+
+                <p className={`relative mt-4 text-[13px] leading-[1.55] transition-colors duration-300 ${isActive ? 'text-white/75' : 'text-[#5F6B7A]'}`}>
+                  {c.desc}
+                </p>
               </motion.button>
             );
           })}

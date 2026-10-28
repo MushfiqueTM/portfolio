@@ -85,8 +85,8 @@
     --cyan:         190 100% 38.4%;   /* #00A3C4  primary accent */
     --amber:        31 71.5% 49.6%;   /* #D98324  secondary accent, key figures */
 
-    /* Drafting geometry: near-square corners, hairline rules. */
-    --radius: 2px;
+    /* Corner rounding for every plate, button, tag and image tile. */
+    --radius: 12px;
   }
 }
 
@@ -146,15 +146,15 @@
   }
 
   .corner-ticks::before {
-    top: 5px;
-    left: 5px;
+    top: 10px;
+    left: 10px;
     border-top-width: 1px;
     border-left-width: 1px;
   }
 
   .corner-ticks::after {
-    bottom: 5px;
-    right: 5px;
+    bottom: 10px;
+    right: 10px;
     border-bottom-width: 1px;
     border-right-width: 1px;
   }
@@ -202,7 +202,7 @@
     background: hsl(var(--paper-raised) / 0.82);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-radius: 3px;
+    border-radius: 9999px;
     border: 1px solid hsl(var(--rule));
     box-shadow:
       0 2px 10px hsl(var(--ink) / 0.07),
@@ -220,7 +220,7 @@
 
 ::-webkit-scrollbar-thumb {
   background: hsl(var(--rule));
-  border-radius: 0;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {

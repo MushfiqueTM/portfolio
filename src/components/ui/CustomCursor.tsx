@@ -114,7 +114,7 @@ export const CustomCursor: React.FC = () => {
         }}
       >
         <motion.div
-          className="rounded-full border-[1.5px] border-[#1A2B4A]/30"
+          className="rounded-full border-[1.5px] border-ink/30"
           animate={{
             width: isHovering ? 80 : 36,
             height: isHovering ? 80 : 36,

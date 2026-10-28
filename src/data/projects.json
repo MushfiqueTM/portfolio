@@ -1,0 +1,313 @@
+[
+  {
+    "slug": "humanoid-robot-arm",
+    "title": "Humanoid Robot Arm",
+    "org": "Alpha Vision Technology Limited",
+    "date": "August 2026",
+    "description": "Multi-joint arm structure for a consumer humanoid platform.",
+    "categories": ["mechanical"],
+    "tools": ["SOLIDWORKS"],
+    "highlights": [
+      "Designed a multi-joint mechanical robot arm for a consumer humanoid robot in SOLIDWORKS, optimizing the structure for manufacturability, assembly, and aesthetic integration."
+    ],
+    "images": [
+      "/projects/6DOFRobotArm1.webp",
+      "/projects/6DOFRobotArm2.webp"
+    ]
+  },
+  {
+    "slug": "controller-enclosure",
+    "title": "Controller Enclosure",
+    "org": "Alpha Vision Technology Limited",
+    "date": "July 2026",
+    "description": "Serviceable controller housing designed around display, PCB, and cable routing constraints.",
+    "categories": ["mechanical"],
+    "tools": ["SOLIDWORKS"],
+    "highlights": [
+      "Designed and 3D-printed a controller enclosure with an integrated display opening, PCB mounting standoffs, and cable routing features to support reliable assembly and maintenance."
+    ],
+    "images": [
+      "/projects/Controller1.webp",
+      "/projects/Controller2.webp",
+      "/projects/Controller3.webp",
+      "/projects/Controller5.webp"
+    ]
+  },
+  {
+    "slug": "pipeline-inspection-crawler",
+    "title": "Pipeline Inspection Crawler",
+    "org": "Alpha Vision Technology Limited",
+    "date": "June 2026",
+    "description": "Full outer enclosure for a pipeline inspection crawler, concept through functional prototype.",
+    "categories": ["mechanical"],
+    "tools": ["SOLIDWORKS"],
+    "highlights": [
+      "Designed and additively manufactured the complete outer enclosure for a pipeline inspection crawler robot in SOLIDWORKS, taking the design from concept through functional prototype.",
+      "Engineered a vented gas sensor housing incorporating an ePTFE membrane, enabling gas diffusion while protecting internal electronics from water splashes and particulate ingress."
+    ],
+    "images": [
+      "/projects/InspectionCar1.webp",
+      "/projects/InspectionCar2.webp",
+      "/projects/InspectionCar3.webp",
+      "/projects/InspectionCar4.webp",
+      "/projects/InspectionCar5.webp"
+    ]
+  },
+  {
+    "slug": "thermal-inspection-robot",
+    "title": "Autonomous Indoor Thermal Inspection Robot",
+    "date": "January 2026 – May 2026",
+    "description": "ROS 2 inspection robot fusing LiDAR, RGB, and thermal sensing with a multimodal AI perception stack.",
+    "categories": ["robotics", "ai"],
+    "highlights": [
+      "Built an autonomous indoor inspection robot on a ROS 2 Humble stack using SLAM Toolbox, frontier-based exploration, and LiDAR + monocular RGB + MLX90640 thermal sensors for non-contact anomaly detection (>35°C).",
+      "Developed a three-layer perception pipeline (thermal hotspot detection, YOLO11s object detection, and Google Gemini 2.5 Flash multimodal analysis) running on a Raspberry Pi 5 mecanum-drive platform, with a distributed Pi/laptop architecture via rosbridge.",
+      "Created a natural-language AI chat interface (Gemini 2.5 Flash) letting operators query robot state and issue navigation commands in plain English; built a single-file React operator dashboard with live SLAM map, camera feeds, and thermal overlay."
+    ],
+    "images": [
+      "/projects/Autonomous_Robot_1.webp",
+      "/projects/Autonomous_Robot_2.webp"
+    ]
+  },
+  {
+    "slug": "mini-pupper-ros-migration",
+    "title": "Mini Pupper Quadruped — ROS 2 Jazzy Migration",
+    "org": "MangDang Technology Co., Limited",
+    "date": "February – March 2026",
+    "description": "Migrated an open-source quadruped robot stack to ROS 2 Jazzy and Gazebo Harmonic.",
+    "categories": ["robotics", "software"],
+    "highlights": [
+      "Migrated Mini Pupper ROS quadruped robot stack from ROS 2 Humble to Jazzy, including full Gazebo Classic → Gazebo Harmonic simulator migration (URDF sensor plugins, ros_gz_bridge, gz_ros2_control), Nav2 parameter updates, and Ubuntu 22.04 → 24.04 platform support",
+      "Rewrote the champ quadruped contact sensor node from Gazebo Classic C++ transport APIs (gazebo::transport) to Gz Harmonic (gz::transport), enabling foot contact detection in the new simulator for gait controller feedback",
+      "Validated end-to-end simulation and real robot deployment, including SLAM (Cartographer/SLAM Toolbox), autonomous navigation (Nav2), teleop control, and automated install scripts for both PC and Raspberry Pi targets."
+    ],
+    "images": [
+      "/projects/MangDang_1.webp",
+      "/projects/MangDang_2.webp",
+      "/projects/MangDang_3.webp"
+    ]
+  },
+  {
+    "slug": "autonomous-shooting-system",
+    "title": "Autonomous Shooting System",
+    "date": "November 2025",
+    "description": "Vision-guided 2-axis gimbal with PID tracking and trajectory compensation.",
+    "categories": ["robotics", "ai"],
+    "highlights": [
+      "Developed autonomous target shooting system using Python and OpenCV on Raspberry Pi for real-time green LED detection and engagement with 90% accuracy under variable lighting.",
+      "Implemented PID control algorithm with position smoothing and dead zone compensation for 2-axis servo gimbal, achieving stable tracking with minimal oscillation.",
+      "Integrated trajectory compensation using fixed offset calibration and multi-method HSV colour detection (3 parallel algorithms) for robust target acquisition at 100cm distance.",
+      "Designed firing control system with GPIO motor control and automated target sequencing."
+    ],
+    "images": [
+      "/projects/shooting_system_1.webp",
+      "/projects/shooting_system_2.webp"
+    ]
+  },
+  {
+    "slug": "ai-object-detection",
+    "title": "AI Multi-Model Object Detection System",
+    "date": "October 2025",
+    "description": "YOLOv11n detection combined with HSV colour classification for bottle sorting.",
+    "categories": ["ai"],
+    "highlights": [
+      "Developed and trained a YOLOv11n object detection model to identify beverage bottles with 90-94% confidence using a custom dataset of 100+ labeled images.",
+      "Engineered a multi-model AI system integrating YOLO with an HSV-based color classification algorithm to detect and categorize bottles by cap color (yellow vs. white/clear) with 82-99% accuracy.",
+      "Implemented end-to-end machine learning pipeline including data collection, annotation using Roboflow, model training with PyTorch, and real-time inference deployment.",
+      "Optimized color detection algorithm to analyze specific object regions (cap area) for enhanced classification performance while maintaining minimal processing overhead."
+    ],
+    "images": [
+      "/projects/object_detection_1.webp",
+      "/projects/object_detection_2.webp"
+    ]
+  },
+  {
+    "slug": "automated-trolley",
+    "title": "Automated Trolley",
+    "org": "PolyU",
+    "date": "September 2023",
+    "description": "Built a remote-controlled platform capable of carrying a payload of up to 50 kg.",
+    "categories": ["mechanical"],
+    "tools": ["SOLIDWORKS"],
+    "highlights": [
+      "Collaborated with a multidisciplinary team in the successful development of a practical, automated trolley solution for industrial and manufacturing applications.",
+      "Employed SOLIDWORKS for the initial design phase of the automated trolley, ensuring precision and efficiency in the development process.",
+      "Addressed challenges in loading/unloading mechanisms, straight-line movement, and 90° turns, showcasing a practical understanding of engineering applications."
+    ],
+    "images": [
+      "/projects/multi-disciplinary-1.webp",
+      "/projects/multi-disciplinary-2.webp"
+    ]
+  },
+  {
+    "slug": "tggs-crash-dolly",
+    "title": "Motorbike Dolly for Crash Testing",
+    "org": "Thai German Graduate School of Engineering (TGGS)",
+    "date": "August 2023",
+    "description": "Design of a motorbike dolly for crash testing with comprehensive engineering analysis.",
+    "categories": ["mechanical"],
+    "tools": ["SOLIDWORKS"],
+    "imageLayout": "3+1",
+    "highlights": [
+      "Designed a motorbike crash-test dolly in SOLIDWORKS, developing the full design from initial concept sketches through to production-ready mechanical assemblies.",
+      "Performed iterative Finite Element Analysis (FEA) under simulated crash loading conditions, optimizing geometry to meet target safety factors while minimizing material usage.",
+      "Engineered an energy-absorbing crash cushion system, reducing peak impact forces on test equipment and improving repeatability of crash test results."
+    ],
+    "images": [
+      "/projects/motorbike-dolly-1.webp",
+      "/projects/motorbike-dolly-2.webp",
+      "/projects/motorbike-dolly-3.webp",
+      "/projects/motorbike-dolly-4.webp"
+    ]
+  },
+  {
+    "slug": "wextech-product-design",
+    "title": "Consumer Product Design",
+    "org": "WEXTECH HK LIMITED",
+    "date": "July 2023",
+    "description": "Professional product design role focusing on consumer products from concept to production.",
+    "categories": ["mechanical"],
+    "tools": ["SOLIDWORKS"],
+    "highlights": [
+      "Conceptualized and sketched initial design concepts, considering user preferences and market trends",
+      "Utilized CAD software to create detailed 3D models and prototypes",
+      "Successfully brought the designs from concept to production, including Seed Frame products"
+    ],
+    "images": [
+      "/projects/wextech-product-1.webp",
+      "/projects/wextech-product-2.webp"
+    ]
+  },
+  {
+    "slug": "autocad-technical-drawings",
+    "title": "Technical Drawings & 2D Design",
+    "date": "2023",
+    "description": "Professional technical drawings and 2D design work created using AutoCAD.",
+    "categories": ["mechanical"],
+    "tools": ["AutoCAD"],
+    "highlights": [
+      "Created detailed technical drawings with precise dimensions and annotations",
+      "Developed comprehensive 2D design layouts for various engineering applications",
+      "Utilized AutoCAD's advanced drafting tools for professional documentation"
+    ],
+    "images": [
+      "/projects/AutoCAD_1.webp",
+      "/projects/AutoCAD_2.webp"
+    ]
+  },
+  {
+    "slug": "elderly-cleaning-device",
+    "title": "Cleaning Device for Elderly People",
+    "org": "PolyU",
+    "date": "April 2023",
+    "description": "Designed an accessible cleaning device specifically for the elderly population of Hong Kong.",
+    "categories": ["mechanical"],
+    "tools": ["SOLIDWORKS"],
+    "highlights": [
+      "Conducted research with a team of seven to develop a user-friendly cleaning device for elderly residents in Hong Kong.",
+      "Utilized design tools including functional decomposition diagrams, mind maps, and concept sketches for ideation.",
+      "Developed a SOLIDWORKS prototype incorporating product architecture, component selection, and material optimization.",
+      "Presented the accessibility, ease of use, and effectiveness of the cleaning device to an audience."
+    ],
+    "images": [
+      "/projects/cleaning-device-1.webp",
+      "/projects/cleaning-device-2.webp",
+      "/projects/cleaning-device-3.webp",
+      "/projects/cleaning-device-4.webp"
+    ]
+  },
+  {
+    "slug": "rehabilitation-glove",
+    "title": "Rehabilitation Glove for Tremor Patients",
+    "org": "PolyU",
+    "date": "April 2023",
+    "description": "Rehab glove using slider tendon actuators and a magnetic vibration absorber.",
+    "categories": ["mechanical"],
+    "highlights": [
+      "Led a team in designing a rehab glove with slider tendon actuators and a magnetic vibration absorber for physical therapy.",
+      "Incorporated haptic sensors for enhanced grip strength, allowing patients to lift heavy objects based on muscle movements.",
+      "Implemented a vibration absorber with magnetic field generation for stabilizing limbs affected by tremors.",
+      "Presented innovative rehab gloves, showcasing strong communication skills and effectively highlighting product features."
+    ]
+  },
+  {
+    "slug": "table-fan-redesign",
+    "title": "Table Fan Redesign",
+    "org": "PolyU",
+    "date": "November 2022",
+    "description": "Comprehensive redesign and optimization of a table fan with focus on performance and manufacturability.",
+    "categories": ["mechanical"],
+    "tools": ["SOLIDWORKS"],
+    "imageLayout": "3+1",
+    "highlights": [
+      "Collaborated with a team of seven people to analyze and redesign table fan components for improved performance and manufacturability, based on analysis and market research.",
+      "Employed hand-drawn sketches and CAD models in SOLIDWORKS for detailed prototyping and stress simulation.",
+      "Assembled all components of the original fan in SOLIDWORKS, allowing for a comprehensive view of the product."
+    ],
+    "images": [
+      "/projects/table-fan-2.webp",
+      "/projects/table-fan-3.webp",
+      "/projects/table-fan-4.webp",
+      "/projects/table-fan-1.webp"
+    ]
+  },
+  {
+    "slug": "vector-calculation-program",
+    "title": "3D Vector Calculation Program in Python",
+    "org": "PolyU",
+    "date": "November 2022",
+    "description": "Object-oriented Python application for 3D vector mathematics with authenticated access.",
+    "categories": ["software"],
+    "highlights": [
+      "Created a Python app for 3D vector calculations with object-oriented design.",
+      "Implemented secure login requiring username-password authentication, allowing three attempts before shutdown.",
+      "Designed a text menu interface for easy input of 3D vectors, enabling calculations like dot products and arctan, with a convenient application termination option."
+    ]
+  },
+  {
+    "slug": "ml-teaching",
+    "title": "Teaching Machine Learning & AI Recognition to Children",
+    "date": "July 2022",
+    "description": "Taught machine learning and programming to high school students in South Africa.",
+    "categories": ["ai", "software"],
+    "highlights": [
+      "Educated high school students in South Africa on Machine Learning and Computer Programming through Zoom.",
+      "Guided students in applying AI recognition to aid the visually impaired, utilizing Scratch and Google's Teachable Machine to build an Object Recognition System."
+    ]
+  },
+  {
+    "slug": "gripper-water-bottle",
+    "title": "Gripper Design with Water Bottle",
+    "org": "PolyU",
+    "date": "April 2022",
+    "description": "Designed a mechanical gripper system for bottle handling with detailed CAD modeling.",
+    "categories": ["mechanical"],
+    "tools": ["SOLIDWORKS"],
+    "highlights": [
+      "Created a volume-defined bottle design using SOLIDWORKS.",
+      "Enhanced gripper for efficient bottle grasping, employing mechanical design principles.",
+      "Generated renderings with varied appearances and utilized image mapping and animation videos to showcase the bottle's gripping mechanism.",
+      "Produced precise 2D drawings of components with title blocks and annotations."
+    ],
+    "images": [
+      "/projects/gripper-design-1.webp"
+    ]
+  },
+  {
+    "slug": "robot-arm-assembly",
+    "title": "Robot Arm Assembly",
+    "org": "PolyU",
+    "date": "March 2022",
+    "description": "Designed and developed a six degrees of freedom robot arm using SOLIDWORKS.",
+    "categories": ["mechanical"],
+    "tools": ["SOLIDWORKS"],
+    "highlights": [
+      "Designed and developed six degrees of Freedom Robot Arm using SOLIDWORKS.",
+      "Designed the Cover, Base, Shoulder Support, Upper Arm Model, Power Cable, and the Server Motor Subassembly.",
+      "Assembled all the created parts along with the predesigned parts to create the Robot Arm."
+    ],
+    "images": [
+      "/projects/robot-arm-1.webp"
+    ]
+  }
+]

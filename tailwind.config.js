@@ -4,83 +4,55 @@ module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      /*
+       * Every colour wraps a bare HSL triple from :root in src/index.css with
+       * `<alpha-value>`, which is what makes `text-ink/60` and `border-ink/25` work.
+       * A token defined in only one of the two places silently produces no utility.
+       */
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+        paper: {
+          DEFAULT: "hsl(var(--paper) / <alpha-value>)",
+          raised: "hsl(var(--paper-raised) / <alpha-value>)",
+          inset: "hsl(var(--paper-inset) / <alpha-value>)",
         },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+        ink: {
+          DEFAULT: "hsl(var(--ink) / <alpha-value>)",
+          light: "hsl(var(--ink-light) / <alpha-value>)",
+          soft: "hsl(var(--ink-soft) / <alpha-value>)",
+          muted: "hsl(var(--ink-muted) / <alpha-value>)",
         },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive) / <alpha-value>)",
-          foreground: "hsl(var(--destructive-foreground) / <alpha-value>)",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
-        },
+        rule: "hsl(var(--rule) / <alpha-value>)",
+        cyan: "hsl(var(--cyan) / <alpha-value>)",
+        amber: "hsl(var(--amber) / <alpha-value>)",
+      },
+      fontFamily: {
+        sans: ['"IBM Plex Sans"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
+        mono: ['"IBM Plex Mono"', 'ui-monospace', '"SF Mono"', 'Menlo', 'monospace'],
       },
       borderRadius: {
-        xl: "calc(var(--radius) + 4px)",
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-        xs: "calc(var(--radius) - 6px)",
+        lg: "calc(var(--radius) + 2px)",
+        DEFAULT: "var(--radius)",
+        md: "var(--radius)",
+        sm: "var(--radius)",
       },
+      /* Flat drafting shadows — paper on a desk, not neumorphic foam. */
       boxShadow: {
-        xs: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+        plate: "0 1px 2px hsl(var(--ink) / 0.05), 0 1px 1px hsl(var(--ink) / 0.03)",
+        "plate-lg": "0 4px 14px hsl(var(--ink) / 0.09), 0 1px 3px hsl(var(--ink) / 0.05)",
+        well: "inset 0 1px 3px hsl(var(--ink) / 0.07)",
+        ink: "0 2px 8px hsl(var(--ink) / 0.22)",
+      },
+      backgroundImage: {
+        /* ParallaxOrbs depends on this; it was never defined, so both orbs rendered nothing. */
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
       },
       keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-        "caret-blink": {
-          "0%,70%,100%": { opacity: "1" },
-          "20%,50%": { opacity: "0" },
-        },
         shimmer: {
           "0%": { backgroundPosition: "200% 0" },
           "100%": { backgroundPosition: "-200% 0" },
         },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-        "caret-blink": "caret-blink 1.25s ease-out infinite",
         shimmer: "shimmer 1.6s linear infinite",
       },
     },

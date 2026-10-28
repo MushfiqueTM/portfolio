@@ -23,14 +23,18 @@ export function useLenis() {
     lenisRef.current = lenis;
     window.__lenis = lenis;
 
+    // Keep the handle so cleanup can cancel the loop. Without this the callback kept
+    // rescheduling itself and calling .raf() on a destroyed instance — which StrictMode
+    // makes visible immediately, since it mounts the effect twice.
+    let frame = 0;
     function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      frame = requestAnimationFrame(raf);
     }
-
-    requestAnimationFrame(raf);
+    frame = requestAnimationFrame(raf);
 
     return () => {
+      cancelAnimationFrame(frame);
       window.__lenis = undefined;
       lenis.destroy();
     };

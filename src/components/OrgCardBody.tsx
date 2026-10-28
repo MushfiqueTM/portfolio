@@ -12,26 +12,33 @@ export interface OrgItem {
   date: string;
   location: string;
   highlights: string[];
+  /**
+   * Which section of the design page this belongs under. Not every org here is
+   * graphic design work — the Halls of Residence role is event organizing.
+   */
+  categories: OrgCategory[];
   images?: string[];
   imageLayout?: ImageLayout;
   instagram?: string;
   reels?: Reel[];
 }
 
+export type OrgCategory = 'design' | 'leadership';
+
 interface OrgCardBodyProps {
   item: OrgItem;
   onImageOpen: (images: string[], index: number) => void;
-  /** Animate the image tiles in on scroll — DesignView does, Leadership doesn't. */
+  /** Animate the image tiles in on scroll and lift them on hover. */
   reveal?: boolean;
 }
 
 /**
- * Highlights, reels, and images for one organization — the part Leadership and
- * DesignView render identically. Each supplies its own card shell and meta rows,
- * which genuinely differ (Leadership is a collapsible accordion).
+ * Highlights, reels, and images for one organization. Kept separate from the card
+ * shell and meta rows so a caller can wrap this body in its own layout — an
+ * accordion, say — without duplicating the content markup.
  */
 export const OrgCardBody: React.FC<OrgCardBodyProps> = ({ item, onImageOpen, reveal = false }) => (
-  <div className="border-t border-[#E2E8F0] pt-4 space-y-4">
+  <div className="border-t border-rule pt-4 space-y-4">
     {/* Highlights */}
     <HighlightList items={item.highlights} />
 

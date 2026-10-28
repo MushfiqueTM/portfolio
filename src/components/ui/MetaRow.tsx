@@ -20,8 +20,8 @@ export const MetaRow: React.FC<MetaRowProps> = ({ date, location, variant, class
   const stacked = variant === 'stacked';
   const base = stacked
     ? 'hidden sm:flex flex-col items-end gap-1'
-    : 'sm:hidden flex items-center gap-3 text-xs text-[#8B95A5]';
-  const item = stacked ? 'flex items-center gap-1 text-xs text-[#8B95A5]' : 'flex items-center gap-1';
+    : 'sm:hidden flex items-center gap-3 text-xs text-ink-muted';
+  const item = stacked ? 'flex items-center gap-1 text-xs text-ink-muted' : 'flex items-center gap-1';
 
   return (
     <div className={className ? `${base} ${className}` : base}>

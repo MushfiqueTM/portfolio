@@ -12,14 +12,14 @@ interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
  */
 export const Skeleton: React.FC<SkeletonProps> = ({
   className,
-  rounded = 'rounded-xl',
+  rounded = 'rounded-sm',
   ...rest
 }) => (
   <div
     aria-hidden="true"
     className={cn(
       'animate-shimmer bg-[length:200%_100%]',
-      'bg-[linear-gradient(110deg,#E8EBF0_8%,#F2F4F6_18%,#E8EBF0_33%)]',
+      'bg-[linear-gradient(110deg,#EAE6DC_8%,#F7F4ED_18%,#EAE6DC_33%)]',
       rounded,
       className
     )}

@@ -25,10 +25,14 @@ export const Lightbox: React.FC<LightboxProps> = ({
 
   useEffect(() => {
     if (isOpen) {
+      // `overflow: hidden` alone doesn't hold Lenis — it drives scroll itself, so the
+      // page would keep gliding behind the overlay on wheel or touch.
+      window.__lenis?.stop();
       document.body.style.overflow = 'hidden';
       window.addEventListener('keydown', handleKeyDown);
     }
     return () => {
+      window.__lenis?.start();
       document.body.style.overflow = 'unset';
       window.removeEventListener('keydown', handleKeyDown);
     };

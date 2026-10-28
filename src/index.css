@@ -1,321 +1,230 @@
+/*
+ * Self-hosted latin subsets, from Google Fonts' own woff2 (scripts note: public/fonts/).
+ *
+ * Served from our own origin on purpose. Loading these from fonts.googleapis.com meant a
+ * render-blocking request to a third-party host, then a second round trip to
+ * fonts.gstatic.com once the CSS was parsed — and Google serves that stylesheet with
+ * max-age=86400, so returning visitors re-paid it daily. Here the @font-face rules ride
+ * along in the hashed CSS bundle under the one-year immutable header in vercel.json.
+ *
+ * IBM Plex Sans is the variable cut: one file covers 400-700, so font-weight takes a range.
+ */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-sans-latin-var.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-mono-latin-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-mono-latin-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-mono-latin-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  /*
+   * Blueprint / drafting palette.
+   *
+   * Stored as bare HSL triples so Tailwind's opacity modifiers work — `text-ink/60`
+   * compiles because tailwind.config.js wraps each of these in
+   * `hsl(var(--x) / <alpha-value>)`. Add a colour here AND there, or the utility
+   * silently will not exist.
+   *
+   * Consume these through the Tailwind classes (`bg-paper`, `text-ink`, `border-rule`),
+   * not by writing hex in a component. The previous token block was dead code because
+   * every component hardcoded its own values instead.
+   */
   :root {
-    /* Neumorphic Color Palette - Soft Cool Tones */
-    --background: 220 20% 96%;         /* #F2F4F6 - Soft Grey */
-    --foreground: 220 35% 19%;         /* #1A2B4A - Deep Navy */
-    --card: 0 0% 100%;                 /* #FFFFFF - Pure White */
-    --card-foreground: 220 35% 19%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 35% 19%;
-    --primary: 220 35% 19%;            /* Deep Navy */
-    --primary-foreground: 0 0% 98%;
-    --secondary: 215 20% 41%;          /* #5F6B7A - Muted Blue-Grey */
-    --secondary-foreground: 0 0% 98%;
-    --muted: 220 14% 93%;              /* #E8EBF0 */
-    --muted-foreground: 215 20% 41%;
-    --accent: 217 91%  60%;            /* #3B82F6 - Bright Blue */
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 220 13% 91%;             /* #E2E8F0 */
-    --input: 220 13% 91%;
-    --ring: 217 91% 60%;
-    --radius: 1rem;
-    
-    /* Neumorphic Shadow Colors */
-    --shadow-light: rgba(255, 255, 255, 0.9);
-    --shadow-dark: rgba(163, 177, 198, 0.5);
-    --shadow-inset-light: rgba(255, 255, 255, 0.6);
-    --shadow-inset-dark: rgba(163, 177, 198, 0.3);
-    
-    /* Surface Colors */
-    --surface: #F2F4F6;
-    --surface-raised: #FFFFFF;
-    --surface-inset: #E8EBF0;
-    
-    /* Text Colors */
-    --text-primary: #1A2B4A;
-    --text-secondary: #5F6B7A;
-    --text-muted: #8B95A5;
+    --paper:        42 31.3% 93.7%;   /* #F4F1EA  drafting paper */
+    --paper-raised: 48 55.6% 98.2%;   /* #FDFCF8  plate surface */
+    --paper-inset:  43 25% 89%;       /* #EAE6DC  wells, image tiles */
+
+    --ink:          215 48.8% 16.1%;  /* #15263D  blueprint navy */
+    --ink-light:    211 31.8% 25.3%;  /* #2C4055  hover on ink surfaces */
+    --ink-soft:     215 20.4% 36.5%;  /* #4A5A70  secondary text */
+    --ink-muted:    216 13% 59.4%;    /* #8A95A5  micro-labels, metadata */
+
+    --rule:         41 21.2% 79.6%;   /* #D6CFC0  hairline borders */
+
+    --cyan:         190 100% 38.4%;   /* #00A3C4  primary accent */
+    --amber:        31 71.5% 49.6%;   /* #D98324  secondary accent, key figures */
+
+    /* Drafting geometry: near-square corners, hairline rules. */
+    --radius: 2px;
   }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-  
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
-    @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: var(--surface);
+    @apply bg-paper text-ink antialiased;
+    font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     overflow-x: hidden;
     cursor: none;
   }
 
+  /* CustomCursor draws a replacement; see src/components/ui/CustomCursor.tsx. */
   a, button, [role="button"] {
     cursor: none;
   }
 
-  /* Restore default cursor on touch devices */
   @media (hover: none) and (pointer: coarse) {
     body, a, button, [role="button"] {
       cursor: auto;
     }
   }
-  
+
   ::selection {
-    background-color: hsl(var(--primary) / 0.15);
-    color: hsl(var(--primary));
+    background-color: hsl(var(--cyan) / 0.2);
+    color: hsl(var(--ink));
   }
 }
 
 @layer components {
-  /* Neumorphic Card - Raised Effect */
-  .neu-card {
-    background: var(--surface-raised);
-    border-radius: 1.25rem;
-    box-shadow: 
-      8px 8px 16px var(--shadow-dark),
-      -8px -8px 16px var(--shadow-light);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  
-  .neu-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 
-      12px 12px 24px var(--shadow-dark),
-      -12px -12px 24px var(--shadow-light);
-  }
-  
-  /* Neumorphic Card - Pressed/Inset Effect */
-  .neu-card-pressed {
-    background: var(--surface);
-    border-radius: 1.25rem;
-    box-shadow: 
-      inset 4px 4px 8px var(--shadow-inset-dark),
-      inset -4px -4px 8px var(--shadow-inset-light);
-  }
-  
-  /* Neumorphic Button - Raised */
-  .neu-button {
-    background: var(--surface);
-    border-radius: 0.75rem;
-    box-shadow: 
-      4px 4px 8px var(--shadow-dark),
-      -4px -4px 8px var(--shadow-light);
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    border: none;
-    cursor: pointer;
-  }
-  
-  .neu-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 
-      6px 6px 12px var(--shadow-dark),
-      -6px -6px 12px var(--shadow-light);
-  }
-  
-  .neu-button:active {
-    transform: translateY(0);
-    box-shadow: 
-      inset 3px 3px 6px var(--shadow-inset-dark),
-      inset -3px -3px 6px var(--shadow-inset-light);
-  }
-  
-  /* Neumorphic Button - Primary (Filled) */
-  .neu-button-primary {
-    background: hsl(var(--primary));
-    color: white;
-    border-radius: 0.75rem;
-    box-shadow: 
-      4px 4px 12px rgba(26, 43, 74, 0.3),
-      -2px -2px 8px rgba(255, 255, 255, 0.5);
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    border: none;
-    cursor: pointer;
-  }
-  
-  .neu-button-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 
-      6px 6px 16px rgba(26, 43, 74, 0.35),
-      -2px -2px 8px rgba(255, 255, 255, 0.5);
-  }
-  
-  .neu-button-primary:active {
-    transform: translateY(0);
-    box-shadow: 
-      inset 2px 2px 6px rgba(0, 0, 0, 0.2),
-      inset -2px -2px 6px rgba(255, 255, 255, 0.1);
-  }
-  
-  /* Neumorphic Pill Button */
-  .neu-pill {
-    background: var(--surface);
-    border-radius: 9999px;
-    box-shadow: 
-      3px 3px 6px var(--shadow-dark),
-      -3px -3px 6px var(--shadow-light);
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    border: none;
-    cursor: pointer;
-  }
-  
-  .neu-pill:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 
-      5px 5px 10px var(--shadow-dark),
-      -5px -5px 10px var(--shadow-light);
-  }
-  
-  .neu-pill.active {
-    background: hsl(var(--primary));
-    color: white;
-    box-shadow: 
-      inset 2px 2px 6px rgba(0, 0, 0, 0.2),
-      inset -2px -2px 6px rgba(255, 255, 255, 0.1);
-  }
-  
-  /* Neumorphic Tag/Badge */
-  .neu-tag {
-    background: var(--surface);
-    border-radius: 0.5rem;
-    box-shadow: 
-      2px 2px 4px var(--shadow-dark),
-      -2px -2px 4px var(--shadow-light);
-    transition: all 0.2s ease;
-  }
-  
-  .neu-tag:hover {
-    transform: scale(1.05);
-    box-shadow: 
-      3px 3px 6px var(--shadow-dark),
-      -3px -3px 6px var(--shadow-light);
-  }
-  
-  /* Glassmorphism Effect */
-  .glass {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-  }
-  
-  /* Glassmorphism - Dark */
-  .glass-dark {
-    background: rgba(26, 43, 74, 0.8);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  
-  /* Section Container */
+  /* Section width — the one utility the old stylesheet actually got used for. */
   .section-container {
     @apply w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
   }
-  
-  /* Floating Navigation */
+
+  /*
+   * Registration marks at a plate's corners, like a drawing frame. Drawn with two
+   * pseudo-elements carrying two borders each, so one element gives all four corners.
+   */
+  .corner-ticks {
+    position: relative;
+  }
+
+  .corner-ticks::before,
+  .corner-ticks::after {
+    content: '';
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    pointer-events: none;
+    border-color: hsl(var(--cyan) / 0.55);
+    border-style: solid;
+    border-width: 0;
+  }
+
+  .corner-ticks::before {
+    top: 5px;
+    left: 5px;
+    border-top-width: 1px;
+    border-left-width: 1px;
+  }
+
+  .corner-ticks::after {
+    bottom: 5px;
+    right: 5px;
+    border-bottom-width: 1px;
+    border-right-width: 1px;
+  }
+
+  /* A dimension line: hairline with tick terminators, for section dividers. */
+  .dimension-line {
+    position: relative;
+    height: 1px;
+    background: hsl(var(--rule));
+  }
+
+  .dimension-line::before,
+  .dimension-line::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    width: 1px;
+    height: 7px;
+    background: hsl(var(--ink-muted));
+  }
+
+  .dimension-line::before { left: 0; }
+  .dimension-line::after  { right: 0; }
+
+  /* The titleblock strip at the top of each category page. */
+  .titleblock {
+    @apply border border-ink/25 bg-paper-raised/70 rounded-sm;
+  }
+
+  .titleblock-cell {
+    @apply border-ink/15 px-3 py-2;
+  }
+
+  /* Mono uppercase micro-label — the field captions inside a titleblock. */
+  .field-label {
+    @apply font-mono text-[9px] uppercase tracking-[0.16em] text-ink-muted;
+  }
+
+  .field-value {
+    @apply font-mono text-[11px] sm:text-xs uppercase tracking-[0.06em] text-ink;
+  }
+
+  /* Translucent nav bar — restyled from a white pill to a squared paper strip. */
   .floating-nav {
-    background: rgba(255, 255, 255, 0.85);
+    background: hsl(var(--paper-raised) / 0.82);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-radius: 9999px;
-    box-shadow: 
-      0 4px 24px rgba(0, 0, 0, 0.08),
-      0 1px 2px rgba(0, 0, 0, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-  }
-  
-  /* Hide scrollbar but keep functionality */
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-  
-  /* Image Container with Neumorphic Frame */
-  .neu-image-frame {
-    background: var(--surface);
-    border-radius: 1rem;
-    padding: 0.5rem;
-    box-shadow: 
-      6px 6px 12px var(--shadow-dark),
-      -6px -6px 12px var(--shadow-light);
-  }
-  
-  /* Timeline Connector */
-  .timeline-line {
-    background: linear-gradient(
-      to bottom,
-      var(--shadow-dark) 0%,
-      var(--text-muted) 50%,
-      var(--shadow-dark) 100%
-    );
-  }
-  
-  /* Scroll Reveal Animation Classes */
-  .reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  
-  .reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  /* Stagger Children */
-  .stagger-children > * {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  
-  .stagger-children.active > *:nth-child(1) { animation: staggerIn 0.5s 0.05s forwards; }
-  .stagger-children.active > *:nth-child(2) { animation: staggerIn 0.5s 0.1s forwards; }
-  .stagger-children.active > *:nth-child(3) { animation: staggerIn 0.5s 0.15s forwards; }
-  .stagger-children.active > *:nth-child(4) { animation: staggerIn 0.5s 0.2s forwards; }
-  .stagger-children.active > *:nth-child(5) { animation: staggerIn 0.5s 0.25s forwards; }
-  .stagger-children.active > *:nth-child(6) { animation: staggerIn 0.5s 0.3s forwards; }
-  .stagger-children.active > *:nth-child(7) { animation: staggerIn 0.5s 0.35s forwards; }
-  .stagger-children.active > *:nth-child(8) { animation: staggerIn 0.5s 0.4s forwards; }
-}
-
-@keyframes staggerIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
+    border-radius: 3px;
+    border: 1px solid hsl(var(--rule));
+    box-shadow:
+      0 2px 10px hsl(var(--ink) / 0.07),
+      0 1px 2px hsl(var(--ink) / 0.04);
   }
 }
 
-/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--surface);
+  background: hsl(var(--paper));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--shadow-dark);
-  border-radius: 4px;
+  background: hsl(var(--rule));
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
+  background: hsl(var(--ink-muted));
 }
 
 /* Smooth scroll with Lenis */
@@ -339,28 +248,12 @@ html.lenis, html.lenis body {
   pointer-events: none;
 }
 
-/* Lightbox Styles */
+/* Lightbox stays near-black regardless of palette — images are the subject. */
 .lightbox-overlay {
   background: rgba(0, 0, 0, 0.92);
   backdrop-filter: blur(8px);
 }
 
-/* Mobile Optimizations */
-@media (max-width: 768px) {
-  .neu-card {
-    box-shadow: 
-      4px 4px 8px var(--shadow-dark),
-      -4px -4px 8px var(--shadow-light);
-  }
-  
-  .neu-card:hover {
-    box-shadow: 
-      6px 6px 12px var(--shadow-dark),
-      -6px -6px 12px var(--shadow-light);
-  }
-}
-
-/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -369,9 +262,9 @@ html.lenis, html.lenis body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  
-  .reveal {
-    opacity: 1;
-    transform: none;
+
+  /* The titleblock rules animate from scaleX(0); without this they stay invisible. */
+  .draw-rule {
+    transform: none !important;
   }
 }

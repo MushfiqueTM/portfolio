@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Briefcase, ChevronDown } from 'lucide-react';
-import { NeuCard } from '@/components/ui/NeuCard';
+import { Plate } from '@/components/ui/Plate';
 import { MetaRow } from '@/components/ui/MetaRow';
 import { HighlightList } from '@/components/ui/HighlightList';
 import { LightboxHost } from '@/components/LightboxHost';
@@ -51,8 +51,8 @@ export const WorkExperience: React.FC = () => {
   };
 
   return (
-    <section id="experience" className="section-container py-12 sm:py-16">
-      <NeuCard className="p-6 sm:p-10">
+    <section id="experience" className="section-container py-12 sm:py-16 scroll-mt-24">
+      <Plate className="p-6 sm:p-10">
         {/* Section Header */}
         <motion.div
           className="flex items-center gap-3 mb-8"
@@ -63,11 +63,11 @@ export const WorkExperience: React.FC = () => {
           <motion.div
             whileHover={{ rotate: 360 }}
             transition={{ duration: 0.6 }}
-            className="w-12 h-12 rounded-xl bg-[#F2F4F6] shadow-[3px_3px_6px_rgba(163,177,198,0.5),-3px_-3px_6px_rgba(255,255,255,0.9)] flex items-center justify-center"
+            className="w-12 h-12 rounded-sm bg-paper border border-rule shadow-well flex items-center justify-center"
           >
-            <Briefcase className="w-6 h-6 text-[#1A2B4A]" />
+            <Briefcase className="w-6 h-6 text-ink" />
           </motion.div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#1A2B4A]">Work Experience</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-ink">Work Experience</h2>
         </motion.div>
 
         {/* Accordion Cards */}
@@ -76,7 +76,7 @@ export const WorkExperience: React.FC = () => {
             const isExpanded = !!expandedCompanies[work.company];
             return (
               <ScrollReveal key={work.company} delay={index * 0.08}>
-                <div className={`rounded-xl border transition-all duration-300 overflow-hidden ${isExpanded ? 'border-[#3B82F6]/30 bg-white shadow-md' : 'border-[#E2E8F0] bg-[#F8FAFC] hover:border-[#3B82F6]/20'}`}>
+                <div className={`rounded-sm border transition-all duration-300 overflow-hidden ${isExpanded ? 'border-cyan/30 bg-paper-raised shadow-plate' : 'border-rule bg-paper-raised hover:border-cyan/20'}`}>
                   {/* Collapsed header — always visible */}
                   <motion.button
                     onClick={() => toggleCompany(work.company)}
@@ -86,7 +86,7 @@ export const WorkExperience: React.FC = () => {
                   >
                     {/* Logo */}
                     {getCompanyLogo(work.company) ? (
-                      <div className="w-11 h-11 rounded-lg bg-white shadow-sm p-1 flex items-center justify-center flex-shrink-0">
+                      <div className="w-11 h-11 rounded-sm bg-paper-raised shadow-plate p-1 flex items-center justify-center flex-shrink-0">
                         <img
                           src={getCompanyLogo(work.company)!}
                           alt={work.company}
@@ -94,17 +94,17 @@ export const WorkExperience: React.FC = () => {
                         />
                       </div>
                     ) : (
-                      <div className="w-11 h-11 rounded-lg bg-[#EEF1F5] flex items-center justify-center flex-shrink-0">
-                        <Briefcase className="w-5 h-5 text-[#8B95A5]" />
+                      <div className="w-11 h-11 rounded-sm bg-paper-inset flex items-center justify-center flex-shrink-0">
+                        <Briefcase className="w-5 h-5 text-ink-muted" />
                       </div>
                     )}
 
                     {/* Summary info */}
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-base sm:text-lg font-semibold text-[#1A2B4A] truncate">
+                      <h3 className="text-base sm:text-lg font-semibold text-ink truncate">
                         {work.company}
                       </h3>
-                      <p className="text-sm text-[#5F6B7A] truncate">{work.role}</p>
+                      <p className="text-sm text-ink-soft truncate">{work.role}</p>
                     </div>
 
                     {/* Right side: date + badges + chevron */}
@@ -114,7 +114,7 @@ export const WorkExperience: React.FC = () => {
                         animate={{ rotate: isExpanded ? 180 : 0 }}
                         transition={{ duration: 0.3 }}
                       >
-                        <ChevronDown className="w-5 h-5 text-[#8B95A5]" />
+                        <ChevronDown className="w-5 h-5 text-ink-muted" />
                       </motion.div>
                     </div>
                   </motion.button>
@@ -149,12 +149,12 @@ export const WorkExperience: React.FC = () => {
                           {/* Mobile meta when expanded */}
                           <MetaRow date={work.date} location={work.location} variant="inline" className="mb-4" />
 
-                          <div className="border-t border-[#E2E8F0] pt-4 space-y-5">
+                          <div className="border-t border-rule pt-4 space-y-5">
                             {/* Teams */}
                             {work.teams.map((team, teamIndex) => (
                               <div key={teamIndex}>
                                 {team.name && (
-                                  <h4 className="font-medium text-[#1A2B4A] mb-2 text-sm">{team.name}</h4>
+                                  <h4 className="font-medium text-ink mb-2 text-sm">{team.name}</h4>
                                 )}
                                 <HighlightList items={team.highlights} />
 
@@ -193,7 +193,7 @@ export const WorkExperience: React.FC = () => {
             );
           })}
         </div>
-      </NeuCard>
+      </Plate>
 
       <LightboxHost lightbox={lightbox} />
     </section>

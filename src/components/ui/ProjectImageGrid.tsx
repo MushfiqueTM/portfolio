@@ -39,13 +39,13 @@ const Tile: React.FC<TileProps> = ({
 
   const wrapperClass =
     sizing === 'natural'
-      ? 'relative rounded-lg overflow-hidden bg-[#EEF1F5] cursor-pointer group/img'
+      ? 'relative rounded-sm overflow-hidden bg-paper-inset cursor-pointer group/img'
       : `relative ${FIXED_HEIGHT[slot]} cursor-pointer group/img flex items-center justify-center`;
 
   const imgClass =
     sizing === 'natural'
       ? 'w-full h-auto object-contain transition-transform duration-300 group-hover/img:scale-105'
-      : 'max-w-full max-h-full object-contain rounded-2xl transition-transform duration-300 group-hover/img:scale-105';
+      : 'max-w-full max-h-full object-contain rounded-sm transition-transform duration-300 group-hover/img:scale-105';
 
   const image = withSkeleton ? (
     <OptimizedImage
@@ -109,9 +109,9 @@ interface ProjectImageGridProps {
 }
 
 /**
- * The image block shared by Projects, CADView, Leadership, and DesignView.
+ * The image block shared by ProjectSection, OrgCardBody, and WorkExperience.
  *
- * Every visual difference between those four is a prop, so each keeps exactly
+ * Every visual difference between the call sites is a prop, so each keeps exactly
  * the treatment it had when this markup was duplicated four times.
  */
 export const ProjectImageGrid: React.FC<ProjectImageGridProps> = ({

@@ -2,7 +2,7 @@ import React from 'react';
 
 /**
  * The Instagram glyph. Sole copy of this path data — it was previously inlined
- * six times across Leadership and DesignView.
+ * six times across the section components.
  */
 export const InstagramIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24">
@@ -13,9 +13,9 @@ export const InstagramIcon: React.FC<{ className?: string }> = ({ className }) =
 interface InstagramBadgeProps {
   href: string;
   /**
-   * Leadership renders this badge inside the accordion's toggle button, so it
-   * passes a handler that stops propagation — otherwise following the link also
-   * collapses the card. DesignView has no accordion and omits it.
+   * For callers that render this badge inside an accordion's toggle button: pass a
+   * handler that stops propagation, or following the link also collapses the card.
+   * `OrgSection` has no accordion and omits it.
    */
   onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 }
@@ -26,7 +26,7 @@ export const InstagramBadge: React.FC<InstagramBadgeProps> = ({ href, onClick })
     target="_blank"
     rel="noopener noreferrer"
     onClick={onClick}
-    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gradient-to-br from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white text-[11px] font-medium shadow-sm hover:shadow-md hover:scale-105 transition-all"
+    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gradient-to-br from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white text-[11px] font-medium shadow-plate hover:shadow-plate hover:scale-105 transition-all"
   >
     <InstagramIcon className="w-3 h-3" />
     <span>Instagram</span>

@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Code2, Wrench, Palette, Monitor, Cpu, Bot, AppWindow, Box, Sparkles } from 'lucide-react';
-import { NeuCard } from '@/components/ui/NeuCard';
-import { NeuTag } from '@/components/ui/NeuTag';
+import { Plate } from '@/components/ui/Plate';
+import { Tag } from '@/components/ui/Tag';
 import { ScrollReveal } from '@/components/ScrollReveal';
 
 interface SkillCategory {
@@ -92,43 +92,43 @@ function TiltCard({ children, className = '' }: { children: React.ReactNode; cla
 
 export const Skills: React.FC = () => {
   return (
-    <section id="skills" className="section-container py-12 sm:py-16">
+    <section id="skills" className="section-container py-12 sm:py-16 scroll-mt-24">
       <ScrollReveal>
-        <NeuCard className="p-6 sm:p-10">
+        <Plate className="p-6 sm:p-10">
           {/* Section Header */}
           <div className="flex items-center gap-3 mb-8">
             <motion.div
               whileHover={{ rotate: 360 }}
               transition={{ duration: 0.6 }}
-              className="w-12 h-12 rounded-xl bg-[#F2F4F6] shadow-[3px_3px_6px_rgba(163,177,198,0.5),-3px_-3px_6px_rgba(255,255,255,0.9)] flex items-center justify-center"
+              className="w-12 h-12 rounded-sm bg-paper border border-rule shadow-well flex items-center justify-center"
             >
-              <Code2 className="w-6 h-6 text-[#1A2B4A]" />
+              <Code2 className="w-6 h-6 text-ink" />
             </motion.div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-[#1A2B4A]">Skills</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-ink">Skills</h2>
           </div>
 
           {/* Technical Skills — Bento Grid */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold text-[#1A2B4A] mb-4 flex items-center gap-2">
-              <Monitor className="w-5 h-5 text-[#3B82F6]" />
+            <h3 className="text-lg font-semibold text-ink mb-4 flex items-center gap-2">
+              <Monitor className="w-5 h-5 text-cyan" />
               Technical Skills
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {skillCategories.map((category, index) => (
                 <ScrollReveal key={category.title} delay={index * 0.08}>
                   <TiltCard className={`h-full ${category.colSpan || ''}`}>
-                    <div className="p-4 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] hover:border-[#3B82F6]/30 hover:shadow-lg transition-all duration-300 h-full">
+                    <div className="p-4 rounded-sm bg-paper-raised border border-rule hover:border-cyan/30 hover:shadow-plate-lg transition-all duration-300 h-full">
                       <div className="flex items-center gap-2 mb-3">
-                        <div className="w-8 h-8 rounded-lg bg-[#EEF1F5] flex items-center justify-center text-[#3B82F6]">
+                        <div className="w-8 h-8 rounded-sm bg-paper-inset flex items-center justify-center text-cyan">
                           {category.icon}
                         </div>
-                        <h4 className="text-sm font-semibold text-[#1A2B4A]">{category.title}</h4>
+                        <h4 className="text-sm font-semibold text-ink">{category.title}</h4>
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {category.skills.map((skill) => (
-                          <NeuTag key={skill} variant="default">
+                          <Tag key={skill} variant="default">
                             {skill}
-                          </NeuTag>
+                          </Tag>
                         ))}
                       </div>
                     </div>
@@ -143,18 +143,18 @@ export const Skills: React.FC = () => {
             {/* Industrial Skills */}
             <ScrollReveal delay={0.3}>
               <TiltCard className="h-full">
-                <div className="p-4 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] hover:border-[#3B82F6]/30 hover:shadow-lg transition-all duration-300 h-full">
+                <div className="p-4 rounded-sm bg-paper-raised border border-rule hover:border-cyan/30 hover:shadow-plate-lg transition-all duration-300 h-full">
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 rounded-lg bg-[#EEF1F5] flex items-center justify-center text-[#3B82F6]">
+                    <div className="w-8 h-8 rounded-sm bg-paper-inset flex items-center justify-center text-cyan">
                       <Wrench className="w-5 h-5" />
                     </div>
-                    <h3 className="text-sm font-semibold text-[#1A2B4A]">Industrial Skills</h3>
+                    <h3 className="text-sm font-semibold text-ink">Industrial Skills</h3>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {industrialSkills.map((skill) => (
-                      <NeuTag key={skill} variant="default">
+                      <Tag key={skill} variant="default">
                         {skill}
-                      </NeuTag>
+                      </Tag>
                     ))}
                   </div>
                 </div>
@@ -164,22 +164,22 @@ export const Skills: React.FC = () => {
             {/* Design & Media */}
             <ScrollReveal delay={0.4}>
               <TiltCard className="h-full">
-                <div className="p-4 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] hover:border-[#3B82F6]/30 hover:shadow-lg transition-all duration-300 h-full">
+                <div className="p-4 rounded-sm bg-paper-raised border border-rule hover:border-cyan/30 hover:shadow-plate-lg transition-all duration-300 h-full">
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 rounded-lg bg-[#EEF1F5] flex items-center justify-center text-[#3B82F6]">
+                    <div className="w-8 h-8 rounded-sm bg-paper-inset flex items-center justify-center text-cyan">
                       <Palette className="w-5 h-5" />
                     </div>
-                    <h3 className="text-sm font-semibold text-[#1A2B4A]">Design & Media</h3>
+                    <h3 className="text-sm font-semibold text-ink">Design & Media</h3>
                   </div>
                   <div className="space-y-3">
                     {designSkills.map((category) => (
                       <div key={category.title}>
-                        <h4 className="text-xs font-medium text-[#8B95A5] mb-2">{category.title}</h4>
+                        <h4 className="text-xs font-medium text-ink-muted mb-2">{category.title}</h4>
                         <div className="flex flex-wrap gap-1.5">
                           {category.skills.map((skill) => (
-                            <NeuTag key={skill} variant="default">
+                            <Tag key={skill} variant="default">
                               {skill}
-                            </NeuTag>
+                            </Tag>
                           ))}
                         </div>
                       </div>
@@ -189,7 +189,7 @@ export const Skills: React.FC = () => {
               </TiltCard>
             </ScrollReveal>
           </div>
-        </NeuCard>
+        </Plate>
       </ScrollReveal>
     </section>
   );

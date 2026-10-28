@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Award, ExternalLink, Calendar, ShieldCheck, Trophy, GraduationCap, Wrench } from 'lucide-react';
-import { NeuCard } from '@/components/ui/NeuCard';
+import { Plate } from '@/components/ui/Plate';
 import { ScrollReveal } from '@/components/ScrollReveal';
 
 interface Certification {
@@ -21,7 +21,7 @@ interface CertCategory {
 const categories: CertCategory[] = [
   {
     label: 'Safety & Industry',
-    icon: <ShieldCheck className="w-5 h-5 text-[#3B82F6]" />,
+    icon: <ShieldCheck className="w-5 h-5 text-cyan" />,
     certs: [
       {
         title: 'Construction Industry Safety Training Certificate (Hong Kong Green Card)',
@@ -41,7 +41,7 @@ const categories: CertCategory[] = [
   },
   {
     label: 'Technical (CAD)',
-    icon: <Wrench className="w-5 h-5 text-[#3B82F6]" />,
+    icon: <Wrench className="w-5 h-5 text-cyan" />,
     certs: [
       {
         title: 'SOLIDWORKS: Modeling Gears',
@@ -71,7 +71,7 @@ const categories: CertCategory[] = [
   },
   {
     label: 'Awards & Achievements',
-    icon: <Trophy className="w-5 h-5 text-[#3B82F6]" />,
+    icon: <Trophy className="w-5 h-5 text-cyan" />,
     certs: [
       {
         title: "OUS Photo Contest 2023 — People's Choice Award (Nature Category)",
@@ -95,7 +95,7 @@ const categories: CertCategory[] = [
   },
   {
     label: 'Programs',
-    icon: <GraduationCap className="w-5 h-5 text-[#3B82F6]" />,
+    icon: <GraduationCap className="w-5 h-5 text-cyan" />,
     certs: [
       {
         title: 'NYC Business Insider Program 2019',
@@ -109,8 +109,8 @@ const categories: CertCategory[] = [
 
 export const Certifications: React.FC = () => {
   return (
-    <section id="certifications" className="section-container py-12 sm:py-16">
-      <NeuCard className="p-6 sm:p-10">
+    <section id="certifications" className="section-container py-12 sm:py-16 scroll-mt-24">
+      <Plate className="p-6 sm:p-10">
         {/* Section Header */}
         <motion.div
           className="flex items-center gap-3 mb-8"
@@ -121,11 +121,11 @@ export const Certifications: React.FC = () => {
           <motion.div
             whileHover={{ rotate: 360 }}
             transition={{ duration: 0.6 }}
-            className="w-12 h-12 rounded-xl bg-[#F2F4F6] shadow-[3px_3px_6px_rgba(163,177,198,0.5),-3px_-3px_6px_rgba(255,255,255,0.9)] flex items-center justify-center"
+            className="w-12 h-12 rounded-sm bg-paper border border-rule shadow-well flex items-center justify-center"
           >
-            <Award className="w-6 h-6 text-[#1A2B4A]" />
+            <Award className="w-6 h-6 text-ink" />
           </motion.div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#1A2B4A]">Certifications</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-ink">Certifications</h2>
         </motion.div>
 
         {/* Categorized sections */}
@@ -134,10 +134,10 @@ export const Certifications: React.FC = () => {
             <ScrollReveal key={cat.label} delay={catIndex * 0.1}>
               <div>
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-[#EEF1F5] flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-sm bg-paper-inset flex items-center justify-center">
                     {cat.icon}
                   </div>
-                  <h3 className="text-sm font-semibold text-[#1A2B4A]">{cat.label}</h3>
+                  <h3 className="text-sm font-semibold text-ink">{cat.label}</h3>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -147,17 +147,17 @@ export const Certifications: React.FC = () => {
                       href={cert.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex gap-3 p-4 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] hover:border-[#3B82F6]/30 transition-all duration-300 h-full"
+                      className="group flex gap-3 p-4 rounded-sm bg-paper-raised border border-rule hover:border-cyan/30 transition-all duration-300 h-full"
                       whileHover={{ y: -3, scale: 1.01 }}
                       whileTap={{ scale: 0.98 }}
                       data-cursor="View"
                     >
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-sm font-semibold text-[#1A2B4A] leading-snug mb-1 group-hover:text-[#3B82F6] transition-colors line-clamp-2">
+                        <h3 className="text-sm font-semibold text-ink leading-snug mb-1 group-hover:text-cyan transition-colors line-clamp-2">
                           {cert.title}
                         </h3>
-                        <p className="text-xs text-[#8B95A5] mb-1.5">{cert.issuer}</p>
-                        <div className="flex items-center gap-2 text-xs text-[#8B95A5]">
+                        <p className="text-xs text-ink-muted mb-1.5">{cert.issuer}</p>
+                        <div className="flex items-center gap-2 text-xs text-ink-muted">
                           {cert.date && (
                             <span className="flex items-center gap-1">
                               <Calendar className="w-3 h-3" />
@@ -172,7 +172,7 @@ export const Certifications: React.FC = () => {
                         </div>
                       </div>
 
-                      <ExternalLink className="w-4 h-4 text-[#8B95A5] opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-1" />
+                      <ExternalLink className="w-4 h-4 text-ink-muted opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-1" />
                     </motion.a>
                   ))}
                 </div>
@@ -180,7 +180,7 @@ export const Certifications: React.FC = () => {
             </ScrollReveal>
           ))}
         </div>
-      </NeuCard>
+      </Plate>
     </section>
   );
 };

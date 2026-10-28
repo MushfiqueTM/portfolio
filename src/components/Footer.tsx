@@ -14,7 +14,7 @@ export const Footer: React.FC = () => {
               href="https://www.linkedin.com/in/mushfique-tanzim-muztaba-331228242/"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full bg-[#F2F4F6] shadow-[3px_3px_6px_rgba(163,177,198,0.5),-3px_-3px_6px_rgba(255,255,255,0.9)] flex items-center justify-center text-[#5F6B7A] hover:text-[#1A2B4A] transition-colors"
+              className="w-10 h-10 rounded-full bg-paper border border-rule shadow-well flex items-center justify-center text-ink-soft hover:text-ink transition-colors"
               whileHover={{ y: -3, scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -22,7 +22,7 @@ export const Footer: React.FC = () => {
             </motion.a>
             <motion.a
               href="mailto:mushfiquetm@gmail.com"
-              className="w-10 h-10 rounded-full bg-[#F2F4F6] shadow-[3px_3px_6px_rgba(163,177,198,0.5),-3px_-3px_6px_rgba(255,255,255,0.9)] flex items-center justify-center text-[#5F6B7A] hover:text-[#1A2B4A] transition-colors"
+              className="w-10 h-10 rounded-full bg-paper border border-rule shadow-well flex items-center justify-center text-ink-soft hover:text-ink transition-colors"
               whileHover={{ y: -3, scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -30,7 +30,7 @@ export const Footer: React.FC = () => {
             </motion.a>
             <motion.a
               href="tel:+85256014576"
-              className="w-10 h-10 rounded-full bg-[#F2F4F6] shadow-[3px_3px_6px_rgba(163,177,198,0.5),-3px_-3px_6px_rgba(255,255,255,0.9)] flex items-center justify-center text-[#5F6B7A] hover:text-[#1A2B4A] transition-colors"
+              className="w-10 h-10 rounded-full bg-paper border border-rule shadow-well flex items-center justify-center text-ink-soft hover:text-ink transition-colors"
               whileHover={{ y: -3, scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -40,8 +40,8 @@ export const Footer: React.FC = () => {
 
           {/* Tagline + copyright */}
           <div>
-            <p className="text-sm text-[#5F6B7A] mb-1">Designed & built by Mushfique Tanzim Muztaba</p>
-            <p className="text-xs text-[#8B95A5]">© 2026 All rights reserved</p>
+            <p className="text-sm text-ink-soft mb-1">Designed & built by Mushfique Tanzim Muztaba</p>
+            <p className="text-xs text-ink-muted">© 2026 All rights reserved</p>
           </div>
         </div>
       </ScrollReveal>

@@ -23,7 +23,7 @@ const SlideImg: React.FC<SlideImgProps> = ({ src, alt, className, onClick, curso
 
   return (
     <>
-      {!shown && <Skeleton rounded="rounded-lg" className="absolute inset-3 sm:inset-6" />}
+      {!shown && <Skeleton rounded="rounded-sm" className="absolute inset-3 sm:inset-6" />}
       <img
         ref={captureImg}
         src={src}
@@ -230,13 +230,13 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
 
   if (images.length === 1) {
     return (
-      <div className={`relative ${heightClass} rounded-lg overflow-hidden flex items-center justify-center`}>
+      <div className={`relative ${heightClass} rounded-sm overflow-hidden flex items-center justify-center`}>
         <SlideImg
           src={images[0]}
           alt={alt}
           onClick={() => onImageClick?.(0)}
           cursor="View"
-          className="max-w-full max-h-full object-contain cursor-pointer drop-shadow-2xl rounded-lg"
+          className="max-w-full max-h-full object-contain cursor-pointer drop-shadow-2xl rounded-sm"
         />
       </div>
     );
@@ -246,7 +246,7 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
     <div
       ref={containerRef}
       data-lenis-prevent
-      className={`relative ${heightClass} rounded-lg overflow-hidden select-none`}
+      className={`relative ${heightClass} rounded-sm overflow-hidden select-none`}
     >
       <motion.div
         className="absolute inset-y-0 left-0 flex items-center touch-pan-y"
@@ -276,8 +276,8 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
               <SlideImg
                 src={src}
                 alt={`${alt} - ${i + 1}`}
-                className={`max-w-full max-h-full object-contain pointer-events-none rounded-lg transition-[filter] duration-300 ${
-                  isActive ? 'drop-shadow-2xl' : 'drop-shadow-lg'
+                className={`max-w-full max-h-full object-contain pointer-events-none rounded-sm transition-[filter] duration-300 ${
+                  isActive ? 'drop-shadow-2xl' : 'drop-shadow-plate-lg'
                 }`}
               />
             </motion.div>
@@ -289,7 +289,7 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
       <button
         onClick={prev}
         disabled={index === 0}
-        className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white text-[#1A2B4A] shadow-lg flex items-center justify-center transition-transform hover:scale-110 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100"
+        className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-paper-raised/90 backdrop-blur-sm hover:bg-paper-raised text-ink shadow-plate-lg flex items-center justify-center transition-transform hover:scale-110 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100"
         aria-label="Previous image"
       >
         <ChevronLeft className="w-5 h-5" />
@@ -297,25 +297,25 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
       <button
         onClick={next}
         disabled={index === images.length - 1}
-        className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white text-[#1A2B4A] shadow-lg flex items-center justify-center transition-transform hover:scale-110 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100"
+        className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-paper-raised/90 backdrop-blur-sm hover:bg-paper-raised text-ink shadow-plate-lg flex items-center justify-center transition-transform hover:scale-110 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100"
         aria-label="Next image"
       >
         <ChevronRight className="w-5 h-5" />
       </button>
 
       {/* Counter */}
-      <div className="absolute top-3 right-3 z-10 px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-sm text-white text-xs font-medium">
+      <div className="absolute top-3 right-3 z-10 px-2.5 py-1 rounded-sm bg-black/60 backdrop-blur-sm text-white text-xs font-medium">
         {index + 1} / {images.length}
       </div>
 
       {/* Dots */}
-      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-white/80 backdrop-blur-sm shadow">
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-paper-raised/80 backdrop-blur-sm shadow">
         {images.map((_, i) => (
           <button
             key={i}
             onClick={() => goTo(i)}
             className={`h-1.5 rounded-full transition-all ${
-              i === index ? 'w-6 bg-[#1A2B4A]' : 'w-1.5 bg-[#1A2B4A]/30 hover:bg-[#1A2B4A]/60'
+              i === index ? 'w-6 bg-ink' : 'w-1.5 bg-ink/30 hover:bg-ink/60'
             }`}
             aria-label={`Go to image ${i + 1}`}
           />

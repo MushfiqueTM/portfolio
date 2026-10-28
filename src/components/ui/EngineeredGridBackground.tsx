@@ -28,6 +28,16 @@ export const EngineeredGridBackground: React.FC = () => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
+    // Canvas cannot use CSS classes, so resolve the palette tokens once from :root.
+    // Single theme, so there is nothing to re-read on.
+    const root = getComputedStyle(document.documentElement);
+    const token = (name: string, alpha: number) => {
+      const triple = root.getPropertyValue(name).trim();
+      return triple ? `hsl(${triple} / ${alpha})` : `rgba(21, 38, 61, ${alpha})`;
+    };
+    const ink = (alpha: number) => token('--ink', alpha);
+    const accent = (alpha: number) => token('--cyan', alpha);
+
     const minor = 24;
     const major = 96;
 
@@ -47,7 +57,7 @@ export const EngineeredGridBackground: React.FC = () => {
       o.scale(dpr, dpr);
 
       // Minor grid
-      o.strokeStyle = 'rgba(26, 43, 74, 0.022)';
+      o.strokeStyle = ink(0.03);
       o.lineWidth = 1;
       o.beginPath();
       for (let x = 0; x <= W; x += minor) { o.moveTo(x, 0); o.lineTo(x, H); }
@@ -55,7 +65,7 @@ export const EngineeredGridBackground: React.FC = () => {
       o.stroke();
 
       // Major grid
-      o.strokeStyle = 'rgba(26, 43, 74, 0.05)';
+      o.strokeStyle = ink(0.07);
       o.beginPath();
       for (let x = 0; x <= W; x += major) { o.moveTo(x, 0); o.lineTo(x, H); }
       for (let y = 0; y <= H; y += major) { o.moveTo(0, y); o.lineTo(W, y); }
@@ -78,9 +88,9 @@ export const EngineeredGridBackground: React.FC = () => {
 
       // Accent halo
       const halo = ctx.createRadialGradient(mx, my, 0, mx, my, R);
-      halo.addColorStop(0, 'rgba(59, 130, 246, 0.06)');
-      halo.addColorStop(0.6, 'rgba(59, 130, 246, 0.02)');
-      halo.addColorStop(1, 'rgba(59, 130, 246, 0)');
+      halo.addColorStop(0, accent(0.07));
+      halo.addColorStop(0.6, accent(0.025));
+      halo.addColorStop(1, accent(0));
       ctx.fillStyle = halo;
       ctx.beginPath();
       ctx.arc(mx, my, R, 0, Math.PI * 2);
@@ -92,7 +102,7 @@ export const EngineeredGridBackground: React.FC = () => {
       ctx.arc(mx, my, R, 0, Math.PI * 2);
       ctx.clip();
 
-      ctx.strokeStyle = 'rgba(26, 43, 74, 0.12)';
+      ctx.strokeStyle = ink(0.14);
       ctx.lineWidth = 1;
       ctx.beginPath();
       const startX = Math.floor((mx - R) / minor) * minor;
@@ -104,7 +114,7 @@ export const EngineeredGridBackground: React.FC = () => {
       ctx.stroke();
 
       // Highlight major intersections
-      ctx.fillStyle = 'rgba(59, 130, 246, 0.3)';
+      ctx.fillStyle = accent(0.34);
       for (let x = startX; x <= endX; x += major) {
         for (let y = startY; y <= endY; y += major) {
           const d = Math.hypot(x - mx, y - my);
@@ -120,7 +130,7 @@ export const EngineeredGridBackground: React.FC = () => {
       ctx.restore();
 
       // Crosshair
-      ctx.strokeStyle = 'rgba(26, 43, 74, 0.18)';
+      ctx.strokeStyle = ink(0.2);
       ctx.lineWidth = 1;
       ctx.setLineDash([4, 6]);
       ctx.beginPath();
@@ -130,19 +140,19 @@ export const EngineeredGridBackground: React.FC = () => {
       ctx.setLineDash([]);
 
       // Cursor dot + ring
-      ctx.fillStyle = '#3B82F6';
+      ctx.fillStyle = accent(1);
       ctx.beginPath();
       ctx.arc(mx, my, 4, 0, Math.PI * 2);
       ctx.fill();
-      ctx.strokeStyle = 'rgba(59, 130, 246, 0.22)';
+      ctx.strokeStyle = accent(0.25);
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.arc(mx, my, 12, 0, Math.PI * 2);
       ctx.stroke();
 
       // Coord readout
-      ctx.font = '500 11px ui-monospace, "SF Mono", Menlo, monospace';
-      ctx.fillStyle = 'rgba(26, 43, 74, 0.45)';
+      ctx.font = '500 11px "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace';
+      ctx.fillStyle = ink(0.5);
       ctx.fillText(
         `X ${Math.round(mx).toString().padStart(4, '0')}  Y ${Math.round(my).toString().padStart(4, '0')}`,
         mx + 16,

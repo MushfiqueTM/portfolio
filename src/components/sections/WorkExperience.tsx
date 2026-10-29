@@ -136,13 +136,7 @@ export const WorkExperience: React.FC = () => {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{
-                          height: {
-                            duration: work.company === 'CLP Power Hong Kong' ? 3.0 : 1.0,
-                            ease: [0.22, 1, 0.36, 1],
-                          },
-                          opacity: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
-                        }}
+                        transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
                         className="overflow-hidden"
                       >
                         <div className="px-5 pb-5 pt-0">

@@ -3,6 +3,10 @@ import { motion, useMotionValue, useSpring } from 'framer-motion';
 import type { PanInfo } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Skeleton } from '@/components/ui/Skeleton';
+import imageSizes from '@/data/imageSizes.json';
+
+// JSON arrays widen to number[], so index rather than destructure a tuple.
+const SIZES: Record<string, number[]> = imageSizes;
 
 interface SlideImgProps {
   src: string;
@@ -28,6 +32,8 @@ const SlideImg: React.FC<SlideImgProps> = ({ src, alt, className, onClick, curso
         ref={captureImg}
         src={src}
         alt={alt}
+        width={SIZES[src]?.[0]}
+        height={SIZES[src]?.[1]}
         draggable={false}
         loading="lazy"
         decoding="async"
@@ -49,6 +55,15 @@ interface ImageCarouselProps {
 }
 
 const SLIDE_WIDTH_PERCENT = 82;
+type ClaimableWheel = WheelEvent & { lenisStopPropagation?: boolean };
+
+/**
+ * How much of the carousel must be on screen before it may take over the wheel.
+ * Without this, a carousel creeping in at the bottom edge grabs your scroll as you
+ * pass it; the reader should have arrived at it first.
+ */
+const CAPTURE_VISIBILITY = 0.6;
+
 const GAP_PX = 16;
 const SNAP_DELAY_MS =160;
 
@@ -128,6 +143,23 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
   const prev = useCallback(() => setIndex((i) => clamp(i - 1)), [clamp]);
   const goTo = useCallback((i: number) => setIndex(clamp(i)), [clamp]);
 
+  /**
+   * Keyboard navigation for the focused carousel.
+   *
+   * With the wheel limited to horizontal gestures, a mouse user has no wheel path to the
+   * images, so arrows and Home/End matter. Only the keys we handle are intercepted —
+   * Tab and the rest stay with the browser.
+   */
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
+      else if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+      else if (e.key === 'End') { e.preventDefault(); goTo(images.length - 1); }
+    },
+    [prev, next, goTo, images.length]
+  );
+
   const scheduleSnap = useCallback(() => {
     if (snapTimerRef.current) clearTimeout(snapTimerRef.current);
     snapTimerRef.current = setTimeout(() => {
@@ -158,6 +190,12 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
       const absY = Math.abs(e.deltaY);
       if (absX < 2 && absY < 2) return;
 
+      // Only take the wheel once the carousel has actually settled on screen.
+      const rect = el.getBoundingClientRect();
+      const viewport = window.innerHeight;
+      const onScreen = Math.min(rect.bottom, viewport) - Math.max(rect.top, 0);
+      if (onScreen / Math.min(rect.height, viewport) < CAPTURE_VISIBILITY) return;
+
       const delta = absX > absY ? e.deltaX : e.deltaY;
       const forward = delta > 0;
 
@@ -169,7 +207,10 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
       const atEnd = currentTarget <= minX + 1;
       const atStart = currentTarget >= maxX - 1;
 
-      // At boundary + scrolling in that direction → hand off to Lenis so page scroll stays smooth
+      // Out of images in this direction: hand the gesture straight back. Leaving the
+      // event untouched lets it bubble to Lenis, which scrolls the page with its own
+      // momentum — the previous version called lenis.scrollTo() here to fake that, and
+      // the seam was the jerk you felt when a carousel ran out.
       if ((forward && atEnd) || (!forward && atStart)) {
         if (snapTimerRef.current) clearTimeout(snapTimerRef.current);
         // Ensure the boundary slide is marked active even if the snap never fired
@@ -177,19 +218,12 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
         if (indexRef.current !== boundaryIdx) {
           setIndex(boundaryIdx);
         }
-        const lenis = window.__lenis;
-        if (lenis) {
-          e.preventDefault();
-          lenis.scrollTo(lenis.scroll + delta, {
-            immediate: false,
-            force: true,
-            duration: 0.35,
-          });
-        }
         return;
       }
 
+      // Claim the gesture: block the native scroll, and flag the event so Lenis skips it.
       e.preventDefault();
+      (e as ClaimableWheel).lenisStopPropagation = true;
 
       // Scale wheel delta — matches page scroll momentum
       const scaled = delta * 0.85;
@@ -245,8 +279,12 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
   return (
     <div
       ref={containerRef}
-      data-lenis-prevent
-      className={`relative ${heightClass} rounded-sm overflow-hidden select-none`}
+      role="group"
+      aria-roledescription="carousel"
+      aria-label={`${alt} — ${images.length} images`}
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+      className={`relative ${heightClass} rounded-sm overflow-hidden select-none outline-none focus-visible:ring-2 focus-visible:ring-cyan/60`}
     >
       <motion.div
         className="absolute inset-y-0 left-0 flex items-center touch-pan-y"

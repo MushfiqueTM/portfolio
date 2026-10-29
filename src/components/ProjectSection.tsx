@@ -16,31 +16,33 @@ interface ProjectSectionProps {
   title: string;
   icon: LucideIcon;
   projects: Project[];
-  /** Expanded on mount. Defaults to the first project in the list. */
-  defaultOpenSlug?: string;
+  /** Collapsed on mount instead of expanded. Nothing passes this today. */
+  collapsedSlugs?: string[];
   /** Stagger the section header in, for sections below the first on a page. */
   headerDelay?: number;
 }
 
 /**
- * A titled, collapsible list of projects — the body of every category page.
+ * A titled list of projects — the body of every category page.
  *
- * Cards are an accordion rather than always expanded: a collapsed card never mounts
- * its ProjectImageGrid, so a ten-project page issues no image requests until the
- * reader actually opens something.
+ * Every card starts expanded, so the work is visible without hunting for it. Cards stay
+ * collapsible for anyone skimming a long list, but nothing is hidden by default.
+ *
+ * This costs little: OptimizedImage is `loading="lazy"` with intrinsic dimensions, so an
+ * expanded-but-offscreen card reserves its layout without fetching anything. The images
+ * download as the reader scrolls to them either way.
  */
 export const ProjectSection: React.FC<ProjectSectionProps> = ({
   id,
   title,
   icon: Icon,
   projects,
-  defaultOpenSlug,
+  collapsedSlugs,
   headerDelay = 0,
 }) => {
-  const [expanded, setExpanded] = useState<Record<string, boolean>>(() => {
-    const openSlug = defaultOpenSlug ?? projects[0]?.slug;
-    return openSlug ? { [openSlug]: true } : {};
-  });
+  const [expanded, setExpanded] = useState<Record<string, boolean>>(() =>
+    Object.fromEntries(projects.map((p) => [p.slug, !collapsedSlugs?.includes(p.slug)]))
+  );
   const lightbox = useLightbox();
 
   if (projects.length === 0) return null;

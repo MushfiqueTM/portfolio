@@ -6,6 +6,16 @@
     "location": "Hong Kong",
     "teams": [
       {
+        "name": "Humanoid Robot Arm",
+        "highlights": [
+          "Designed a multi-joint mechanical robot arm for a consumer humanoid robot in SOLIDWORKS, optimizing the structure for manufacturability, assembly, and aesthetic integration."
+        ],
+        "images": [
+          "/projects/6DOFRobotArm1.webp",
+          "/projects/6DOFRobotArm2.webp"
+        ]
+      },
+      {
         "name": "Pipeline Inspection Crawler",
         "highlights": [
           "Designed and additively manufactured the complete outer enclosure for a pipeline inspection crawler robot in SOLIDWORKS, taking the design from concept through functional prototype.",
@@ -29,16 +39,6 @@
           "/projects/Controller2.webp",
           "/projects/Controller3.webp",
           "/projects/Controller5.webp"
-        ]
-      },
-      {
-        "name": "Humanoid Robot Arm",
-        "highlights": [
-          "Designed a multi-joint mechanical robot arm for a consumer humanoid robot in SOLIDWORKS, optimizing the structure for manufacturability, assembly, and aesthetic integration."
-        ],
-        "images": [
-          "/projects/6DOFRobotArm1.webp",
-          "/projects/6DOFRobotArm2.webp"
         ]
       }
     ],
